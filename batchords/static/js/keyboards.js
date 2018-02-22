@@ -8,6 +8,10 @@ if (navigator.requestMIDIAccess) {
     alert("No MIDI support in your browser.");
 }
 
+// var a3_snd = new Audio("../piano-sound-kit/a3.mp3"); 
+// a3_snd.play();
+
+
 // midi functions
 function onMIDISuccess(midiAccess) {
     // when we get a succesful response, run this code
@@ -95,6 +99,7 @@ function onMIDIMessage(message) {
         }
         if (data[1] == 57) {
             A1.style.backgroundColor = "rgb(100, 140, 190)";
+            // a3_snd.play();
         }
         if (data[1] == 58) {
             AB1.style.background = "rgb(100, 140, 190)";
