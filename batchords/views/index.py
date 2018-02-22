@@ -16,3 +16,5 @@ def show_index():
     if flask.request.method == 'POST':
         if 'save' in flask.request.form:
             print("save")
+
+    return flask.render_template("index.html", **context)
