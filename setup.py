@@ -3,9 +3,9 @@
 from setuptools import setup
 
 setup(
-    name='insta485',
+    name='batchords',
     version='0.1.0',
-    packages=['insta485'],
+    packages=['batchords'],
     include_package_data=True,
     install_requires=[
         'flask',
