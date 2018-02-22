@@ -260,9 +260,9 @@ bundle.js  799 kB       0  [emitted]  [big]  main
 
 
 
+<h2 id="akai-preset">Load Akai Keyboard Preset</h2>
 
-
-<p> <b> NOTE: </b>In order to use the Akai Mini Mpk keyboard the Akai Mpk Mini Editor must be downloaded from the <a href="http://www.akaipro.com/products/keyboard-controllers/mpk-mini-mkii">Akai website under the tab downloads</a>. In the home directory there is a file "akai_batchords.mk2". <a href="http://www.akaipro.com/support/kb/articles/akai-pro-mpk-mini-mkii-how-to-use-the-editor"> Instructions on using the Akai editor</a> to load this preset onto the Akai, the program must be selected on the Akai keyboard after loading. Before loading the preset all programs that take MIDI input (which includes Chrome) should be closed, otherwise they will interfere with the Mpk Mini editor. </p> 
+<p>In order to use the Akai Mini Mpk keyboard the Akai Mpk Mini Editor must be downloaded from the <a href="http://www.akaipro.com/products/keyboard-controllers/mpk-mini-mkii">Akai website under the tab downloads</a>. In the home directory there is a file "akai_batchords.mk2". <a href="http://www.akaipro.com/support/kb/articles/akai-pro-mpk-mini-mkii-how-to-use-the-editor"> Instructions on using the Akai editor</a> to load this preset onto the Akai, the program must be selected on the Akai keyboard after loading. Before loading the preset all programs that take MIDI input (which includes Chrome) should be closed, otherwise they will interfere with the Mpk Mini editor. </p> 
 
   </body>
 </html>
