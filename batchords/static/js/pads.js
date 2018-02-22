@@ -26,6 +26,89 @@ pause_score.onclick = function(){
     });
 };
 
+seek_note_right.onclick = function(){
+    embed.getCursorPosition().then(function (position) {
+      // position: {
+      //     "partIdx": 0,
+      //     "staffIdx": 1,
+      //     "voiceIdx": 0,
+      //     "measureIdx": 2,
+      //     "noteIdx": 1
+      // }
+
+      embed.setCursorPosition({
+      partIdx: 0,
+      staffIdx: 0,
+      voiceIdx: 0,
+      measureIdx: position.measureIdx,
+      noteIdx: position.noteIdx + 1
+        }).then(function (position) {
+          // position: {
+          //     "partIdx": 0,
+          //     "staffIdx": 1,
+          //     "voiceIdx": 0,
+          //     "measureIdx": 2,
+          //     "noteIdx": 1
+          // }
+          console.log(position)
+        });
+
+    });
+}
+
+seek_note_left.onclick = function(){
+    embed.getCursorPosition().then(function (position) {
+        var new_pos = 0;
+        if(position.noteIdx != 0){
+            new_pos = position.noteIdx - 1;
+        }
+        embed.setCursorPosition({
+        partIdx: 0,
+        staffIdx: 0,
+        voiceIdx: 0,
+        measureIdx: position.measureIdx,
+        noteIdx: new_pos
+        }).then(function (position) {
+            console.log(position)
+        });
+
+    });
+}
+
+seek_m_left.onclick = function(){
+    embed.getCursorPosition().then(function (position) {
+        var new_pos = 0;
+        if(position.measureIdx != 0){
+            new_pos = position.measureIdx - 1;
+        }
+        embed.setCursorPosition({
+            partIdx: 0,
+            staffIdx: 0,
+            voiceIdx: 0,
+            measureIdx: new_pos,
+            noteIdx: 0
+        }).then(function (position) {
+            console.log(position)
+        });
+
+    });
+}
+
+seek_m_right.onclick = function(){
+    embed.getCursorPosition().then(function (position) {
+      embed.setCursorPosition({
+      partIdx: 0,
+      staffIdx: 0,
+      voiceIdx: 0,
+      measureIdx: position.measureIdx + 1,
+      noteIdx: 0
+        }).then(function (position) {
+          console.log(position)
+        });
+
+    });
+}
+
 enable_edit.onclick = function(){
     console.log("changing tempo")
     embed.edit([
