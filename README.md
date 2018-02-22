@@ -253,7 +253,7 @@ bundle.js  799 kB       0  [emitted]  [big]  main
 <p><code class="highlighter-rouge">bundle.js</code> is the output of our front end build process, a single JavaScript file that is completely self-contained with no dependencies, <code class="highlighter-rouge">batchords/static/js/bundle.js</code>.</p>
 
 <p>Fire up your web server. </p>
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> ./bin/batchordsrun
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> ./bin/run_batchords
 </code></pre></div></div>
 
 <p>Finally, browse to <a href="http://localhost:8000/">http://localhost:8000/</a>, where you’ll see the BatChords web app.</p>
