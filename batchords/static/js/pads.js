@@ -37,9 +37,9 @@ seek_note_right.onclick = function(){
       // }
 
       embed.setCursorPosition({
-      partIdx: 0,
-      staffIdx: 0,
-      voiceIdx: 0,
+      partIdx: position.partIdx,
+      staffIdx: position.staffIdx,
+      voiceIdx: position.voiceIdx,
       measureIdx: position.measureIdx,
       noteIdx: position.noteIdx + 1
         }).then(function (position) {
@@ -63,9 +63,9 @@ seek_note_left.onclick = function(){
             new_pos = position.noteIdx - 1;
         }
         embed.setCursorPosition({
-        partIdx: 0,
-        staffIdx: 0,
-        voiceIdx: 0,
+        partIdx: position.partIdx,
+        staffIdx: position.staffIdx,
+        voiceIdx: position.voiceIdx,
         measureIdx: position.measureIdx,
         noteIdx: new_pos
         }).then(function (position) {
@@ -82,9 +82,9 @@ seek_m_left.onclick = function(){
             new_pos = position.measureIdx - 1;
         }
         embed.setCursorPosition({
-            partIdx: 0,
-            staffIdx: 0,
-            voiceIdx: 0,
+            partIdx: position.partIdx,
+            staffIdx: position.staffIdx,
+            voiceIdx: position.voiceIdx,
             measureIdx: new_pos,
             noteIdx: 0
         }).then(function (position) {
@@ -97,9 +97,9 @@ seek_m_left.onclick = function(){
 seek_m_right.onclick = function(){
     embed.getCursorPosition().then(function (position) {
       embed.setCursorPosition({
-      partIdx: 0,
-      staffIdx: 0,
-      voiceIdx: 0,
+      partIdx: position.partIdx,
+      staffIdx: position.staffIdx,
+      voiceIdx: position.voiceIdx,
       measureIdx: position.measureIdx + 1,
       noteIdx: 0
         }).then(function (position) {
