@@ -236,28 +236,17 @@ batchords   bin     node_modules    package.json    webpack.config.js
 </span></code></pre></div></div>
 
 <p>Now finally, run the front end build process.</p>
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> ./node_modules/.bin/webpack
-<span class="go">Hash: 94d02a55e475959ef08d
-Version: webpack 2.6.1
-Time: 4910ms
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span>  ./node_modules/.bin/webpack
+[BABEL] Note: The code generator has deoptimised the styling of "/Users/carolinesaab/Documents/eecs/eecs498/BatChords/node_modules/react-dom/cjs/react-dom.development.js" as it exceeds the max of "500KB".
+Hash: bb352a7038ce1b616a01
+Version: webpack 3.6.0
+Time: 17159ms
     Asset    Size  Chunks                    Chunk Names
-bundle.js  769 kB       0  [emitted]  [big]  main
-   [0] ./~/process/browser.js 5.45 kB {0} [built]
-  [15] ./~/react/lib/ReactElement.js 11.6 kB {0} [built]
-  [17] ./~/react-dom/lib/ReactReconciler.js 6.29 kB {0} [built]
-  [18] ./~/react/lib/React.js 5.11 kB {0} [built]
-  [50] ./~/react/react.js 55 bytes {0} [built]
-  [83] ./insta485/js/likes.jsx 3.52 kB {0} [built]
-  [84] ./~/react-dom/index.js 58 bytes {0} [built]
-  [85] ./insta485/js/main.jsx 492 bytes {0} [built]
- [103] ./~/prop-types/index.js 1.4 kB {0} [built]
- [117] ./~/react-dom/lib/ReactDOM.js 5.19 kB {0} [built]
- [166] ./~/react-dom/lib/findDOMNode.js 2.46 kB {0} [built]
- [177] ./~/react/lib/ReactDOMFactories.js 5.48 kB {0} [built]
- [179] ./~/react/lib/ReactPropTypes.js 500 bytes {0} [built]
- [181] ./~/react/lib/ReactVersion.js 350 bytes {0} [built]
- [183] ./~/react/lib/createClass.js 688 bytes {0} [built]
-    + 172 hidden modules
+bundle.js  799 kB       0  [emitted]  [big]  main
+  [16] ./batchords/js/main.jsx 482 bytes {0} [built]
+  [32] ./batchords/js/bcapp.jsx 2.47 kB {0} [built]
+  [33] ./batchords/js/pad.jsx 2.89 kB {0} [built]
+    + 31 hidden modules
 </span><span class="gp">$</span> ./node_modules/.bin/webpack <span class="nt">--watch</span>  <span class="c"># optional, for auto rebuild during development</span>
 </code></pre></div></div>
 
