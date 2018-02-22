@@ -2,7 +2,7 @@ import React from 'react';
 import Pad from './pad';
 
 
-class Feed extends React.Component {
+class BCApp extends React.Component {
   constructor(props) {
     // Initialize mutable state
     super(props);
