@@ -80,6 +80,36 @@ function onMIDIMessage(message) {
         if (data[1] == 59) {
             B1.style.backgroundColor = "rgb(100, 140, 190)";
         }
+
+
+
+        //Programming for the pads
+        if (data[1] == 100) {
+            play_score.click();
+        }
+        if (data[1] == 101) {
+            stop_score.click();
+        }
+        if (data[1] == 102) {
+            seek_m_left.click();
+        }
+        if (data[1] == 103) {
+            seek_m_right.click();
+        }
+        if (data[1] == 104) {
+            pause_score.click();
+        }
+        if (data[1] == 105) {
+            edit_score.click();
+        }
+        if (data[1] == 106) {
+            seek_note_left.click();
+        }
+        if (data[1] == 107) {
+            seek_note_right.click();
+        }
+
+
     }
     else { // this is the stop signal
         if (data[1] == 48) {
