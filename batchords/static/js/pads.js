@@ -1,10 +1,13 @@
 var container = document.getElementById('embed-container');
 var embed = new Flat.Embed(container, {
     score: '5a87d33f265c44553918dd0a',
+    mode: 'edit',
     embedParams: {
       appId: '5a8e18e1a2f0e03339907c31',
-      mode: 'edit'
       // appId: 'localhost'
+      // layout: 'track'
+      branding: false,
+      controlsMetronome: false
     }
 });
 

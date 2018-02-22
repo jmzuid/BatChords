@@ -43,6 +43,19 @@ function onMIDIMessage(message) {
     AB1 = document.getElementById("AB1");
     B1 = document.getElementById("B1");
 
+    C2 = document.getElementById("C2");
+    CD2 = document.getElementById("CD2");
+    D2 = document.getElementById("D2");
+    DE2 = document.getElementById("DE2");
+    E2 = document.getElementById("E2");
+    F2 = document.getElementById("F2");
+    FG2 = document.getElementById("FG2");
+    G2 = document.getElementById("G2");
+    GA2 = document.getElementById("GA2");
+    A2 = document.getElementById("A2");
+    AB2 = document.getElementById("AB2");
+    B2 = document.getElementById("B2");
+
     play_s = document.getElementById("play_score");
     stop_s = document.getElementById("stop_score");
     seek_ml = document.getElementById("seek_m_left");
@@ -57,13 +70,13 @@ function onMIDIMessage(message) {
             C1.style.backgroundColor = "rgb(100, 140, 190)";
         }
         if (data[1] == 49) {
-            C1.style.backgroundColor = "rgb(100, 140, 190)";
+            CD1.style.background = "rgb(100, 140, 190)";
         }
         if (data[1] == 50) {
             D1.style.backgroundColor = "rgb(100, 140, 190)";
         }
         if (data[1] == 51) {
-            DE1.style.backgroundColor = "rgb(100, 140, 190)";
+            DE1.style.background = "rgb(100, 140, 190)";
         }
         if (data[1] == 52) {
             E1.style.backgroundColor = "rgb(100, 140, 190)";
@@ -72,24 +85,60 @@ function onMIDIMessage(message) {
             F1.style.backgroundColor = "rgb(100, 140, 190)";
         }
         if (data[1] == 54) {
-            FG1.style.backgroundColor = "rgb(100, 140, 190)";
+            FG1.style.background = "rgb(100, 140, 190)";
         }
         if (data[1] == 55) {
             G1.style.backgroundColor = "rgb(100, 140, 190)";
         }
         if (data[1] == 56) {
-            GA1.style.backgroundColor = "rgb(100, 140, 190)";
+            GA1.style.background = "rgb(100, 140, 190)";
         }
         if (data[1] == 57) {
             A1.style.backgroundColor = "rgb(100, 140, 190)";
         }
         if (data[1] == 58) {
-            AB1.style.backgroundColor = "rgb(100, 140, 190)";
+            AB1.style.background = "rgb(100, 140, 190)";
         }
         if (data[1] == 59) {
             B1.style.backgroundColor = "rgb(100, 140, 190)";
         }
 
+        if (data[1] == 60) {
+            C2.style.backgroundColor = "rgb(100, 140, 190)";
+        }
+        if (data[1] == 61) {
+            CD2.style.background = "rgb(100, 140, 190)";
+        }
+        if (data[1] == 62) {
+            D2.style.backgroundColor = "rgb(100, 140, 190)";
+        }
+        if (data[1] == 63) {
+            DE2.style.background = "rgb(100, 140, 190)";
+        }
+        if (data[1] == 64) {
+            E2.style.backgroundColor = "rgb(100, 140, 190)";
+        }
+        if (data[1] == 65) {
+            F2.style.backgroundColor = "rgb(100, 140, 190)";
+        }
+        if (data[1] == 66) {
+            FG2.style.background = "rgb(100, 140, 190)";
+        }
+        if (data[1] == 67) {
+            G2.style.backgroundColor = "rgb(100, 140, 190)";
+        }
+        if (data[1] == 68) {
+            GA2.style.background = "rgb(100, 140, 190)";
+        }
+        if (data[1] == 69) {
+            A2.style.backgroundColor = "rgb(100, 140, 190)";
+        }
+        if (data[1] == 70) {
+            AB2.style.background = "rgb(100, 140, 190)";
+        }
+        if (data[1] == 71) {
+            B2.style.backgroundColor = "rgb(100, 140, 190)";
+        }
 
 
         //Programming for the pads
@@ -133,13 +182,13 @@ function onMIDIMessage(message) {
             C1.style.backgroundColor = "white";
         }
         if (data[1] == 49) {
-            C1.style.backgroundColor = "white";
+            CD1.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
         }
         if (data[1] == 50) {
             D1.style.backgroundColor = "white";
         }
         if (data[1] == 51) {
-            DE1.style.backgroundColor = "white";
+            DE1.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
         }
         if (data[1] == 52) {
             E1.style.backgroundColor = "white";
@@ -148,23 +197,62 @@ function onMIDIMessage(message) {
             F1.style.backgroundColor = "white";
         }
         if (data[1] == 54) {
-            FG1.style.backgroundColor = "white";
+            FG1.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
         }
         if (data[1] == 55) {
             G1.style.backgroundColor = "white";
         }
         if (data[1] == 56) {
-            GA1.style.backgroundColor = "white";
+            GA1.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
         }
         if (data[1] == 57) {
             A1.style.backgroundColor = "white";
         }
         if (data[1] == 58) {
-            AB1.style.backgroundColor = "white";
+            AB1.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
         }
         if (data[1] == 59) {
             B1.style.backgroundColor = "white";
         }
+
+        if (data[1] == 60) {
+            C2.style.backgroundColor = "white";
+        }
+        if (data[1] == 61) {
+            CD2.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
+        }
+        if (data[1] == 62) {
+            D2.style.backgroundColor = "white";
+        }
+        if (data[1] == 63) {
+            DE2.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
+        }
+        if (data[1] == 64) {
+            E2.style.backgroundColor = "white";
+        }
+        if (data[1] == 65) {
+            F2.style.backgroundColor = "white";
+        }
+        if (data[1] == 66) {
+            FG2.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
+        }
+        if (data[1] == 67) {
+            G2.style.backgroundColor = "white";
+        }
+        if (data[1] == 68) {
+            GA2.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
+        }
+        if (data[1] == 69) {
+            A2.style.backgroundColor = "white";
+        }
+        if (data[1] == 70) {
+            AB2.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
+        }
+        if (data[1] == 71) {
+            B2.style.backgroundColor = "white";
+        }
+
+
 
 
 
