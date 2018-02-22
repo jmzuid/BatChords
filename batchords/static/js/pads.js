@@ -1,9 +1,14 @@
 var container = document.getElementById('embed-container');
 var embed = new Flat.Embed(container, {
-    score: '5a87d33f265c44553918dd0a',
-    mode: 'edit',
+    // score: '5a87d33f265c44553918dd0a',
+    score: '5a28284ea812902e84a42727',
+    // mode: 'edit',
+    height: '300px',
     embedParams: {
       appId: '5a8e18e1a2f0e03339907c31',
+      controlsFloating: false,
+      jsapi: true,
+      controlsDisplay: false,
       // appId: 'localhost'
       // layout: 'track'
       branding: false,
