@@ -11,12 +11,10 @@ play_score.onclick = function(){
     embed.play().then(function () {
         // The score is playing
     });
-    console.log("test");
 };
 
 stop_score.onclick = function(){
     embed.stop().then(function () {
         // The score is playing
     });
-    console.log("test");
 };
