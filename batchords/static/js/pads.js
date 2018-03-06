@@ -1,18 +1,20 @@
 var container = document.getElementById('embed-container');
 var embed = new Flat.Embed(container, {
-    // score: '5a87d33f265c44553918dd0a',
-    score: '5a28284ea812902e84a42727',
+    score: '5a87d33f265c44553918dd0a',
+    // score: '5a28284ea812902e84a42727',
     // mode: 'edit',
     height: '300px',
     embedParams: {
       appId: '5a8e18e1a2f0e03339907c31',
-      controlsFloating: false,
-      jsapi: true,
-      controlsDisplay: false,
+      // appId: '5a9ebc39389a41097ca61f15',
+      // controlsFloating: false,
+      // jsapi: true,
+      // controlsDisplay: false,
+      mode: 'edit'
       // appId: 'localhost'
-      // layout: 'track'
-      branding: false,
-      controlsMetronome: false
+      // layout: 'track',
+      // branding: false,
+      // controlsMetronome: false
     }
 });
 
@@ -138,3 +140,25 @@ enable_edit.onclick = function(){
     });
     console.log("changed tempo")
 };
+
+
+document.onkeyup=function(e){
+    if (e.which == 65) {
+        // call your function to do the thing
+        pause_score.click();
+        console.log("left pedal triggered")
+    }
+    else if (e.which == 83) {
+        // call your function to do the thing
+        play_score.click();
+        console.log("middle pedal triggered")
+    }
+    else if (e.which == 68) {
+        // call your function to do the thing
+        stop_score.click();
+        console.log("right pedal triggered")
+    }
+}
+
+
+
