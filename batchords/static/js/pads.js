@@ -3,26 +3,77 @@ var embed = new Flat.Embed(container, {
     score: '5a87d33f265c44553918dd0a',
     // score: '5a28284ea812902e84a42727',
     // mode: 'edit',
-    height: '300px',
+    allow: 'midi',
+    height: '400px',
     embedParams: {
       appId: '5a8e18e1a2f0e03339907c31',
-      // appId: '5a9ebc39389a41097ca61f15',
-      // controlsFloating: false,
-      // jsapi: true,
-      // controlsDisplay: false,
-      mode: 'edit'
+      controlsFloating: false,
+      jsapi: true,
+      controlsDisplay: false,
+      mode: 'edit',
       // appId: 'localhost'
       // layout: 'track',
-      // branding: false,
-      // controlsMetronome: false
+      branding: false,
+      controlsMetronome: false
     }
 });
 
-play_score.onclick = function(){
-    embed.play().then(function () {
-        // The score is playing
-    });
-};
+// var embed = new Flat.Embed('embed-container', {
+//   embedParams: {
+//     appId: '5a8e18e1a2f0e03339907c31',
+//     branding: false,
+//     controlsFloating: false,
+//     themeControlsBackground: '#B71C1C',
+//     themeIconsPrimary: '#E53935',
+//     themeCursorV0: '#E53935',
+//     themeSlider: '#E53935',
+//     mode: 'edit'
+//   }
+// });
+
+// fetch('https://api.flat.io/v2/scores/56ae21579a127715a02901a6/revisions/last/mxl')
+// .then(function (response) {
+//   return response.arrayBuffer();
+// })
+// .then(function (mxl) {
+//   return embed.loadMusicXML(mxl);
+// })
+// .then(function () {
+//   return embed.play();
+// })
+// .catch(function (error) {
+//   // Unable to load the score
+//   console.warn(error);
+// });
+
+// play_score.onclick = function(){
+//     embed.play().then(function () {
+//         // The score is playing
+//     });
+// };
+
+embed.on('edit', function (inp) {
+  console.log('edit');
+  console.log(inp);
+});
+
+embed.on('playbackPosition', function (position) {
+  console.log(position);
+});
+
+embed.on('enable_edit', function (inp) {
+  console.log('enable_edit');
+  console.log(inp);
+});
+
+embed.on('Edit', function (inp) {
+  console.log('Edit');
+  console.log(inp);
+});
+
+
+
+monitorEvents(document.body, 'edit')
 
 stop_score.onclick = function(){
     embed.stop().then(function () {
