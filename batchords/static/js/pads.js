@@ -73,7 +73,7 @@ embed.on('Edit', function (inp) {
 
 
 
-monitorEvents(document.body, 'edit')
+monitorEvents(document.body, 'edit');
 
 stop_score.onclick = function(){
     embed.stop().then(function () {
