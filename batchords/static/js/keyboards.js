@@ -72,6 +72,49 @@ function onMIDIMessage(message) {
     if (data[2] != 0) { // this is the start signal
         if (data[1] == 48) {
             C1.style.backgroundColor = "rgb(100, 140, 190)";
+            embed.getCursorPosition().then(function (position) {
+                embed.edit([
+                  { name: 'action.AddNoteCrossMeasure', 
+                    opts: { 
+                        accidental:null,
+                        actionOrigin:"local.do",
+                        durationType:3,
+                        insertMode:"replace",
+                        isConcertPitch:false,
+                        measureIdx:position.measureIdx,
+                        nbDots:0,
+                        noteIdx:position.noteIdx,
+                        partIdx:position.partIdx,
+                        pitch:{step: "C", octave: 4},
+                        staffIdx:position.staffIdx,
+                        voiceIdx:position.voiceIdx
+                    } }
+                ]).then(function () {
+                    // The actions have been executed
+                    // var nextButton = document.getElementsByClassName('controls-bottom');
+                    // triggerEvent(nextButton, 'keydown', 39); // simulate mouse/enter key press
+                    // jQuery.event.trigger({ type : 'keypress', which : character.charCodeAt(39) });
+                    // var e = $.Event('keydown');
+                    // e.which = 39; // A
+                    // $('#input').focus();
+                    // $('#input').trigger(e);
+                    // var e = $.Event("keydown", {keyCode: 39});
+                    // var press = jQuery.Event("keypress");
+                    // press.ctrlKey = false;
+                    // press.which = 39;
+                    // $("svg.page").trigger(press);
+                    var iframe = document.getElementById('embed-container');
+                    var evt = new Event('keypress');
+                    evt.keyCode = '39';
+                    iframe.contentDocument.body.dispatchEvent(evt);
+                    console.log("donezo")
+                }).catch(function (error) {
+                  // Error while executing the actions
+                    console.log(error)
+                    console.log("error")
+                });
+            });
+
         }
         if (data[1] == 49) {
             CD1.style.background = "rgb(100, 140, 190)";
@@ -110,9 +153,47 @@ function onMIDIMessage(message) {
 
         if (data[1] == 60) {
             C2.style.backgroundColor = "rgb(100, 140, 190)";
+            embed.edit([
+              { name: 'action.AddNoteCrossMeasure', 
+                opts: { 
+                    accidental:null,
+                    actionOrigin:"local.do",
+                    durationType:3,
+                    insertMode:"replace",
+                    isConcertPitch:false,
+                    measureIdx:0,
+                    nbDots:0,
+                    noteIdx:0,
+                    partIdx:0,
+                    pitch:{step: "C", octave: 5},
+                    staffIdx:0,
+                    voiceIdx:0
+                } }
+            ]).then(function () {
+              // The actions have been executed
+              console.log("done")
+            }).catch(function (error) {
+              // Error while executing the actions
+                console.log(error)
+                console.log("error")
+            });
         }
         if (data[1] == 61) {
             CD2.style.background = "rgb(100, 140, 190)";
+            console.log('please work');
+            embed.edit([
+              { name: 'action.AddChord', 
+                opts: { 
+                    actionOrigin:"local.do",
+                } }
+            ]).then(function () {
+              // The actions have been executed
+              console.log("done")
+            }).catch(function (error) {
+              // Error while executing the actions
+                console.log(error)
+                console.log("error")
+            });
         }
         if (data[1] == 62) {
             D2.style.backgroundColor = "rgb(100, 140, 190)";
@@ -286,5 +367,21 @@ function onMIDIMessage(message) {
         if (data[1] == 107) {
             seek_nr.style.backgroundColor = "#4CAF50";
         }
+    }
+}
+
+function triggerEvent(el, type, keyCode) {
+    if ('createEvent' in document) {
+            // modern browsers, IE9+
+            var e = document.createEvent('HTMLEvents');
+            e.keyCode = keyCode;
+            e.initEvent(type, false, true);
+            el.dispatchEvent(e);
+    } else {
+        // IE 8
+        var e = document.createEventObject();
+        e.keyCode = keyCode;
+        e.eventType = type;
+        el.fireEvent('on'+e.eventType, e);
     }
 }

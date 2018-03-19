@@ -66,14 +66,21 @@ embed.on('enable_edit', function (inp) {
   console.log(inp);
 });
 
+embed.on('cursorPosition', function (inp) {
+  console.log('cursor change');
+  console.log(inp)
+});
+
+embed.on('play', function (){
+  console.log('play');
+});
+
 embed.on('Edit', function (inp) {
   console.log('Edit');
   console.log(inp);
 });
 
 
-
-monitorEvents(document.body, 'edit');
 
 stop_score.onclick = function(){
     embed.stop().then(function () {
