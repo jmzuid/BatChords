@@ -48,6 +48,25 @@ credit: These instructions are from Andrew DeOrio's EECS 485 Project 3 Setup tut
 <span class="gp">$</span> <span class="nb">sudo </span>apt-get install default-jre
 </code></pre></div></div>
 
+<h3 id="windows">Windows</h3>
+<p>To develop locally on Windows, you’ll need Windows 10 installed.  We’ll use it’s Linux Subsystem, which lets us install Linux programs on top of Windows.  Background on the Windows Subsystem <a href="https://msdn.microsoft.com/en-us/commandline/wsl/about">from Microsoft</a>.</p>
+
+<p>A free Windows 10 upgrade is available to UM students (<a href="https://umich.onthehub.com/WebStore/Security/Signin.aspx">direct link</a>, <a href="http://computershowcase.umich.edu/catalog.php">UM computer showcase link</a>).</p>
+
+<p>Enable the Linux Subsystem (<a href="https://msdn.microsoft.com/en-us/commandline/wsl/install-win10">link to Microsoft</a>).  Alternative <a href="https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/">link to howtogeek</a>.</p>
+
+<p>Start a Bash shell (not a Windows PowerShell).  You can now use Ubuntu Linux tools, including the <code class="highlighter-rouge">apt-get</code> package manager.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">sudo </span>apt-get update
+<span class="gp">$</span> <span class="nb">sudo </span>apt-get install python3-venv python3-wheel python3-setuptools git tree
+<span class="gp">$</span> <span class="nb">sudo </span>apt-get install default-jre
+</code></pre></div></div>
+
+<p><strong>WARNING</strong> Be sure that your root project directory has <em>no spaces anywhere</em> in the filename.  Remember that the root project directory is something like <code class="highlighter-rouge">p1-insta485-static</code>, and we’re referring to it as <code class="highlighter-rouge">$PROJECT_ROOT</code> in this document.  You can check it like this:</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">cd</span> <span class="nv">$PROJECT_ROOT</span>
+<span class="gp">$</span> <span class="nb">pwd</span>
+<span class="go">/mnt/c/something/with/no/spaces/p1-insta485-static/
+</span></code></pre></div></div>
+
 <h3 id="linux-virtual-machine">Linux Virtual Machine</h3>
 <p>If you are developing locally, you can skip this subsection and move on to <a href="#create-a-python-virtual-environment">Create a Python virtual environment</a>.</p>
 
