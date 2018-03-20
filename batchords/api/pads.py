@@ -4,13 +4,13 @@ import batchords
 import json
 import os
 
-@batchords.app.route('/api/pads/', methods=["GET"])
-def get_pads():
+@batchords.app.route('/api/pads/<pads_file>', methods=["GET"])
+def get_pads(pads_file):
     """Return a list of resource URLs."""
     context = {}
 
     cur_dir = os.path.dirname(__file__)
-    rel_path = "pads_info.json"
+    rel_path = "pads/{}.json".format(pads_file)
     abs_file_path = os.path.join(cur_dir, rel_path)
 
     pads_info = json.load(open(abs_file_path))

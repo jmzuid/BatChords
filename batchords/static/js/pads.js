@@ -205,7 +205,7 @@ embed.on('Edit', function (inp) {
 //     // Focus is now on the score
 //     });
     
-};
+// };
 
 
 document.onkeyup=function(e){

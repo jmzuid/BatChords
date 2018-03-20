@@ -12,7 +12,7 @@ class Pad extends React.Component {
   }
 
   componentDidMount() {
-    const url = `/api/pads`;
+    const url = `/api/pads/file_operations`;
     fetch(url, { credentials: 'same-origin' })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
@@ -119,9 +119,7 @@ class Pad extends React.Component {
       case "seek_m_right":
         embed.getCursorPosition().then(function (position) {
           var new_pos = 0;
-          if(position.measureIdx != 0){
-              new_pos = position.measureIdx + 1;
-          }
+          new_pos = position.measureIdx + 1;
           embed.setCursorPosition({
               partIdx: position.partIdx,
               staffIdx: position.staffIdx,
@@ -138,6 +136,29 @@ class Pad extends React.Component {
         embed.focusScore().then(function () {
         // Focus is now on the score
         });
+        break;
+
+      case "not_implemented":
+        const url = `/api/pads/old`;
+        fetch(url, { credentials: 'same-origin' })
+        .then((response) => {
+          if (!response.ok) throw Error(response.statusText);
+          return response.json();
+        })
+        .then((data) => {
+          this.setState({
+            pad_a: data.pads_info.pad_a,
+            pad_b: data.pads_info.pad_b,
+            pad_c: data.pads_info.pad_c,
+            pad_d: data.pads_info.pad_d,
+            pad_e: data.pads_info.pad_e,
+            pad_f: data.pads_info.pad_f,
+            pad_g: data.pads_info.pad_g,
+            pad_h: data.pads_info.pad_h,
+          });
+        })
+        .catch(error => console.log(error));
+
         break;
 
     }
