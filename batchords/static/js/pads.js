@@ -71,14 +71,26 @@ embed.on('cursorPosition', function (inp) {
   console.log(inp)
 });
 
+embed.on('getNoteCursor', function (inp) {
+  console.log('get note cursor');
+  console.log(inp)
+});
+
+
 embed.on('play', function (){
   console.log('play');
 });
 
-embed.on('Edit', function (inp) {
-  console.log('Edit');
+embed.on('cursor', function (inp) {
+  console.log('Cursor');
   console.log(inp);
 });
+
+embed.on('error', function (inp) {
+  console.log('Error');
+  console.log(inp);
+});
+
 
 // play_score.onclick = function() {
 //   embed.play().then(function () {
