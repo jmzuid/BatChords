@@ -42,12 +42,22 @@ function embedEdit(){
     console.log(step_inp);
     let octave_inp = Number(arguments[1]);
     console.log(octave_inp);
-
+    var acc = null;
+    if (step_inp.length == 2) { 
+        acc = "sharp";
+        step_inp = step_inp[0];
+    }
 		embed.getCursorPosition().then(function (position) {
             embed.edit([
+<<<<<<< HEAD
+              { name: 'action.AddNoteCrossMeasure', 
+                opts: { 
+                    accidental:acc,
+=======
               { name: 'action.AddNoteCrossMeasure',
                 opts: {
                     accidental:null,
+>>>>>>> c3cf14a3eb43528279855bee0ec38ffbe9dd1f93
                     actionOrigin:"local.do",
                     durationType:3,
                     insertMode:"replace",
@@ -205,7 +215,7 @@ function onMIDIMessage(message) {
         }
         else { // Programming Piano keyboards
         	var step = m_step.get(data[1] % 12); // C
-	    	var octave = Math.round(data[1] / 12); // 4
+	    	var octave = Math.floor(data[1] / 12); // 4
 	    	arr.push(step + octave); // push("C4")
 	        embedEdit(step, octave); // add notation C4 at current cursor
 	        document.getElementById(step + octave).style.background = "rgb(100,140,190)"; // visualize keyboard
@@ -242,7 +252,7 @@ function onMIDIMessage(message) {
         }
         else { // Programming Piano keyboards
         	var step = m_step.get(data[1] % 12); // C
-	    	var octave = Math.round(data[1] / 12); // 4
+	    	var octave = Math.floor(data[1] / 12); // 4
 	    	var index = arr.indexOf(step + octave); // locate released key
 	    	arr.splice(index, 1); // remove released key
 	    	if (step.length == 1) { // white key

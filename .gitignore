@@ -16,3 +16,4 @@ tags.lock
 tags.temp
 .vagrant
 Vagrantfile
+/bin/run_batchords
