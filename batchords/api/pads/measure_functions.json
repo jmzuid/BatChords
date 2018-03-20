@@ -1,0 +1,34 @@
+{
+  "pad_a": {
+    "name":"Add Measure",
+    "id":"add_measure"
+  },
+  "pad_b": {
+    "name":"Remove Measure",
+    "id":"remove_measure"
+  },
+  "pad_c": {
+    "name":" ",
+    "id":" "
+  },
+  "pad_d": {
+    "name":" ",
+    "id":" "
+  },
+  "pad_e": {
+    "name":"Back",
+    "id":"edit_mode"
+  },
+  "pad_f": {
+    "name":"Change Staff",
+    "id":"change_staff"
+  },
+  "pad_g": {
+    "name":" ",
+    "id":" "
+  },
+  "pad_h": {
+    "name":" ",
+    "id":" "
+  }
+}
