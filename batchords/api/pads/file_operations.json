@@ -1,0 +1,35 @@
+{
+  "pad_a": {
+    "name":"Open Score",
+    "id":"not_implemented"
+  },
+  "pad_b": {
+    "name":"New Score",
+    "id":"not_implemented"
+  },
+  "pad_c": {
+    "name":" ",
+    "id":"not_implemented"
+  },
+  "pad_d": {
+    "name":" ",
+    "id":"not_implemented"
+  },
+  "pad_e": {
+    "name":"Login",
+    "id":"not_implemented"
+  },
+  "pad_f": {
+    "name":"Tutorial",
+    "id":"not_implemented"
+  },
+  "pad_g": {
+    "name":" ",
+    "id":"not_implemented"
+  },
+  "pad_h": {
+    "name":" ",
+    "id":"not_implemented"
+  }
+
+}

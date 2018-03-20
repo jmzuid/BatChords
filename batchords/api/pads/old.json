@@ -1,0 +1,35 @@
+{
+  "pad_a": {
+    "name":"Play",
+    "id":"play_score"
+  },
+  "pad_b": {
+    "name":"Stop",
+    "id":"stop_score"
+  },
+  "pad_c": {
+    "name":"Seek Measure Left",
+    "id":"seek_m_left"
+  },
+  "pad_d": {
+    "name":"Seek Measure Right",
+    "id":"seek_m_right"
+  },
+  "pad_e": {
+    "name":"Pause",
+    "id":"pause_score"
+  },
+  "pad_f": {
+    "name":"Edit",
+    "id":"enable_edit"
+  },
+  "pad_g": {
+    "name":"Seek Note Left",
+    "id":"seek_note_left"
+  },
+  "pad_h": {
+    "name":"Seek Note Right",
+    "id":"seek_note_right"
+  }
+
+}
