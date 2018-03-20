@@ -266,17 +266,17 @@ bundle.js  799 kB       0  [emitted]  [big]  main
 
 
 <h2 id="foot-pedal">Using Infinity USB foot pedal</h2>
-<p> To use the Infinity USB foot pedal the proper software must be downloaded for your operating system. <br />
+<p> To use the Infinity USB foot pedal the proper software must be downloaded for your operating system. </p>
 
-    <ul>
-        <li>Windows: <a href="http://www.nch.com.au/footpedal/index.html">Pedable foot pedal software </a> </li>
-        <li>MacOS: <a href="https://www.orderedbytes.com/controllermate/">ControllerMate</a> </li>
+<ul>
+    <li>Windows: <a href="http://www.nch.com.au/footpedal/index.html">Pedable foot pedal software </a> </li>
+    <li>MacOS: <a href="https://www.orderedbytes.com/controllermate/">ControllerMate</a> </li>
 
-    </ul>
+</ul>
 
+
+<p>
     The left foot pedal should be configured to map to the left arrow key, the right foot pedal should be configured to map the right arrow key, and the middle pedal should be mapped to the space bar. This will allow for navigation within the embedded editor and easy playback and pause. 
-
-
 </p>
 
 
