@@ -1,0 +1,105 @@
+* { box-sizing:border-box; }
+
+body{ margin:0; background:#222; }
+ul {
+  width:100%;
+  position:relative; 
+  border:1px solid #160801; border-radius:1em; 
+  background:-webkit-gradient(linear, right bottom, left top, color-stop(0%,rgba(0,0,0,0.3)), color-stop(100%,rgba(0,0,0,0))), url('https://f.cl.ly/items/2q1f3t0C3R1b0g081w3n/vwood.png');
+box-shadow:0 0 50px rgba(0,0,0,0.5) inset, 0 1px rgba(212,152,125,0.2) inset,0 5px 15px rgba(0,0,0,0.5); }
+li { margin:0; padding:0; list-style:none; position:relative; float:left; }
+
+ul .white {
+  height:5em; width:2.2em; z-index:1;
+  margin: 0 0 0 -1em;
+  border-left:1px solid #bbb;
+  border-bottom:0px solid #bbb;
+  border-radius:0 0 2px 2px;
+  box-shadow:-1px 0 0 rgba(255,255,255,0.8) inset, 0 0 5px #ccc inset, 0 0 3px rgba(0,0,0,0.2);
+  background: linear-gradient(top, #eee 0%,#fff 100%);
+}
+
+.black {
+  height:3em; width:0.8em; margin:0 0 0 -1.5em; z-index:2;
+  border:1px solid #000;
+  border-radius:0 0 3px 3px;
+  box-shadow:-1px -1px 2px rgba(255,255,255,0.2) inset, 0 -5px 2px 3px rgba(0,0,0,0.6) inset, 0 2px 4px rgba(0,0,0,0.5);
+  background:linear-gradient(45deg, #222 0%,#555 100%);
+}
+
+ul li:first-child { border-radius:5px 0 5px 5px; }
+ul li:last-child { border-radius:0 5px 5px 5px; }
+
+html {
+    font-size: 1em;
+}
+
+body {
+    background-color: white;
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #333;
+}
+
+p {
+    margin-bottom: 3.3em;
+    font-family: 'PT Sans', sans-serif;
+}
+
+h1 {
+    font-family: 'Arimo', sans-serif;
+    font-weight: bold;
+    /*font-style: italic;*/
+    color: #000;
+    z-index: 2;
+    /*position: absolute;*/
+}
+
+h1 {
+    margin-top: 0;
+    margin-left: 1em;
+    /*font-size: 3.157em;*/
+    font-size: 2em;
+}
+
+h2 {
+    font-family: 'Arimo', sans-serif;
+    /*font-weight: bold;*/
+    /*font-style: italic;*/
+    color: #333;
+    z-index: 2;
+    text-align: right;
+    /*position: absolute;*/
+    display: block;
+}
+
+h2 {
+    margin-top: .5em;
+    margin-left: 1em;
+    /*font-size: 3.157em;*/
+    font-size: 1.3em;
+}
+
+#embed-container {
+  height: 500px;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border-color: black;
+  color: white;
+  /*padding: 15px 32px;*/
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 2em;
+  font-family: 'Arimo', sans-serif;
+  display: block;
+  width: 100%;
+  margin-top: 0em;
+}
+
+.button:active {
+  background-color: black;
+}
