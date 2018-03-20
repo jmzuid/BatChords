@@ -300,6 +300,10 @@ class Pad extends React.Component {
         });
         break;
 
+      case "tutorial":
+        window.location.replace("http://localhost:8000/tutorial");
+        break;
+
       case "main_menu":
       case "not_implemented":
         const main_url = `/api/pads/main`;
