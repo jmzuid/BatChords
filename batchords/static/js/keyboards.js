@@ -8,7 +8,7 @@ if (navigator.requestMIDIAccess) {
     alert("No MIDI support in your browser.");
 }
 
-// var a3_snd = new Audio("../piano-sound-kit/a3.mp3"); 
+// var a3_snd = new Audio("../piano-sound-kit/a3.mp3");
 // a3_snd.play();
 
 
@@ -49,9 +49,15 @@ function embedEdit(){
     }
 		embed.getCursorPosition().then(function (position) {
             embed.edit([
+<<<<<<< HEAD
               { name: 'action.AddNoteCrossMeasure', 
                 opts: { 
                     accidental:acc,
+=======
+              { name: 'action.AddNoteCrossMeasure',
+                opts: {
+                    accidental:null,
+>>>>>>> c3cf14a3eb43528279855bee0ec38ffbe9dd1f93
                     actionOrigin:"local.do",
                     durationType:3,
                     insertMode:"replace",
@@ -116,8 +122,8 @@ function onMIDIMessage(message) {
         //     C1.style.backgroundColor = "rgb(100, 140, 190)";
         //     embed.getCursorPosition().then(function (position) {
         //         embed.edit([
-        //           { name: 'action.AddNoteCrossMeasure', 
-        //             opts: { 
+        //           { name: 'action.AddNoteCrossMeasure',
+        //             opts: {
         //                 accidental:null,
         //                 actionOrigin:"local.do",
         //                 durationType:3,
@@ -207,18 +213,18 @@ function onMIDIMessage(message) {
             // seek_note_right.click();
             // seek_nr.style.backgroundColor = "black";
         }
-        else { // Programming Piano keyboards 
+        else { // Programming Piano keyboards
         	var step = m_step.get(data[1] % 12); // C
 	    	var octave = Math.floor(data[1] / 12); // 4
 	    	arr.push(step + octave); // push("C4")
-	        embedEdit(step, octave); // add notation C4 at current cursor 
+	        embedEdit(step, octave); // add notation C4 at current cursor
 	        document.getElementById(step + octave).style.background = "rgb(100,140,190)"; // visualize keyboard
         }
 
 
     }
     else { // this is the stop signal
-        
+
         //Programming for the pads
         if (data[1] == 100) {
             padA.style.backgroundColor = "#4CAF50";
