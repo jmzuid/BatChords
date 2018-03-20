@@ -30,35 +30,58 @@ function onMIDIFailure(error) {
     console.log("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " + error);
 }
 
+// global array used ONLY in chord mode
+var arr = [];
+
+// push one note onto sheet, do not attempt to move on
+// embedEdit("C", 4)
+// arguments[0] is step: C
+// arguments[1] is octave: 4
+function embedEdit(){
+		embed.getCursorPosition().then(function (position) {
+            embed.edit([
+              { name: 'action.AddNoteCrossMeasure', 
+                opts: { 
+                    accidental:null,
+                    actionOrigin:"local.do",
+                    durationType:3,
+                    insertMode:"replace",
+                    isConcertPitch:false,
+                    measureIdx:position.measureIdx,
+                    nbDots:0,
+                    noteIdx:position.noteIdx,
+                    partIdx:position.partIdx,
+                    pitch:{step: arguments[0], octave: arguments[1]},
+                    staffIdx:position.staffIdx,
+                    voiceIdx:position.voiceIdx
+                } }
+            ]).catch(function (error) {
+              // Error while executing the actions
+                console.log("embedEdit error: " + error)
+            });
+        });
+}
+
+// a global map for steps
+var m_step = new Map([[0,"C"],[1,"CD"],[2,"D"],[3,"DE"],[4,"E"],[5,"F"],[6,"FG"],[7,"G"],[8,"GA"],[9,"A"],[10,"AB"],[11,"B"]]);
+var m_button = new Map([100,"pad_a"])
+
 function onMIDIMessage(message) {
     data = message.data; // this gives us our [command/channel, note, velocity] data.
     console.log(data)
 
-    C1 = document.getElementById("C1");
-    CD1 = document.getElementById("CD1");
-    D1 = document.getElementById("D1");
-    DE1 = document.getElementById("DE1");
-    E1 = document.getElementById("E1");
-    F1 = document.getElementById("F1");
-    FG1 = document.getElementById("FG1");
-    G1 = document.getElementById("G1");
-    GA1 = document.getElementById("GA1");
-    A1 = document.getElementById("A1");
-    AB1 = document.getElementById("AB1");
-    B1 = document.getElementById("B1");
-
-    C2 = document.getElementById("C2");
-    CD2 = document.getElementById("CD2");
-    D2 = document.getElementById("D2");
-    DE2 = document.getElementById("DE2");
-    E2 = document.getElementById("E2");
-    F2 = document.getElementById("F2");
-    FG2 = document.getElementById("FG2");
-    G2 = document.getElementById("G2");
-    GA2 = document.getElementById("GA2");
-    A2 = document.getElementById("A2");
-    AB2 = document.getElementById("AB2");
-    B2 = document.getElementById("B2");
+    // C1 = document.getElementById("C1");
+    // CD1 = document.getElementById("CD1");
+    // D1 = document.getElementById("D1");
+    // DE1 = document.getElementById("DE1");
+    // E1 = document.getElementById("E1");
+    // F1 = document.getElementById("F1");
+    // FG1 = document.getElementById("FG1");
+    // G1 = document.getElementById("G1");
+    // GA1 = document.getElementById("GA1");
+    // A1 = document.getElementById("A1");
+    // AB1 = document.getElementById("AB1");
+    // B1 = document.getElementById("B1");
 
     // play_s = document.getElementById("play_score");
     // stop_s = document.getElementById("stop_score");
@@ -79,162 +102,51 @@ function onMIDIMessage(message) {
     let padH = document.getElementsByClassName("pad_h")[0];
 
     if (data[2] != 0) { // this is the start signal
-        if (data[1] == 48) {
-            C1.style.backgroundColor = "rgb(100, 140, 190)";
-            embed.getCursorPosition().then(function (position) {
-                embed.edit([
-                  { name: 'action.AddNoteCrossMeasure', 
-                    opts: { 
-                        accidental:null,
-                        actionOrigin:"local.do",
-                        durationType:3,
-                        insertMode:"replace",
-                        isConcertPitch:false,
-                        measureIdx:position.measureIdx,
-                        nbDots:0,
-                        noteIdx:position.noteIdx,
-                        partIdx:position.partIdx,
-                        pitch:{step: "C", octave: 4},
-                        staffIdx:position.staffIdx,
-                        voiceIdx:position.voiceIdx
-                    } }
-                ]).then(function () {
-                    // The actions have been executed
-                    // var nextButton = document.getElementsByClassName('controls-bottom');
-                    // triggerEvent(nextButton, 'keydown', 39); // simulate mouse/enter key press
-                    // jQuery.event.trigger({ type : 'keypress', which : character.charCodeAt(39) });
-                    // var e = $.Event('keydown');
-                    // e.which = 39; // A
-                    // $('#input').focus();
-                    // $('#input').trigger(e);
-                    // var e = $.Event("keydown", {keyCode: 39});
-                    // var press = jQuery.Event("keypress");
-                    // press.ctrlKey = false;
-                    // press.which = 39;
-                    // $("svg.page").trigger(press);
-                    var iframe = document.getElementById('embed-container');
-                    var evt = new Event('keypress');
-                    evt.keyCode = '39';
-                    iframe.contentDocument.body.dispatchEvent(evt);
-                    console.log("donezo")
-                }).catch(function (error) {
-                  // Error while executing the actions
-                    console.log(error)
-                    console.log("error")
-                });
-            });
-
-        }
-        if (data[1] == 49) {
-            CD1.style.background = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 50) {
-            D1.style.backgroundColor = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 51) {
-            DE1.style.background = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 52) {
-            E1.style.backgroundColor = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 53) {
-            F1.style.backgroundColor = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 54) {
-            FG1.style.background = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 55) {
-            G1.style.backgroundColor = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 56) {
-            GA1.style.background = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 57) {
-            A1.style.backgroundColor = "rgb(100, 140, 190)";
-            // a3_snd.play();
-        }
-        if (data[1] == 58) {
-            AB1.style.background = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 59) {
-            B1.style.backgroundColor = "rgb(100, 140, 190)";
-        }
-
-        if (data[1] == 60) {
-            C2.style.backgroundColor = "rgb(100, 140, 190)";
-            embed.edit([
-              { name: 'action.AddNoteCrossMeasure', 
-                opts: { 
-                    accidental:null,
-                    actionOrigin:"local.do",
-                    durationType:3,
-                    insertMode:"replace",
-                    isConcertPitch:false,
-                    measureIdx:0,
-                    nbDots:0,
-                    noteIdx:0,
-                    partIdx:0,
-                    pitch:{step: "C", octave: 5},
-                    staffIdx:0,
-                    voiceIdx:0
-                } }
-            ]).then(function () {
-              // The actions have been executed
-              console.log("done")
-            }).catch(function (error) {
-              // Error while executing the actions
-                console.log(error)
-                console.log("error")
-            });
-        }
-        if (data[1] == 61) {
-            CD2.style.background = "rgb(100, 140, 190)";
-            console.log('please work');
-            embed.edit([
-              { name: 'action.AddChord', 
-                opts: { 
-                    actionOrigin:"local.do",
-                } }
-            ]).then(function () {
-              // The actions have been executed
-              console.log("done")
-            }).catch(function (error) {
-              // Error while executing the actions
-                console.log(error)
-                console.log("error")
-            });
-        }
-        if (data[1] == 62) {
-            D2.style.backgroundColor = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 63) {
-            DE2.style.background = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 64) {
-            E2.style.backgroundColor = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 65) {
-            F2.style.backgroundColor = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 66) {
-            FG2.style.background = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 67) {
-            G2.style.backgroundColor = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 68) {
-            GA2.style.background = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 69) {
-            A2.style.backgroundColor = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 70) {
-            AB2.style.background = "rgb(100, 140, 190)";
-        }
-        if (data[1] == 71) {
-            B2.style.backgroundColor = "rgb(100, 140, 190)";
-        }
-
+        // if (data[1] == 48) {
+        //     C1.style.backgroundColor = "rgb(100, 140, 190)";
+        //     embed.getCursorPosition().then(function (position) {
+        //         embed.edit([
+        //           { name: 'action.AddNoteCrossMeasure', 
+        //             opts: { 
+        //                 accidental:null,
+        //                 actionOrigin:"local.do",
+        //                 durationType:3,
+        //                 insertMode:"replace",
+        //                 isConcertPitch:false,
+        //                 measureIdx:position.measureIdx,
+        //                 nbDots:0,
+        //                 noteIdx:position.noteIdx,
+        //                 partIdx:position.partIdx,
+        //                 pitch:{step: "C", octave: 4},
+        //                 staffIdx:position.staffIdx,
+        //                 voiceIdx:position.voiceIdx
+        //             } }
+        //         ]).then(function () {
+        //             // The actions have been executed
+        //             // var nextButton = document.getElementsByClassName('controls-bottom');
+        //             // triggerEvent(nextButton, 'keydown', 39); // simulate mouse/enter key press
+        //             // jQuery.event.trigger({ type : 'keypress', which : character.charCodeAt(39) });
+        //             // var e = $.Event('keydown');
+        //             // e.which = 39; // A
+        //             // $('#input').focus();
+        //             // $('#input').trigger(e);
+        //             // var e = $.Event("keydown", {keyCode: 39});
+        //             // var press = jQuery.Event("keypress");
+        //             // press.ctrlKey = false;
+        //             // press.which = 39;
+        //             // $("svg.page").trigger(press);
+        //             var iframe = document.getElementById('embed-container');
+        //             var evt = new Event('keypress');
+        //             evt.keyCode = '39';
+        //             iframe.contentDocument.body.dispatchEvent(evt);
+        //             console.log("donezo")
+        //         }).catch(function (error) {
+        //           // Error while executing the actions
+        //             console.log(error)
+        //             console.log("error")
+        //         });
+        //     });
+        // }
 
         //Programming for the pads
         if (data[1] == 100) {
@@ -243,154 +155,96 @@ function onMIDIMessage(message) {
             // play_score.click();
             // play_s.style.backgroundColor = "black";
         }
-        if (data[1] == 101) {
+        else if (data[1] == 101) {
             padB.style.backgroundColor = "black";
             padB.click();
             // stop_score.click();
             // stop_s.style.backgroundColor = "black";
         }
-        if (data[1] == 102) {
+        else if (data[1] == 102) {
             padC.style.backgroundColor = "black";
             padC.click();
             // seek_m_left.click();
             // seek_ml.style.backgroundColor = "black";
         }
-        if (data[1] == 103) {
+        else if (data[1] == 103) {
             padD.style.backgroundColor = "black";
             padD.click();
             // seek_m_right.click();
             // seek_mr.style.backgroundColor = "black";
         }
-        if (data[1] == 104) {
+        else if (data[1] == 104) {
             padE.style.backgroundColor = "black";
             padE.click();
             // pause_score.click();
             // pause_s.style.backgroundColor = "black";
         }
-        if (data[1] == 105) {
+        else if (data[1] == 105) {
             padF.style.backgroundColor = "black";
             padF.click();
             // edit_score.click();
             // edit_s.style.backgroundColor = "black";
         }
-        if (data[1] == 106) {
+        else if (data[1] == 106) {
             padG.style.backgroundColor = "black";
             padG.click();
             // seek_note_left.click();
             // seek_nl.style.backgroundColor = "black";
         }
-        if (data[1] == 107) {
+        else if (data[1] == 107) {
             padH.style.backgroundColor = "black";
             padH.click();
             // seek_note_right.click();
             // seek_nr.style.backgroundColor = "black";
         }
+        else { // Programming Piano keyboards 
+        	var step = m_step.get(data[1] % 12); // C
+	    	var octave = data[1] / 12; // 4
+	    	arr.push(step + octave); // push("C4")
+	        embedEdit(step, octave); // add notation C4 at current cursor 
+	        document.getElementById(step + octave).style.background = "rgb(100,140,190)"; // visualize keyboard
+        }
 
 
     }
     else { // this is the stop signal
-        if (data[1] == 48) {
-            C1.style.backgroundColor = "white";
-        }
-        if (data[1] == 49) {
-            CD1.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
-        }
-        if (data[1] == 50) {
-            D1.style.backgroundColor = "white";
-        }
-        if (data[1] == 51) {
-            DE1.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
-        }
-        if (data[1] == 52) {
-            E1.style.backgroundColor = "white";
-        }
-        if (data[1] == 53) {
-            F1.style.backgroundColor = "white";
-        }
-        if (data[1] == 54) {
-            FG1.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
-        }
-        if (data[1] == 55) {
-            G1.style.backgroundColor = "white";
-        }
-        if (data[1] == 56) {
-            GA1.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
-        }
-        if (data[1] == 57) {
-            A1.style.backgroundColor = "white";
-        }
-        if (data[1] == 58) {
-            AB1.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
-        }
-        if (data[1] == 59) {
-            B1.style.backgroundColor = "white";
-        }
-
-        if (data[1] == 60) {
-            C2.style.backgroundColor = "white";
-        }
-        if (data[1] == 61) {
-            CD2.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
-        }
-        if (data[1] == 62) {
-            D2.style.backgroundColor = "white";
-        }
-        if (data[1] == 63) {
-            DE2.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
-        }
-        if (data[1] == 64) {
-            E2.style.backgroundColor = "white";
-        }
-        if (data[1] == 65) {
-            F2.style.backgroundColor = "white";
-        }
-        if (data[1] == 66) {
-            FG2.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
-        }
-        if (data[1] == 67) {
-            G2.style.backgroundColor = "white";
-        }
-        if (data[1] == 68) {
-            GA2.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
-        }
-        if (data[1] == 69) {
-            A2.style.backgroundColor = "white";
-        }
-        if (data[1] == 70) {
-            AB2.style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
-        }
-        if (data[1] == 71) {
-            B2.style.backgroundColor = "white";
-        }
-
-
-
-
-
+        
         //Programming for the pads
         if (data[1] == 100) {
-            play_s.style.backgroundColor = "#4CAF50";
+            padA.style.backgroundColor = "#4CAF50";
         }
-        if (data[1] == 101) {
-            stop_s.style.backgroundColor = "#4CAF50";
+        else if (data[1] == 101) {
+            padB.style.backgroundColor = "#4CAF50";
         }
-        if (data[1] == 102) {
-            seek_ml.style.backgroundColor = "#4CAF50";
+        else if (data[1] == 102) {
+            padC.style.backgroundColor = "#4CAF50";
         }
-        if (data[1] == 103) {
-            seek_mr.style.backgroundColor = "#4CAF50";
+        else if (data[1] == 103) {
+            padD.style.backgroundColor = "#4CAF50";
         }
-        if (data[1] == 104) {
-            pause_s.style.backgroundColor = "#4CAF50";
+        else if (data[1] == 104) {
+            padE.style.backgroundColor = "#4CAF50";
         }
-        if (data[1] == 105) {
-            edit_s.style.backgroundColor = "#4CAF50";
+        else if (data[1] == 105) {
+            padF.style.backgroundColor = "#4CAF50";
         }
-        if (data[1] == 106) {
-            seek_nl.style.backgroundColor = "#4CAF50";
+        else if (data[1] == 106) {
+            padG.style.backgroundColor = "#4CAF50";
         }
-        if (data[1] == 107) {
-            seek_nr.style.backgroundColor = "#4CAF50";
+        else if (data[1] == 107) {
+            padH.style.backgroundColor = "#4CAF50";
+        }
+        else { // Programming Piano keyboards
+        	var step = m_step.get(data[1] % 12); // C
+	    	var octave = data[1] / 12; // 4
+	    	var index = arr.indexOf(step + octave); // locate released key
+	    	arr.splice(index, 1); // remove released key
+	    	if (step.length == 1) { // white key
+		        document.getElementById(step + octave).style.background = "white";
+		    }
+		    else if (step.length == 2) { // black/half key
+		    	document.getElementById(step + octave).style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
+		    }
         }
     }
 }
