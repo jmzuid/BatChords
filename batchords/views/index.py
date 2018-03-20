@@ -13,7 +13,7 @@ def show_index():
     """Display / route."""
 
     if not "scoreid" in flask.session:
-    	return redirect("/home")
+    	return flask.redirect("/home")
 
     context = {}
 

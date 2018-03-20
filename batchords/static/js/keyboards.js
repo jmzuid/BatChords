@@ -49,15 +49,9 @@ function embedEdit(){
     }
 		embed.getCursorPosition().then(function (position) {
             embed.edit([
-<<<<<<< HEAD
               { name: 'action.AddNoteCrossMeasure', 
                 opts: { 
                     accidental:acc,
-=======
-              { name: 'action.AddNoteCrossMeasure',
-                opts: {
-                    accidental:null,
->>>>>>> c3cf14a3eb43528279855bee0ec38ffbe9dd1f93
                     actionOrigin:"local.do",
                     durationType:3,
                     insertMode:"replace",
