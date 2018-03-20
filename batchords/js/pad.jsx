@@ -8,7 +8,7 @@ class Pad extends React.Component {
     super(props);
     // this.handlePadClick = this.handlePadClick.bind(this);
     this.onClick = this.handleClick.bind(this);
-    this.state = { pad_a: {}, pad_b: {}, pad_c: {}, pad_d: {}, pad_e: {}, pad_f: {}, pad_g: {}, pad_h: {} };
+    this.state = { pad_a: {}, pad_b: {}, pad_c: {}, pad_d: {}, pad_e: {}, pad_f: {}, pad_g: {}, pad_h: {}, noteDuration: 3 };
   }
 
   componentDidMount() {
@@ -200,6 +200,48 @@ class Pad extends React.Component {
         });
         break;
 
+      case "incr_note_duration":
+        if(this.state.noteDuration == 1){
+          return;
+        }
+        this.setState({noteDuration: this.state.noteDuration - 1});
+        console.log(this.state.noteDuration); 
+        break;
+
+      case "decr_note_duration":
+        if(this.state.noteDuration == 7){
+          return;
+        }
+        this.setState({noteDuration: this.state.noteDuration + 1});
+        console.log(this.state.noteDuration); 
+        break;
+
+      case "set_note_duration":
+        let temp_dur = this.state.noteDuration;
+        console.log(temp_dur);
+        embed.getCursorPosition().then(function (position) {
+          embed.edit([
+            { name: 'action.ChangeDurationCrossMeasure', 
+              opts: { 
+                  actionOrigin:"local.do",
+                  durationType: temp_dur,
+                  formatRests: true,
+                  insertMode: "replace",
+                  line:position.line,
+                  measureIdx:position.measureIdx,
+                  nbDots:0,
+                  noteIdx:position.noteIdx,
+                  partIdx:position.partIdx,
+                  staffIdx:position.staffIdx,
+                  voiceIdx:position.voiceIdx
+              } }
+          ]).catch(function (error) {
+            // Error while executing the actions
+              console.log("embedEdit error: " + error)
+          });
+        });
+        break;
+
       case "main_menu":
       case "not_implemented":
         const main_url = `/api/pads/main`;
@@ -300,6 +342,8 @@ class Pad extends React.Component {
   }
 
   render() {
+    let dur_map = new Map([[7,"1/64"],[6,"1/32"],[5,"1/16"],[4,"1/8"],[3,"1/4"],[2,"1/2"],[1,"1"]]);
+
     let padA = null;
     let padB = null;
     let padC = null;
@@ -309,64 +353,93 @@ class Pad extends React.Component {
     let padG = null;
     let padH = null;
     // if (this.state.loaded) {
-    if (true) {
-      padA = (
-        <div className="pad col-sm-3">
-          <button className="button pad_a" id={this.state.pad_a.id} onClick={this.onClick}>
-            {this.state.pad_a.name}
-          </button>
-        </div>
-      );
-      padB = (
-        <div className="pad col-sm-3">
-          <button className="button pad_b" id={this.state.pad_b.id} onClick={this.onClick}>
-            {this.state.pad_b.name}
-          </button>
-        </div>
-      );
+    padA = (
+      <div className="pad col-sm-3">
+        <button className="button pad_a" id={this.state.pad_a.id} onClick={this.onClick}>
+          {this.state.pad_a.name}
+        </button>
+      </div>
+    );
+    padB = (
+      <div className="pad col-sm-3">
+        <button className="button pad_b" id={this.state.pad_b.id} onClick={this.onClick}>
+          {this.state.pad_b.name}
+        </button>
+      </div>
+    );
+    padC = (
+      <div className="pad col-sm-3">
+        <button className="button pad_c" id={this.state.pad_c.id} onClick={this.onClick}>
+          {this.state.pad_c.name}
+        </button>
+      </div>
+    );
+    padD = (
+      <div className="pad col-sm-3">
+        <button className="button pad_d" id={this.state.pad_d.id} onClick={this.onClick}>
+          {this.state.pad_d.name}
+        </button>
+      </div>
+    );
+    padE = (
+      <div className="pad col-sm-3">
+        <button className="button pad_e" id={this.state.pad_e.id} onClick={this.onClick}>
+          {this.state.pad_e.name}
+        </button>
+      </div>
+    );
+    padF = (
+      <div className="pad col-sm-3">
+        <button className="button pad_f" id={this.state.pad_f.id} onClick={this.onClick}>
+          {this.state.pad_f.name}
+        </button>
+      </div>
+    );
+    padG = (
+      <div className="pad col-sm-3">
+        <button className="button pad_g" id={this.state.pad_g.id} onClick={this.onClick}>
+          {this.state.pad_g.name}
+        </button>
+      </div>
+    );
+    padH = (
+      <div className="pad col-sm-3">
+        <button className="button pad_h" id={this.state.pad_h.id} onClick={this.onClick}>
+          {this.state.pad_h.name}
+        </button>
+      </div>
+    );
+
+    if(this.state.pad_c.id == "decr_note_duration"){
       padC = (
         <div className="pad col-sm-3">
           <button className="button pad_c" id={this.state.pad_c.id} onClick={this.onClick}>
-            {this.state.pad_c.name}
-          </button>
-        </div>
-      );
-      padD = (
-        <div className="pad col-sm-3">
-          <button className="button pad_d" id={this.state.pad_d.id} onClick={this.onClick}>
-            {this.state.pad_d.name}
-          </button>
-        </div>
-      );
-      padE = (
-        <div className="pad col-sm-3">
-          <button className="button pad_e" id={this.state.pad_e.id} onClick={this.onClick}>
-            {this.state.pad_e.name}
-          </button>
-        </div>
-      );
-      padF = (
-        <div className="pad col-sm-3">
-          <button className="button pad_f" id={this.state.pad_f.id} onClick={this.onClick}>
-            {this.state.pad_f.name}
-          </button>
-        </div>
-      );
-      padG = (
-        <div className="pad col-sm-3">
-          <button className="button pad_g" id={this.state.pad_g.id} onClick={this.onClick}>
-            {this.state.pad_g.name}
-          </button>
-        </div>
-      );
-      padH = (
-        <div className="pad col-sm-3">
-          <button className="button pad_h" id={this.state.pad_h.id} onClick={this.onClick}>
-            {this.state.pad_h.name}
+            {this.state.pad_c.name} - ({dur_map.get(this.state.noteDuration + 1)})
           </button>
         </div>
       );
     }
+
+    if(this.state.pad_d.id == "incr_note_duration"){
+      padD = (
+        <div className="pad col-sm-3">
+          <button className="button pad_d" id={this.state.pad_d.id} onClick={this.onClick}>
+            {this.state.pad_d.name} - ({dur_map.get(this.state.noteDuration - 1)})
+          </button>
+        </div>
+      );
+    }
+
+    if(this.state.pad_h.id == "set_note_duration"){
+      padH= (
+        <div className="pad col-sm-3">
+          <button className="button pad_h" id={this.state.pad_h.id} onClick={this.onClick}>
+            {this.state.pad_h.name} - ({dur_map.get(this.state.noteDuration)})
+          </button>
+        </div>
+      );
+    }
+
     return (
       <div className="pad-group">
         <div className="row">
