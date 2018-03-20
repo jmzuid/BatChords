@@ -60,14 +60,23 @@ function onMIDIMessage(message) {
     AB2 = document.getElementById("AB2");
     B2 = document.getElementById("B2");
 
-    play_s = document.getElementById("play_score");
-    stop_s = document.getElementById("stop_score");
-    seek_ml = document.getElementById("seek_m_left");
-    seek_mr = document.getElementById("seek_m_right");
-    pause_s = document.getElementById("pause_score");
-    edit_s = document.getElementById("edit_score");
-    seek_nl = document.getElementById("seek_note_left");
-    seek_nr = document.getElementById("seek_note_right");
+    // play_s = document.getElementById("play_score");
+    // stop_s = document.getElementById("stop_score");
+    // seek_ml = document.getElementById("seek_m_left");
+    // seek_mr = document.getElementById("seek_m_right");
+    // pause_s = document.getElementById("pause_score");
+    // edit_s = document.getElementById("edit_score");
+    // seek_nl = document.getElementById("seek_note_left");
+    // seek_nr = document.getElementById("seek_note_right");
+
+    let padA = document.getElementsByClassName("pad_a")[0];
+    let padB = document.getElementsByClassName("pad_b")[0];
+    let padC = document.getElementsByClassName("pad_c")[0];
+    let padD = document.getElementsByClassName("pad_d")[0];
+    let padE = document.getElementsByClassName("pad_e")[0];
+    let padF = document.getElementsByClassName("pad_f")[0];
+    let padG = document.getElementsByClassName("pad_g")[0];
+    let padH = document.getElementsByClassName("pad_h")[0];
 
     if (data[2] != 0) { // this is the start signal
         if (data[1] == 48) {
@@ -229,36 +238,52 @@ function onMIDIMessage(message) {
 
         //Programming for the pads
         if (data[1] == 100) {
-            play_score.click();
-            play_s.style.backgroundColor = "black";
+            padA.style.backgroundColor = "black";
+            padA.click();
+            // play_score.click();
+            // play_s.style.backgroundColor = "black";
         }
         if (data[1] == 101) {
-            stop_score.click();
-            stop_s.style.backgroundColor = "black";
+            padB.style.backgroundColor = "black";
+            padB.click();
+            // stop_score.click();
+            // stop_s.style.backgroundColor = "black";
         }
         if (data[1] == 102) {
-            seek_m_left.click();
-            seek_ml.style.backgroundColor = "black";
+            padC.style.backgroundColor = "black";
+            padC.click();
+            // seek_m_left.click();
+            // seek_ml.style.backgroundColor = "black";
         }
         if (data[1] == 103) {
-            seek_m_right.click();
-            seek_mr.style.backgroundColor = "black";
+            padD.style.backgroundColor = "black";
+            padD.click();
+            // seek_m_right.click();
+            // seek_mr.style.backgroundColor = "black";
         }
         if (data[1] == 104) {
-            pause_score.click();
-            pause_s.style.backgroundColor = "black";
+            padE.style.backgroundColor = "black";
+            padE.click();
+            // pause_score.click();
+            // pause_s.style.backgroundColor = "black";
         }
         if (data[1] == 105) {
-            edit_score.click();
-            edit_s.style.backgroundColor = "black";
+            padF.style.backgroundColor = "black";
+            padF.click();
+            // edit_score.click();
+            // edit_s.style.backgroundColor = "black";
         }
         if (data[1] == 106) {
-            seek_note_left.click();
-            seek_nl.style.backgroundColor = "black";
+            padG.style.backgroundColor = "black";
+            padG.click();
+            // seek_note_left.click();
+            // seek_nl.style.backgroundColor = "black";
         }
         if (data[1] == 107) {
-            seek_note_right.click();
-            seek_nr.style.backgroundColor = "black";
+            padH.style.backgroundColor = "black";
+            padH.click();
+            // seek_note_right.click();
+            // seek_nr.style.backgroundColor = "black";
         }
 
 
