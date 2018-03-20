@@ -4,8 +4,10 @@ BatChords login view.
 URLs include:
 /start
 /login
+/logout
 """
 import flask
+from flask import redirect
 import batchords
 import arrow
 import requests
@@ -17,6 +19,14 @@ def start():
 
     flask.session["access_token"] = "0c73df1879c52f87555fe3bed875a5d95656ba67b8c20e0ee1318f81c4d699977fc9f689f1c5de739bba4fadafe9d0cd17fb3526c7b6b9b0766a7d272ee7e976"
     return flask.render_template("start.html", **context)
+
+
+@batchords.app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    """Remove access_token from session."""
+    # TODO make request to flat.io to invalidate oauth2 token
+    flask.session.pop('access_token', None)
+    return redirect("/start")
 
 
 @batchords.app.route('/login', methods=['GET', 'POST'])
