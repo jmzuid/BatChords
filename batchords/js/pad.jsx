@@ -138,6 +138,68 @@ class Pad extends React.Component {
         });
         break;
 
+
+      case "pitch_up":
+        embed.getCursorPosition().then(function (position) {
+          embed.edit([
+            { name: 'action.ShiftChordDiatonicUp', 
+              opts: { 
+                  actionOrigin:"local.do",
+                  measureIdx:position.measureIdx,
+                  noteIdx:position.noteIdx,
+                  partIdx:position.partIdx,
+                  staffIdx:position.staffIdx,
+                  voiceIdx:position.voiceIdx
+              } }
+          ]).catch(function (error) {
+            // Error while executing the actions
+              console.log("embedEdit error: " + error)
+          });
+        });
+        break;
+
+      case "pitch_down":
+        embed.getCursorPosition().then(function (position) {
+          embed.edit([
+            { name: 'action.ShiftChordDiatonicDown', 
+              opts: { 
+                  actionOrigin:"local.do",
+                  measureIdx:position.measureIdx,
+                  noteIdx:position.noteIdx,
+                  partIdx:position.partIdx,
+                  staffIdx:position.staffIdx,
+                  voiceIdx:position.voiceIdx
+              } }
+          ]).catch(function (error) {
+            // Error while executing the actions
+              console.log("embedEdit error: " + error)
+          });
+        });
+        break;
+
+      case "remove_note":
+        embed.getCursorPosition().then(function (position) {
+          embed.edit([
+            { name: 'action.RemoveNote', 
+              opts: { 
+                  actionOrigin:"local.do",
+                  formatRests: true,
+                  insertMode: "replace",
+                  isConcertPitch: false,
+                  line:position.line,
+                  measureIdx:position.measureIdx,
+                  noteIdx:position.noteIdx,
+                  partIdx:position.partIdx,
+                  staffIdx:position.staffIdx,
+                  voiceIdx:position.voiceIdx
+              } }
+          ]).catch(function (error) {
+            // Error while executing the actions
+              console.log("embedEdit error: " + error)
+          });
+        });
+        break;
+
       case "main_menu":
       case "not_implemented":
         const main_url = `/api/pads/main`;
@@ -185,7 +247,7 @@ class Pad extends React.Component {
 
         break;
 
-        case "playback_menu":
+      case "playback_menu":
         const play_url = `/api/pads/playback`;
         fetch(play_url, { credentials: 'same-origin' })
         .then((response) => {
@@ -207,6 +269,30 @@ class Pad extends React.Component {
         .catch(error => console.log(error));
 
         break;
+
+      case "edit_mode":
+        const edit_url = `/api/pads/edit`;
+        fetch(edit_url, { credentials: 'same-origin' })
+        .then((response) => {
+          if (!response.ok) throw Error(response.statusText);
+          return response.json();
+        })
+        .then((data) => {
+          this.setState({
+            pad_a: data.pads_info.pad_a,
+            pad_b: data.pads_info.pad_b,
+            pad_c: data.pads_info.pad_c,
+            pad_d: data.pads_info.pad_d,
+            pad_e: data.pads_info.pad_e,
+            pad_f: data.pads_info.pad_f,
+            pad_g: data.pads_info.pad_g,
+            pad_h: data.pads_info.pad_h,
+          });
+        })
+        .catch(error => console.log(error));
+
+        break;
+
 
 
     }

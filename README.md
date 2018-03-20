@@ -264,5 +264,21 @@ bundle.js  799 kB       0  [emitted]  [big]  main
 
 <p>In order to use the Akai Mini Mpk keyboard the Akai Mpk Mini Editor must be downloaded from the <a href="http://www.akaipro.com/products/keyboard-controllers/mpk-mini-mkii">Akai website under the tab downloads</a>. In the home directory there is a file "akai_batchords.mk2". <a href="http://www.akaipro.com/support/kb/articles/akai-pro-mpk-mini-mkii-how-to-use-the-editor"> Instructions on using the Akai editor</a> to load this preset onto the Akai, the program must be selected on the Akai keyboard after loading. Before loading the preset all programs that take MIDI input (which includes Chrome) should be closed, otherwise they will interfere with the Mpk Mini editor. </p> 
 
+
+<h2 id="foot-pedal">Using Infinity USB foot pedal</h2>
+<p> To use the Infinity USB foot pedal the proper software must be downloaded for your operating system. <br />
+
+    <ul>
+        <li>Windows: <a href="http://www.nch.com.au/footpedal/index.html">Pedable foot pedal software </a> </li>
+        <li>MacOS: <a href="https://www.orderedbytes.com/controllermate/">ControllerMate</a> </li>
+
+    </ul>
+
+    The left foot pedal should be configured to map to the left arrow key, the right foot pedal should be configured to map the right arrow key, and the middle pedal should be mapped to the space bar. This will allow for navigation within the embedded editor and easy playback and pause. 
+
+
+</p>
+
+
   </body>
 </html>

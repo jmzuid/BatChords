@@ -74,7 +74,7 @@ function embedEdit(){
 
 // a global map for steps
 var m_step = new Map([[0,"C"],[1,"CD"],[2,"D"],[3,"DE"],[4,"E"],[5,"F"],[6,"FG"],[7,"G"],[8,"GA"],[9,"A"],[10,"AB"],[11,"B"]]);
-var m_button = new Map([100,"pad_a"])
+// var m_button = new Map([100,"pad_a"])
 
 function onMIDIMessage(message) {
     data = message.data; // this gives us our [command/channel, note, velocity] data.

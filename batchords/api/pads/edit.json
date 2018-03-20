@@ -1,0 +1,34 @@
+{
+  "pad_a": {
+    "name":"Remove Note",
+    "id":"remove_note"
+  },
+  "pad_b": {
+    "name":"Pitch Up",
+    "id":"pitch_up"
+  },
+  "pad_c": {
+    "name":"Seek Note Left",
+    "id":"seek_note_left"
+  },
+  "pad_d": {
+    "name":"Seek Note Right",
+    "id":"seek_note_right"
+  },
+  "pad_e": {
+    "name":"Menu",
+    "id":"main_menu"
+  },
+  "pad_f": {
+    "name":"Pitch Down",
+    "id":"pitch_down"
+  },
+  "pad_g": {
+    "name":"Decr Note Duration",
+    "id":"decr_note_duration"
+  },
+  "pad_h": {
+    "name":"Incr Note Duration",
+    "id":"incr_note_duration"
+  }
+}
