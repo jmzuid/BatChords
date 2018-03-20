@@ -8,7 +8,7 @@ if (navigator.requestMIDIAccess) {
     alert("No MIDI support in your browser.");
 }
 
-// var a3_snd = new Audio("../piano-sound-kit/a3.mp3"); 
+// var a3_snd = new Audio("../piano-sound-kit/a3.mp3");
 // a3_snd.play();
 
 
@@ -17,7 +17,6 @@ function onMIDISuccess(midiAccess) {
     // when we get a succesful response, run this code
     midi = midiAccess; // this is our raw MIDI data, inputs, outputs, and sysex status
 
-    var inputs = midi.inputs.values();
     // loop over all available inputs and listen for any MIDI input
     for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
         // each time there is a midi message call the onMIDIMessage function
@@ -32,7 +31,6 @@ function onMIDIFailure(error) {
 
 function onMIDIMessage(message) {
     data = message.data; // this gives us our [command/channel, note, velocity] data.
-    console.log(data)
 
     C1 = document.getElementById("C1");
     CD1 = document.getElementById("CD1");
@@ -74,8 +72,8 @@ function onMIDIMessage(message) {
             C1.style.backgroundColor = "rgb(100, 140, 190)";
             embed.getCursorPosition().then(function (position) {
                 embed.edit([
-                  { name: 'action.AddNoteCrossMeasure', 
-                    opts: { 
+                  { name: 'action.AddNoteCrossMeasure',
+                    opts: {
                         accidental:null,
                         actionOrigin:"local.do",
                         durationType:3,
@@ -117,25 +115,30 @@ function onMIDIMessage(message) {
 
         }
         if (data[1] == 49) {
+            //var output = midi.outputs.get(1);
+            //console.log('outputting to port 1');
+            //var note_on_message = data ;
+            //output.send(note_on_message) ;
+            //output.send(note_on_message, window.performance.now() + 1000.0);
             CD1.style.background = "rgb(100, 140, 190)";
         }
         if (data[1] == 50) {
-            D1.style.backgroundColor = "rgb(100, 140, 190)";
+            D1.style.background = "rgb(100, 140, 190)";
         }
         if (data[1] == 51) {
             DE1.style.background = "rgb(100, 140, 190)";
         }
         if (data[1] == 52) {
-            E1.style.backgroundColor = "rgb(100, 140, 190)";
+            E1.style.background = "rgb(100, 140, 190)";
         }
         if (data[1] == 53) {
-            F1.style.backgroundColor = "rgb(100, 140, 190)";
+            F1.style.background = "rgb(100, 140, 190)";
         }
         if (data[1] == 54) {
             FG1.style.background = "rgb(100, 140, 190)";
         }
         if (data[1] == 55) {
-            G1.style.backgroundColor = "rgb(100, 140, 190)";
+            G1.style.background = "rgb(100, 140, 190)";
         }
         if (data[1] == 56) {
             GA1.style.background = "rgb(100, 140, 190)";
@@ -154,8 +157,8 @@ function onMIDIMessage(message) {
         if (data[1] == 60) {
             C2.style.backgroundColor = "rgb(100, 140, 190)";
             embed.edit([
-              { name: 'action.AddNoteCrossMeasure', 
-                opts: { 
+              { name: 'action.AddNoteCrossMeasure',
+                opts: {
                     accidental:null,
                     actionOrigin:"local.do",
                     durationType:3,
@@ -182,8 +185,8 @@ function onMIDIMessage(message) {
             CD2.style.background = "rgb(100, 140, 190)";
             console.log('please work');
             embed.edit([
-              { name: 'action.AddChord', 
-                opts: { 
+              { name: 'action.AddChord',
+                opts: {
                     actionOrigin:"local.do",
                 } }
             ]).then(function () {
