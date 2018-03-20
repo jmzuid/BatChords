@@ -26,7 +26,44 @@
         <link href="https://fonts.googleapis.com/css?family=Arimo|PT+Sans|Ubuntu+Condensed" rel="stylesheet">
   </head>
   <body>
-    <p>{context["username"]}</p>
+
+          <div id="top-bar">
+
+                      <span id="icon">
+                        <!-- TODO -->
+                      </span>
+
+                      <div class="row">
+                                <h1 id="title">
+                                  <a href="/home" style="color:black">BatChords</a>
+                                </h1>
+
+                                <h2 alight="right">
+                                <a href="/home">Home</a>
+                                </h2>
+
+                                <h2 alight="right">
+                                  <a href="/tutorial">Tutorial</a>
+                                </h2>
+                      </div>
+
+            </div>
+            <br>
+            <h3 align="left"> Welcome, {{name}}</h3>
+
+            <h5><a href="/createScore"> Create a New Score </a></h5>
+
+            <br>
+            {%for score in scores%}
+            <p>
+            <a href="/chooseScore?scoreid={{score.id}}">{{score.title}}</a>
+            <br>
+            Composed by {% if score.composer != "" %} Unknown {% else %} {{score.composer}} {% endif%},
+            Lyrics by {% if score.lyricist != "" %} Unknown {% else %} {{score.lyricist}} {% endif %}
+            </p>
+
+            {%endfor%}
+
   </body>
 
 </html>
