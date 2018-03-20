@@ -138,9 +138,10 @@ class Pad extends React.Component {
         });
         break;
 
+      case "main_menu":
       case "not_implemented":
-        const url = `/api/pads/old`;
-        fetch(url, { credentials: 'same-origin' })
+        const main_url = `/api/pads/main`;
+        fetch(main_url, { credentials: 'same-origin' })
         .then((response) => {
           if (!response.ok) throw Error(response.statusText);
           return response.json();
@@ -160,6 +161,53 @@ class Pad extends React.Component {
         .catch(error => console.log(error));
 
         break;
+
+      case "file_menu":
+        const file_url = `/api/pads/file_operations`;
+        fetch(file_url, { credentials: 'same-origin' })
+        .then((response) => {
+          if (!response.ok) throw Error(response.statusText);
+          return response.json();
+        })
+        .then((data) => {
+          this.setState({
+            pad_a: data.pads_info.pad_a,
+            pad_b: data.pads_info.pad_b,
+            pad_c: data.pads_info.pad_c,
+            pad_d: data.pads_info.pad_d,
+            pad_e: data.pads_info.pad_e,
+            pad_f: data.pads_info.pad_f,
+            pad_g: data.pads_info.pad_g,
+            pad_h: data.pads_info.pad_h,
+          });
+        })
+        .catch(error => console.log(error));
+
+        break;
+
+        case "playback_menu":
+        const play_url = `/api/pads/playback`;
+        fetch(play_url, { credentials: 'same-origin' })
+        .then((response) => {
+          if (!response.ok) throw Error(response.statusText);
+          return response.json();
+        })
+        .then((data) => {
+          this.setState({
+            pad_a: data.pads_info.pad_a,
+            pad_b: data.pads_info.pad_b,
+            pad_c: data.pads_info.pad_c,
+            pad_d: data.pads_info.pad_d,
+            pad_e: data.pads_info.pad_e,
+            pad_f: data.pads_info.pad_f,
+            pad_g: data.pads_info.pad_g,
+            pad_h: data.pads_info.pad_h,
+          });
+        })
+        .catch(error => console.log(error));
+
+        break;
+
 
     }
     console.log(id);
@@ -185,49 +233,49 @@ class Pad extends React.Component {
       );
       padB = (
         <div className="pad col-sm-3">
-          <button className="button" id={this.state.pad_b.id} onClick={this.onClick}>
+          <button className="button pad_b" id={this.state.pad_b.id} onClick={this.onClick}>
             {this.state.pad_b.name}
           </button>
         </div>
       );
       padC = (
         <div className="pad col-sm-3">
-          <button className="button" id={this.state.pad_c.id} onClick={this.onClick}>
+          <button className="button pad_c" id={this.state.pad_c.id} onClick={this.onClick}>
             {this.state.pad_c.name}
           </button>
         </div>
       );
       padD = (
         <div className="pad col-sm-3">
-          <button className="button" id={this.state.pad_d.id} onClick={this.onClick}>
+          <button className="button pad_d" id={this.state.pad_d.id} onClick={this.onClick}>
             {this.state.pad_d.name}
           </button>
         </div>
       );
       padE = (
         <div className="pad col-sm-3">
-          <button className="button" id={this.state.pad_e.id} onClick={this.onClick}>
+          <button className="button pad_e" id={this.state.pad_e.id} onClick={this.onClick}>
             {this.state.pad_e.name}
           </button>
         </div>
       );
       padF = (
         <div className="pad col-sm-3">
-          <button className="button" id={this.state.pad_f.id} onClick={this.onClick}>
+          <button className="button pad_f" id={this.state.pad_f.id} onClick={this.onClick}>
             {this.state.pad_f.name}
           </button>
         </div>
       );
       padG = (
         <div className="pad col-sm-3">
-          <button className="button" id={this.state.pad_g.id} onClick={this.onClick}>
+          <button className="button pad_g" id={this.state.pad_g.id} onClick={this.onClick}>
             {this.state.pad_g.name}
           </button>
         </div>
       );
       padH = (
         <div className="pad col-sm-3">
-          <button className="button" id={this.state.pad_h.id} onClick={this.onClick}>
+          <button className="button pad_h" id={this.state.pad_h.id} onClick={this.onClick}>
             {this.state.pad_h.name}
           </button>
         </div>

@@ -38,6 +38,11 @@ var arr = [];
 // arguments[0] is step: C
 // arguments[1] is octave: 4
 function embedEdit(){
+    let step_inp = String(arguments[0]);
+    console.log(step_inp);
+    let octave_inp = Number(arguments[1]);
+    console.log(octave_inp);
+
 		embed.getCursorPosition().then(function (position) {
             embed.edit([
               { name: 'action.AddNoteCrossMeasure', 
@@ -51,7 +56,8 @@ function embedEdit(){
                     nbDots:0,
                     noteIdx:position.noteIdx,
                     partIdx:position.partIdx,
-                    pitch:{step: arguments[0], octave: arguments[1]},
+                    // pitch:{step: arguments[0], octave: arguments[1]},
+                    pitch:{step: step_inp, octave: octave_inp},
                     staffIdx:position.staffIdx,
                     voiceIdx:position.voiceIdx
                 } }
@@ -199,7 +205,7 @@ function onMIDIMessage(message) {
         }
         else { // Programming Piano keyboards 
         	var step = m_step.get(data[1] % 12); // C
-	    	var octave = data[1] / 12; // 4
+	    	var octave = Math.round(data[1] / 12); // 4
 	    	arr.push(step + octave); // push("C4")
 	        embedEdit(step, octave); // add notation C4 at current cursor 
 	        document.getElementById(step + octave).style.background = "rgb(100,140,190)"; // visualize keyboard
@@ -236,7 +242,7 @@ function onMIDIMessage(message) {
         }
         else { // Programming Piano keyboards
         	var step = m_step.get(data[1] % 12); // C
-	    	var octave = data[1] / 12; // 4
+	    	var octave = Math.round(data[1] / 12); // 4
 	    	var index = arr.indexOf(step + octave); // locate released key
 	    	arr.splice(index, 1); // remove released key
 	    	if (step.length == 1) { // white key

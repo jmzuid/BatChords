@@ -1,0 +1,35 @@
+{
+  "pad_a": {
+    "name":"Playback Mode",
+    "id":"playback_menu"
+  },
+  "pad_b": {
+    "name":"Edit Mode",
+    "id":"not_implemented"
+  },
+  "pad_c": {
+    "name":"Seek Measure Left",
+    "id":"seek_m_left"
+  },
+  "pad_d": {
+    "name":"Seek Measure Right",
+    "id":"seek_m_right"
+  },
+  "pad_e": {
+    "name":"File Menu",
+    "id":"file_menu"
+  },
+  "pad_f": {
+    "name":" ",
+    "id":"not_implemented"
+  },
+  "pad_g": {
+    "name":"Seek Note Left",
+    "id":"seek_note_left"
+  },
+  "pad_h": {
+    "name":"Seek Note Right",
+    "id":"seek_note_right"
+  }
+
+}
