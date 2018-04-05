@@ -221,28 +221,28 @@ function onMIDIMessage(message) {
 
         //Programming for the pads
         if (data[1] == 100) {
-            padA.style.backgroundColor = "#4CAF50";
+            padA.style.backgroundColor = "#001860";
         }
         else if (data[1] == 101) {
-            padB.style.backgroundColor = "#4CAF50";
+            padB.style.backgroundColor = "#001860";
         }
         else if (data[1] == 102) {
-            padC.style.backgroundColor = "#4CAF50";
+            padC.style.backgroundColor = "#001860";
         }
         else if (data[1] == 103) {
-            padD.style.backgroundColor = "#4CAF50";
+            padD.style.backgroundColor = "#001860";
         }
         else if (data[1] == 104) {
-            padE.style.backgroundColor = "#4CAF50";
+            padE.style.backgroundColor = "#001860";
         }
         else if (data[1] == 105) {
-            padF.style.backgroundColor = "#4CAF50";
+            padF.style.backgroundColor = "#001860";
         }
         else if (data[1] == 106) {
-            padG.style.backgroundColor = "#4CAF50";
+            padG.style.backgroundColor = "#001860";
         }
         else if (data[1] == 107) {
-            padH.style.backgroundColor = "#4CAF50";
+            padH.style.backgroundColor = "#001860";
         }
         else { // Programming Piano keyboards
         	var step = m_step.get(data[1] % 12); // C
