@@ -1,4 +1,45 @@
 var midi, data;
+
+/* map of keys for our ketyboard */
+/* valid note values are 0 - 83 */
+/* 84 is a bug. */
+var notes = new Map();
+var chord_mappings = new Map();
+//populate_mappings(chord_mappings);
+// FIXME: MAYBE try to map to intervals.
+
+
+var chord_mode = true ;
+var chord_locked = false ;
+var note_sentinel = 85;
+
+//Converts a pitch to a note frequency.
+function frequencyFromNote( note ) {
+  var ret = 440 * Math.pow(2,(note-69)/12);
+  //console.log("note:" + note + "converts to frequency: " + ret);
+  return ret;
+};
+
+console.log("test");
+
+
+var audioCtx = new (AudioContext || webkitAudioContext)();
+var osc = audioCtx.createOscillator();
+
+osc.type = "triangle" ; // the type of oscillator we want to use.
+osc.connect(audioCtx.destination); //connect to the speakers.
+
+/* create all of the pitches for our keyboard. */
+/*
+for (i = 48; i < 73; i++){
+  var pitch = audioCtx.createOscillator();
+  pitch.type = "triangle" ;
+  var freq = frequencyFromNote(i) ;
+  pitch.frequency.setValueAtTime(freq, audioCtx.currentTime);
+  pitch.connect(audioCtx.destination);
+  notes[i] = pitch; /* place the pitch inside our map.
+} */
+
 // request MIDI access
 if (navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess({
@@ -8,9 +49,185 @@ if (navigator.requestMIDIAccess) {
     alert("No MIDI support in your browser.");
 }
 
+/* a sleep function. */
+function sleep(dur){
+  var waitUntil = new Date().getTime() + dur*1000;
+  while(new Date().getTime() < waitUntil) true;
+}
+
 // var a3_snd = new Audio("../piano-sound-kit/a3.mp3");
 // a3_snd.play();
 
+//inputs a two-note array, outputs a chord.
+//FIXME: does not handle single-note input.
+function playChord(chord){
+  // Maj7 = dist 7
+  // C7 = dist 4
+  // Cm7 = dist 10
+  // CmM7 = dist 3
+  // Cm7-5  = dist 8
+  // Cdim7 = dist 9
+  // Csus7 = dist 5
+  var root = chord[0];
+  var second, third, fourth;
+  switch (chord[1] - chord[0]){
+    case 0:   // Maj7
+      second = root + 4;
+      third = root + 7;
+      fourth = root + 11;
+      beginNote(root);
+      beginNote(second);
+      beginNote(third);
+      beginNote(fourth);
+      //sleep for a duration.
+      sleep(2); //FIXME: JUST FOR TESTING.
+      endNote(root);
+      endNote(second);
+      endNote(third);
+      endNote(fourth);
+      break;
+    case 3:   // m7-5
+      second = root + 3;
+      third = root + 7;
+      fourth = root + 11;
+      beginNote(root);
+      beginNote(second);
+      beginNote(third);
+      beginNote(fourth);
+      //sleep for a duration.
+      sleep(2); //FIXME: JUST FOR TESTING.
+      endNote(root);
+      endNote(second);
+      endNote(third);
+      endNote(fourth);
+      break;
+    case 4:   // m7
+      second = root + 4;
+      third = root + 7;
+      fourth = root + 11;
+      beginNote(root);
+      beginNote(second);
+      beginNote(third);
+      beginNote(fourth);
+      //sleep for a duration.
+      sleep(2); //FIXME: JUST FOR TESTING.
+      endNote(root);
+      endNote(second);
+      endNote(third);
+      endNote(fourth);
+      break;
+    case 5:  // sus7
+      second = root + 5;
+      third = root + 7;
+      fourth = root + 10;
+      beginNote(root);
+      beginNote(second);
+      beginNote(third);
+      beginNote(fourth);
+      //sleep for a duration.
+      sleep(2); //FIXME: JUST FOR TESTING.
+      endNote(root);
+      endNote(second);
+      endNote(third);
+      endNote(fourth);
+      break;
+    case 6: // m7-5
+      second = root + 3;
+      third = root + 6;
+      fourth = root + 10;
+      beginNote(root);
+      beginNote(second);
+      beginNote(third);
+      beginNote(fourth);
+      //sleep for a duration.
+      sleep(2); //FIXME: JUST FOR TESTING.
+      endNote(root);
+      endNote(second);
+      endNote(third);
+      endNote(fourth);
+      break;
+    case 7: // Maj7
+      second = root + 4;
+      third = root + 7;
+      fourth = root + 11;
+      beginNote(root);
+      beginNote(second);
+      beginNote(third);
+      beginNote(fourth);
+      //sleep for a duration.
+      sleep(2); //FIXME: JUST FOR TESTING.
+      endNote(root);
+      endNote(second);
+      endNote(third);
+      endNote(fourth);
+    break;
+    case 9:  // dim7
+      second = root + 3;
+      third = root + 6;
+      fourth = root + 9;
+      beginNote(root);
+      beginNote(second);
+      beginNote(third);
+      beginNote(fourth);
+      //sleep for a duration.
+      sleep(2); //FIXME: JUST FOR TESTING.
+      endNote(root);
+      endNote(second);
+      endNote(third);
+      endNote(fourth);
+      break;
+    case 10:  // m7
+      second = root + 3;
+      third = root + 7;
+      foruth = root + 10;
+      beginNote(root);
+      beginNote(second);
+      beginNote(third);
+      beginNote(fourth);
+      //sleep for a duration.
+      sleep(2); //FIXME: JUST FOR TESTING.
+      endNote(root);
+      endNote(second);
+      endNote(third);
+      endNote(fourth);
+      break;
+    default:
+      console.log("do nothing");
+  }
+  console.log("reset values");
+  chord[0] = note_sentinel;
+  chord[1] = note_sentinel;
+}
+
+//
+function beginNote(noteValue){
+  var pitch = audioCtx.createOscillator();
+  pitch.type = "triangle";
+  freq = frequencyFromNote(noteValue);
+  pitch.frequency.setValueAtTime(freq, audioCtx.currentTime);
+  //console.log("in beginNote");
+  //console.log(pitch.frequency);
+  pitch.connect(audioCtx.destination);
+  pitch.start(0);  //we can put a delay here if we want. (Think about multiple note values.)
+  notes[noteValue] = pitch ;
+};
+
+
+function endNote(noteValue){
+  //console.log("end note");
+  notes[noteValue].stop();
+};
+
+
+
+// generates the Oscillator for the MIDI sound
+//function Sound(frequency){
+//  this.osc = audioCtx.createOscillator() ; //create and oscillator
+//  this.pressed = false;
+//  this.osc.frequency.value = frequency;
+//  this.osc.type = "triangle";
+//  this.osc.start(0);
+//};
 
 // midi functions
 function onMIDISuccess(midiAccess) {
@@ -31,7 +248,11 @@ function onMIDIFailure(error) {
 }
 
 // global array used ONLY in chord mode
-var arr = [];
+var arr = []
+var chord = new Array(2);
+chord.fill(note_sentinel); //maximum values for keyboard input.
+
+console.log("new array of size: " + chord.length);
 
 // push one note onto sheet, do not attempt to move on
 // embedEdit("C", 4)
@@ -70,11 +291,42 @@ function embedEdit(){
 
 // a global map for steps
 var m_step = new Map([[0,"C"],[1,"CD"],[2,"D"],[3,"DE"],[4,"E"],[5,"F"],[6,"FG"],[7,"G"],[8,"GA"],[9,"A"],[10,"AB"],[11,"B"]]);
-var m_button = new Map([100,"pad_a"])
+var m_button = new Map([100,"pad_a"]) ;
 
 function onMIDIMessage(message) {
     data = message.data; // this gives us our [command/channel, note, velocity] data.
     console.log(data)
+    console.log("test")
+    //If not in chord mode,
+    //simply output notes.
+    if (chord_mode && (data[0] == 144) ){
+      if (chord[0] == note_sentinel) { // check first element in chord not sentinel.
+        console.log("data[1] < chord[1]");
+        console.log("adding " + data[1] + " to chord.")
+        chord[0] = data[1];
+      } else {
+        chord_locked = true;
+        chord[1] = data[1];
+        console.log("sorting chord.");
+        chord.sort();
+        playChord(chord);
+        chodr_locked = false;
+      }
+    } else if (chord_mode && (data[0] == 128) ){
+      console.log("Removing " + data[1] + " from index " + chord.indexOf(data[1]) );
+      chord[chord.indexOf(data[1])] = note_sentinel; //revert value to sentinel.
+    } else {
+      switch (data[0]){
+        case 144:
+          beginNote(data[1]);
+          break ;
+        case 128:
+          endNote(data[1]);
+          break ;
+        default:
+      }
+    }
+
 
     // C1 = document.getElementById("C1");
     // CD1 = document.getElementById("CD1");
@@ -270,3 +522,4 @@ function triggerEvent(el, type, keyCode) {
         el.fireEvent('on'+e.eventType, e);
     }
 }
+
