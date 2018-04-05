@@ -71,14 +71,26 @@ embed.on('cursorPosition', function (inp) {
   console.log(inp)
 });
 
+embed.on('getNoteCursor', function (inp) {
+  console.log('get note cursor');
+  console.log(inp)
+});
+
+
 embed.on('play', function (){
   console.log('play');
 });
 
-embed.on('Edit', function (inp) {
-  console.log('Edit');
+embed.on('cursor', function (inp) {
+  console.log('Cursor');
   console.log(inp);
 });
+
+embed.on('error', function (inp) {
+  console.log('Error');
+  console.log(inp);
+});
+
 
 // play_score.onclick = function() {
 //   embed.play().then(function () {
@@ -207,24 +219,54 @@ embed.on('Edit', function (inp) {
     
 // };
 
+// var playing = false;
 
+// document.onkeyup=function(e){
+//     if (e.which == 37) {
+//         // call your function to do the thing
+//         // pause_score.click();
+//         embed.focusScore().then(function () {
+//           // Focus is now on the score
+//         });
+//         console.log("left pedal triggered");
+//     }
+//     else if (e.which == 99) {
+//         // call your function to do the thing
+//         // play_score.click();
+//         if(!playing){
+//           embed.play().then(function () {
+//             // The score is playing
+//           });
+//           playing = true;
+//           console.log("playing from pedal");
+//         } else {
+//           embed.stop().then(function () {
+//             // The score is playing
+//           });
+//           playing = false;
+//           console.log("stopping with pedal");
+//         }
+//         console.log("middle pedal triggered");
+//     }
+//     else if (e.which == 39) {
+//         // call your function to do the thing
+//         // stop_score.click();
+//         embed.focusScore().then(function () {
+//           // Focus is now on the score
+//         });
+//         console.log("right pedal triggered");
+//     }
+// }
+
+
+// If space bar, right or left arrow are pressed sets focus to embedded
 document.onkeyup=function(e){
-    if (e.which == 65) {
-        // call your function to do the thing
-        pause_score.click();
-        console.log("left pedal triggered")
-    }
-    else if (e.which == 83) {
-        // call your function to do the thing
-        play_score.click();
-        console.log("middle pedal triggered")
-    }
-    else if (e.which == 68) {
-        // call your function to do the thing
-        stop_score.click();
-        console.log("right pedal triggered")
-    }
+  if (e.which == 37 || e.which == 39 || e.which == 32) {
+    // call your function to do the thing
+    // pause_score.click();
+    embed.focusScore().then(function () {
+      // Focus is now on the score
+    });
+    console.log("setting focus to iframe");
+  }
 }
-
-
-

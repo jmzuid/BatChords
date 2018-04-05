@@ -12,7 +12,8 @@ import os
 # Root of this application, useful if it doesn't occupy an entire domain
 APPLICATION_ROOT = '/'
 
-# SESSION_COOKIE_NAME = 'login'
+SECRET_KEY = b'e\xf25\x08\x96\xe2\x14\x19,S\x02\x8a{8\x95R\x04|\x97\xfb\xc0nYM'  # noqa: E501  pylint: disable=line-too-long
+SESSION_COOKIE_NAME = 'login'
 
 # File Upload to var/uploads/
 UPLOAD_FOLDER = os.path.join(

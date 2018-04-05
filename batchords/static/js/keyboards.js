@@ -263,12 +263,16 @@ function embedEdit(){
     console.log(step_inp);
     let octave_inp = Number(arguments[1]);
     console.log(octave_inp);
-
+    var acc = null;
+    if (step_inp.length == 2) {
+        acc = "sharp";
+        step_inp = step_inp[0];
+    }
 		embed.getCursorPosition().then(function (position) {
             embed.edit([
               { name: 'action.AddNoteCrossMeasure',
                 opts: {
-                    accidental:null,
+                    accidental:acc,
                     actionOrigin:"local.do",
                     durationType:3,
                     insertMode:"replace",
@@ -291,7 +295,7 @@ function embedEdit(){
 
 // a global map for steps
 var m_step = new Map([[0,"C"],[1,"CD"],[2,"D"],[3,"DE"],[4,"E"],[5,"F"],[6,"FG"],[7,"G"],[8,"GA"],[9,"A"],[10,"AB"],[11,"B"]]);
-var m_button = new Map([100,"pad_a"]) ;
+// var m_button = new Map([100,"pad_a"])
 
 function onMIDIMessage(message) {
     data = message.data; // this gives us our [command/channel, note, velocity] data.
@@ -457,7 +461,7 @@ function onMIDIMessage(message) {
         }
         else { // Programming Piano keyboards
         	var step = m_step.get(data[1] % 12); // C
-	    	var octave = Math.round(data[1] / 12); // 4
+	    	var octave = Math.floor(data[1] / 12); // 4
 	    	arr.push(step + octave); // push("C4")
 	        embedEdit(step, octave); // add notation C4 at current cursor
 	        document.getElementById(step + octave).style.background = "rgb(100,140,190)"; // visualize keyboard
@@ -469,32 +473,32 @@ function onMIDIMessage(message) {
 
         //Programming for the pads
         if (data[1] == 100) {
-            padA.style.backgroundColor = "#4CAF50";
+            padA.style.backgroundColor = "#001860";
         }
         else if (data[1] == 101) {
-            padB.style.backgroundColor = "#4CAF50";
+            padB.style.backgroundColor = "#001860";
         }
         else if (data[1] == 102) {
-            padC.style.backgroundColor = "#4CAF50";
+            padC.style.backgroundColor = "#001860";
         }
         else if (data[1] == 103) {
-            padD.style.backgroundColor = "#4CAF50";
+            padD.style.backgroundColor = "#001860";
         }
         else if (data[1] == 104) {
-            padE.style.backgroundColor = "#4CAF50";
+            padE.style.backgroundColor = "#001860";
         }
         else if (data[1] == 105) {
-            padF.style.backgroundColor = "#4CAF50";
+            padF.style.backgroundColor = "#001860";
         }
         else if (data[1] == 106) {
-            padG.style.backgroundColor = "#4CAF50";
+            padG.style.backgroundColor = "#001860";
         }
         else if (data[1] == 107) {
-            padH.style.backgroundColor = "#4CAF50";
+            padH.style.backgroundColor = "#001860";
         }
         else { // Programming Piano keyboards
         	var step = m_step.get(data[1] % 12); // C
-	    	var octave = Math.round(data[1] / 12); // 4
+	    	var octave = Math.floor(data[1] / 12); // 4
 	    	var index = arr.indexOf(step + octave); // locate released key
 	    	arr.splice(index, 1); // remove released key
 	    	if (step.length == 1) { // white key
