@@ -1,11 +1,11 @@
 {
   "pad_a": {
-    "name":" ",
-    "id":" "
+    "name":"Decrease Measures Affected",
+    "id":"decr_ts_measures"
   },
   "pad_b": {
-    "name":" ",
-    "id":" "
+    "name":"Increase Measures Affected",
+    "id":"incr_ts_measures"
   },
   "pad_c": {
     "name":"Decrease Beats",

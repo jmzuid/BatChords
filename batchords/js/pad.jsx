@@ -9,7 +9,7 @@ class Pad extends React.Component {
     // this.handlePadClick = this.handlePadClick.bind(this);
     this.onClick = this.handleClick.bind(this);
     this.state = { pad_a: {}, pad_b: {}, pad_c: {}, pad_d: {}, pad_e: {}, pad_f: {}, pad_g: {}, pad_h: {}, 
-                   noteDuration: 3, measure_btype: 2, measure_beats: 4 };
+                   noteDuration: 3, measure_btype: 2, measure_beats: 4, ts_measures: 0 };
   }
 
   componentDidMount() {
@@ -244,6 +244,19 @@ class Pad extends React.Component {
         });
         break;
 
+      case "incr_ts_measures":
+        this.setState({ts_measures: this.state.ts_measures + 1});
+        console.log(this.state.ts_measures); 
+        break;
+
+      case "decr_ts_measures":
+        if(this.state.ts_measures == 0){
+          return;
+        }
+        this.setState({ts_measures: this.state.ts_measures - 1});
+        console.log(this.state.ts_measures); 
+        break;
+
       case "incr_beats":
         if(this.state.measure_beats == 64){
           return;
@@ -279,6 +292,7 @@ class Pad extends React.Component {
       case "set_time_signature":
         let temp_beats = this.state.measure_beats;
         let temp_btype = this.state.measure_btype;
+        let temp_ts_meas = this.state.ts_measures;
         embed.getCursorPosition().then(function (position) {
           embed.edit([
             { name: 'action.SetTimeSignature', 
@@ -287,7 +301,7 @@ class Pad extends React.Component {
                   displayedTime: {"beats": temp_beats, "beat-type": Math.pow(2,temp_btype)},
                   line:position.line,
                   startMeasureIdx:position.measureIdx,
-                  stopMeasureIdx:position.measureIdx+1,
+                  stopMeasureIdx:position.measureIdx+temp_ts_meas,
                   noteIdx:position.noteIdx,
                   partIdx:position.partIdx,
                   staffIdx:position.staffIdx,
@@ -576,6 +590,27 @@ class Pad extends React.Component {
       </div>
     );
 
+    if(this.state.pad_a.id == "decr_ts_measures"){
+      padA = (
+        <div className="pad col-sm-3">
+          <button className="button pad_a" id={this.state.pad_a.id} onClick={this.onClick}>
+            {this.state.pad_a.name} - ({this.state.ts_measures})
+          </button>
+        </div>
+      );
+    }
+
+    if(this.state.pad_b.id == "incr_ts_measures"){
+      padB = (
+        <div className="pad col-sm-3">
+          <button className="button pad_b" id={this.state.pad_b.id} onClick={this.onClick}>
+            {this.state.pad_b.name} - ({this.state.ts_measures + 2})
+          </button>
+        </div>
+      );
+    }
+
+
     if(this.state.pad_c.id == "decr_note_duration"){
       padC = (
         <div className="pad col-sm-3">
@@ -618,7 +653,7 @@ class Pad extends React.Component {
       padF = (
         <div className="pad col-sm-3">
           <button className="button pad_f" id={this.state.pad_f.id} onClick={this.onClick}>
-            {this.state.pad_f.name} - ({this.state.measure_beats}/{Math.pow(2,this.state.measure_btype)})
+            {this.state.pad_f.name} - ({this.state.measure_beats}/{Math.pow(2,this.state.measure_btype)}) - {this.state.ts_measures + 1} measures
           </button>
         </div>
       );
