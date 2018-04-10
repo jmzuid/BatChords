@@ -28,8 +28,8 @@
     "id":"not_implemented"
   },
   "pad_h": {
-    "name":" ",
-    "id":"not_implemented"
+    "name":"Time Signature (TEMP)",
+    "id":"time_signature_menu"
   }
 
 }

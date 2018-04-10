@@ -8,7 +8,8 @@ class Pad extends React.Component {
     super(props);
     // this.handlePadClick = this.handlePadClick.bind(this);
     this.onClick = this.handleClick.bind(this);
-    this.state = { pad_a: {}, pad_b: {}, pad_c: {}, pad_d: {}, pad_e: {}, pad_f: {}, pad_g: {}, pad_h: {}, noteDuration: 3 };
+    this.state = { pad_a: {}, pad_b: {}, pad_c: {}, pad_d: {}, pad_e: {}, pad_f: {}, pad_g: {}, pad_h: {}, 
+                   noteDuration: 3, measure_btype: 2, measure_beats: 4 };
   }
 
   componentDidMount() {
@@ -217,6 +218,7 @@ class Pad extends React.Component {
         break;
 
       case "set_note_duration":
+        //Temp variable is to fix error where JavaScript cannot read the state variable when input into edit
         let temp_dur = this.state.noteDuration;
         console.log(temp_dur);
         embed.getCursorPosition().then(function (position) {
@@ -233,6 +235,63 @@ class Pad extends React.Component {
                   noteIdx:position.noteIdx,
                   partIdx:position.partIdx,
                   staffIdx:position.staffIdx,
+                  voiceIdx:position.voiceIdx
+              } }
+          ]).catch(function (error) {
+            // Error while executing the actions
+              console.log("embedEdit error: " + error)
+          });
+        });
+        break;
+
+      case "incr_beats":
+        if(this.state.measure_beats == 64){
+          return;
+        }
+        this.setState({measure_beats: this.state.measure_beats + 1});
+        console.log(this.state.measure_beats); 
+        break;
+
+      case "decr_beats":
+        if(this.state.measure_beats == 1){
+          return;
+        }
+        this.setState({measure_beats: this.state.measure_beats - 1});
+        console.log(this.state.measure_beats); 
+        break;
+
+      case "incr_btype":
+        if(this.state.measure_btype == 6){
+          return;
+        }
+        this.setState({measure_btype: this.state.measure_btype + 1});
+        console.log(this.state.measure_btype); 
+        break;
+
+      case "decr_btype":
+        if(this.state.measure_btype == 0){
+          return;
+        }
+        this.setState({measure_btype: this.state.measure_btype - 1});
+        console.log(this.state.measure_btype); 
+        break;
+
+      case "set_time_signature":
+        let temp_beats = this.state.measure_beats;
+        let temp_btype = this.state.measure_btype;
+        embed.getCursorPosition().then(function (position) {
+          embed.edit([
+            { name: 'action.SetTimeSignature', 
+              opts: { 
+                  actionOrigin:"local.do",
+                  displayedTime: {"beats": temp_beats, "beat-type": Math.pow(2,temp_btype)},
+                  line:position.line,
+                  startMeasureIdx:position.measureIdx,
+                  stopMeasureIdx:position.measureIdx+1,
+                  noteIdx:position.noteIdx,
+                  partIdx:position.partIdx,
+                  staffIdx:position.staffIdx,
+                  timeSignature: {"beats": temp_beats, "beat-type": Math.pow(2,temp_btype)},
                   voiceIdx:position.voiceIdx
               } }
           ]).catch(function (error) {
@@ -420,6 +479,28 @@ class Pad extends React.Component {
 
         break;
 
+      case "time_signature_menu":
+        const time_url = `/api/pads/time_signature`;
+        fetch(time_url, { credentials: 'same-origin' })
+        .then((response) => {
+          if (!response.ok) throw Error(response.statusText);
+          return response.json();
+        })
+        .then((data) => {
+          this.setState({
+            pad_a: data.pads_info.pad_a,
+            pad_b: data.pads_info.pad_b,
+            pad_c: data.pads_info.pad_c,
+            pad_d: data.pads_info.pad_d,
+            pad_e: data.pads_info.pad_e,
+            pad_f: data.pads_info.pad_f,
+            pad_g: data.pads_info.pad_g,
+            pad_h: data.pads_info.pad_h,
+          });
+        })
+        .catch(error => console.log(error));
+
+        break;
 
 
     }
@@ -504,6 +585,15 @@ class Pad extends React.Component {
         </div>
       );
     }
+    else if(this.state.pad_c.id == "decr_beats"){
+      padC = (
+        <div className="pad col-sm-3">
+          <button className="button pad_c" id={this.state.pad_c.id} onClick={this.onClick}>
+            {this.state.pad_c.name} - ({this.state.measure_beats - 1})
+          </button>
+        </div>
+      );
+    }
 
     if(this.state.pad_d.id == "incr_note_duration"){
       padD = (
@@ -514,12 +604,50 @@ class Pad extends React.Component {
         </div>
       );
     }
+    else if(this.state.pad_d.id == "incr_beats"){
+      padD = (
+        <div className="pad col-sm-3">
+          <button className="button pad_d" id={this.state.pad_d.id} onClick={this.onClick}>
+            {this.state.pad_d.name} - ({this.state.measure_beats + 1})
+          </button>
+        </div>
+      );
+    }
+
+    if(this.state.pad_f.id == "set_time_signature"){
+      padF = (
+        <div className="pad col-sm-3">
+          <button className="button pad_f" id={this.state.pad_f.id} onClick={this.onClick}>
+            {this.state.pad_f.name} - ({this.state.measure_beats}/{Math.pow(2,this.state.measure_btype)})
+          </button>
+        </div>
+      );
+    }
+
+    if(this.state.pad_g.id == "decr_btype"){
+      padG = (
+        <div className="pad col-sm-3">
+          <button className="button pad_g" id={this.state.pad_g.id} onClick={this.onClick}>
+            {this.state.pad_g.name} - ({Math.pow(2,this.state.measure_btype - 1)})
+          </button>
+        </div>
+      );
+    }
 
     if(this.state.pad_h.id == "set_note_duration"){
       padH= (
         <div className="pad col-sm-3">
           <button className="button pad_h" id={this.state.pad_h.id} onClick={this.onClick}>
             {this.state.pad_h.name} - ({dur_map.get(this.state.noteDuration)})
+          </button>
+        </div>
+      );
+    }
+    else if(this.state.pad_h.id == "incr_btype"){
+      padH = (
+        <div className="pad col-sm-3">
+          <button className="button pad_h" id={this.state.pad_h.id} onClick={this.onClick}>
+            {this.state.pad_h.name} - ({Math.pow(2,this.state.measure_btype + 1)})
           </button>
         </div>
       );
