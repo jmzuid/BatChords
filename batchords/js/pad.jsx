@@ -201,6 +201,102 @@ class Pad extends React.Component {
         });
         break;
 
+      case "set_note_flat":
+        embed.getCursorPosition().then(function (position) {
+          embed.edit([
+            { name: 'action.RemoveCourtesyAccidentals', 
+              opts: { 
+                  accidental: "flat",
+                  isConcertPitch: false,
+                  line:position.line,
+                  measureIdx:position.measureIdx,
+                  noteIdx:position.noteIdx,
+                  partIdx:position.partIdx,
+                  staffIdx:position.staffIdx,
+                  voiceIdx:position.voiceIdx
+              } }
+          ]).catch(function (error) {
+            // Error while executing the actions
+              console.log("embedEdit error: " + error)
+          });
+          embed.edit([
+            { name: 'action.AddAccidentals', 
+              opts: { 
+                  accidental: "flat",
+                  isConcertPitch: false,
+                  line:position.line,
+                  measureIdx:position.measureIdx,
+                  noteIdx:position.noteIdx,
+                  partIdx:position.partIdx,
+                  staffIdx:position.staffIdx,
+                  voiceIdx:position.voiceIdx
+              } }
+          ]).catch(function (error) {
+            // Error while executing the actions
+              console.log("embedEdit error: " + error)
+          });
+        });
+
+        break;
+
+      case "set_note_sharp":
+        embed.getCursorPosition().then(function (position) {
+          embed.edit([
+            { name: 'action.RemoveCourtesyAccidentals', 
+              opts: { 
+                  accidental: "sharp",
+                  isConcertPitch: false,
+                  line:position.line,
+                  measureIdx:position.measureIdx,
+                  noteIdx:position.noteIdx,
+                  partIdx:position.partIdx,
+                  staffIdx:position.staffIdx,
+                  voiceIdx:position.voiceIdx
+              } }
+          ]).catch(function (error) {
+            // Error while executing the actions
+              console.log("embedEdit error: " + error)
+          });
+          embed.edit([
+            { name: 'action.AddAccidentals', 
+              opts: { 
+                  accidental: "sharp",
+                  isConcertPitch: false,
+                  line:position.line,
+                  measureIdx:position.measureIdx,
+                  noteIdx:position.noteIdx,
+                  partIdx:position.partIdx,
+                  staffIdx:position.staffIdx,
+                  voiceIdx:position.voiceIdx
+              } }
+          ]).catch(function (error) {
+            // Error while executing the actions
+              console.log("embedEdit error: " + error)
+          });
+        });
+        break;
+
+      case "remove_accidentals":
+        embed.getCursorPosition().then(function (position) {
+          embed.edit([
+            { name: 'action.RemoveAccidentals', 
+              opts: { 
+                  actionOrigin: "local.do",
+                  isConcertPitch: false,
+                  line:position.line,
+                  measureIdx:position.measureIdx,
+                  noteIdx:position.noteIdx,
+                  partIdx:position.partIdx,
+                  staffIdx:position.staffIdx,
+                  voiceIdx:position.voiceIdx
+              } }
+          ]).catch(function (error) {
+            // Error while executing the actions
+              console.log("embedEdit error: " + error)
+          });
+        });
+        break;
+
       case "incr_note_duration":
         if(this.state.noteDuration == 1){
           return;

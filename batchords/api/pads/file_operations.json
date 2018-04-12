@@ -8,12 +8,12 @@
     "id":"not_implemented"
   },
   "pad_c": {
-    "name":" ",
-    "id":"not_implemented"
+    "name":"Set Note Sharp",
+    "id":"set_note_sharp"
   },
   "pad_d": {
-    "name":" ",
-    "id":"not_implemented"
+    "name":"Set Note Flat",
+    "id":"set_note_flat"
   },
   "pad_e": {
     "name":"Login",
@@ -24,8 +24,8 @@
     "id":"tutorial"
   },
   "pad_g": {
-    "name":" ",
-    "id":"not_implemented"
+    "name":"Remove Accidentals",
+    "id":"remove_accidentals"
   },
   "pad_h": {
     "name":"Time Signature (TEMP)",
