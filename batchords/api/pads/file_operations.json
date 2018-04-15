@@ -8,8 +8,8 @@
     "id":"not_implemented"
   },
   "pad_c": {
-    "name":"Set Note Sharp",
-    "id":"set_note_sharp"
+    "name":"Note Functions",
+    "id":"note_functions"
   },
   "pad_d": {
     "name":"Set Note Flat",

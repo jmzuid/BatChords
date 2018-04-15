@@ -1,0 +1,34 @@
+{
+  "pad_a": {
+    "name":"Set Note Sharp",
+    "id":"set_note_sharp"
+  },
+  "pad_b": {
+    "name":"Set Note Flat",
+    "id":"set_note_flat"
+  },
+  "pad_c": {
+    "name":"",
+    "id":""
+  },
+  "pad_d": {
+    "name":"",
+    "id":""
+  },
+  "pad_e": {
+    "name":"Menu",
+    "id":"main_menu"
+  },
+  "pad_f": {
+    "name":"Remove Accidentals",
+    "id":"remove_accidentals"
+  },
+  "pad_g": {
+    "name":"",
+    "id":""
+  },
+  "pad_h": {
+    "name":" ",
+    "id":" "
+  }
+}

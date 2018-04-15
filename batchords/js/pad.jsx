@@ -612,6 +612,29 @@ class Pad extends React.Component {
 
         break;
 
+      case "note_functions":
+        const note_url = `/api/pads/note_functions`;
+        fetch(note_url, { credentials: 'same-origin' })
+        .then((response) => {
+          if (!response.ok) throw Error(response.statusText);
+          return response.json();
+        })
+        .then((data) => {
+          this.setState({
+            pad_a: data.pads_info.pad_a,
+            pad_b: data.pads_info.pad_b,
+            pad_c: data.pads_info.pad_c,
+            pad_d: data.pads_info.pad_d,
+            pad_e: data.pads_info.pad_e,
+            pad_f: data.pads_info.pad_f,
+            pad_g: data.pads_info.pad_g,
+            pad_h: data.pads_info.pad_h,
+          });
+        })
+        .catch(error => console.log(error));
+
+        break;
+
 
     }
     console.log(id);
