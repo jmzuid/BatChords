@@ -7,6 +7,7 @@ class Pad extends React.Component {
     // Initialize mutable state
     super(props);
     // this.handlePadClick = this.handlePadClick.bind(this);
+    this._loadPads = this._loadPads.bind(this);
     this.onClick = this.handleClick.bind(this);
     this.state = { pad_a: {}, pad_b: {}, pad_c: {}, pad_d: {}, pad_e: {}, pad_f: {}, pad_g: {}, pad_h: {}, 
                    noteDuration: 3, measure_btype: 2, measure_beats: 4, ts_measures: 0 };
@@ -484,146 +485,39 @@ class Pad extends React.Component {
 
       case "main_menu":
       case "not_implemented":
-        const main_url = `/api/pads/main`;
-        fetch(main_url, { credentials: 'same-origin' })
-        .then((response) => {
-          if (!response.ok) throw Error(response.statusText);
-          return response.json();
-        })
-        .then((data) => {
-          this.setState({
-            pad_a: data.pads_info.pad_a,
-            pad_b: data.pads_info.pad_b,
-            pad_c: data.pads_info.pad_c,
-            pad_d: data.pads_info.pad_d,
-            pad_e: data.pads_info.pad_e,
-            pad_f: data.pads_info.pad_f,
-            pad_g: data.pads_info.pad_g,
-            pad_h: data.pads_info.pad_h,
-          });
-        })
-        .catch(error => console.log(error));
-
+        this._loadPads('main');
         break;
 
       case "file_menu":
-        const file_url = `/api/pads/file_operations`;
-        fetch(file_url, { credentials: 'same-origin' })
-        .then((response) => {
-          if (!response.ok) throw Error(response.statusText);
-          return response.json();
-        })
-        .then((data) => {
-          this.setState({
-            pad_a: data.pads_info.pad_a,
-            pad_b: data.pads_info.pad_b,
-            pad_c: data.pads_info.pad_c,
-            pad_d: data.pads_info.pad_d,
-            pad_e: data.pads_info.pad_e,
-            pad_f: data.pads_info.pad_f,
-            pad_g: data.pads_info.pad_g,
-            pad_h: data.pads_info.pad_h,
-          });
-        })
-        .catch(error => console.log(error));
-
+        this._loadPads('file_operations');
         break;
 
       case "playback_menu":
-        const play_url = `/api/pads/playback`;
-        fetch(play_url, { credentials: 'same-origin' })
-        .then((response) => {
-          if (!response.ok) throw Error(response.statusText);
-          return response.json();
-        })
-        .then((data) => {
-          this.setState({
-            pad_a: data.pads_info.pad_a,
-            pad_b: data.pads_info.pad_b,
-            pad_c: data.pads_info.pad_c,
-            pad_d: data.pads_info.pad_d,
-            pad_e: data.pads_info.pad_e,
-            pad_f: data.pads_info.pad_f,
-            pad_g: data.pads_info.pad_g,
-            pad_h: data.pads_info.pad_h,
-          });
-        })
-        .catch(error => console.log(error));
-
+        this._loadPads('playback');
         break;
 
       case "edit_mode":
-        const edit_url = `/api/pads/edit`;
-        fetch(edit_url, { credentials: 'same-origin' })
-        .then((response) => {
-          if (!response.ok) throw Error(response.statusText);
-          return response.json();
-        })
-        .then((data) => {
-          this.setState({
-            pad_a: data.pads_info.pad_a,
-            pad_b: data.pads_info.pad_b,
-            pad_c: data.pads_info.pad_c,
-            pad_d: data.pads_info.pad_d,
-            pad_e: data.pads_info.pad_e,
-            pad_f: data.pads_info.pad_f,
-            pad_g: data.pads_info.pad_g,
-            pad_h: data.pads_info.pad_h,
-          });
-        })
-        .catch(error => console.log(error));
-
+        this._loadPads('edit');
         break;
 
       case "measure_menu":
-        const meas_url = `/api/pads/measure_functions`;
-        fetch(meas_url, { credentials: 'same-origin' })
-        .then((response) => {
-          if (!response.ok) throw Error(response.statusText);
-          return response.json();
-        })
-        .then((data) => {
-          this.setState({
-            pad_a: data.pads_info.pad_a,
-            pad_b: data.pads_info.pad_b,
-            pad_c: data.pads_info.pad_c,
-            pad_d: data.pads_info.pad_d,
-            pad_e: data.pads_info.pad_e,
-            pad_f: data.pads_info.pad_f,
-            pad_g: data.pads_info.pad_g,
-            pad_h: data.pads_info.pad_h,
-          });
-        })
-        .catch(error => console.log(error));
-
+        this._loadPads('measure_functions');
         break;
 
       case "time_signature_menu":
-        const time_url = `/api/pads/time_signature`;
-        fetch(time_url, { credentials: 'same-origin' })
-        .then((response) => {
-          if (!response.ok) throw Error(response.statusText);
-          return response.json();
-        })
-        .then((data) => {
-          this.setState({
-            pad_a: data.pads_info.pad_a,
-            pad_b: data.pads_info.pad_b,
-            pad_c: data.pads_info.pad_c,
-            pad_d: data.pads_info.pad_d,
-            pad_e: data.pads_info.pad_e,
-            pad_f: data.pads_info.pad_f,
-            pad_g: data.pads_info.pad_g,
-            pad_h: data.pads_info.pad_h,
-          });
-        })
-        .catch(error => console.log(error));
-
+        this._loadPads('time_signature');
         break;
 
       case "note_functions":
-        const note_url = `/api/pads/note_functions`;
-        fetch(note_url, { credentials: 'same-origin' })
+        this._loadPads('note_functions');
+        break;
+    }
+    console.log(id);
+  }
+
+  _loadPads(inp_url){
+    const set_url = `/api/pads/` + inp_url;
+        fetch(set_url, { credentials: 'same-origin' })
         .then((response) => {
           if (!response.ok) throw Error(response.statusText);
           return response.json();
@@ -641,13 +535,8 @@ class Pad extends React.Component {
           });
         })
         .catch(error => console.log(error));
-
-        break;
-
-
-    }
-    console.log(id);
   }
+
 
   render() {
     let dur_map = new Map([[7,"1/64"],[6,"1/32"],[5,"1/16"],[4,"1/8"],[3,"1/4"],[2,"1/2"],[1,"1"]]);
