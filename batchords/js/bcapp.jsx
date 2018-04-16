@@ -13,9 +13,10 @@ class BCApp extends React.Component {
 
 
   render() {
+    var container = document.getElementById('bcApp_div');
     return (
       <div id="bcApp">
-        <Pad />
+        <Pad api_url={container.getAttribute('api_url')}/>
       </div>
     );
   }

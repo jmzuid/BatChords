@@ -1,0 +1,34 @@
+{
+  "pad_a": {
+    "name":"Decrease Measures Affected",
+    "id":"decr_ts_measures"
+  },
+  "pad_b": {
+    "name":"Increase Measures Affected",
+    "id":"incr_ts_measures"
+  },
+  "pad_c": {
+    "name":"Decrease Beats",
+    "id":"decr_beats"
+  },
+  "pad_d": {
+    "name":"Increase Beats",
+    "id":"incr_beats"
+  },
+  "pad_e": {
+    "name":"Back",
+    "id":"file_menu"
+  },
+  "pad_f": {
+    "name":"Set Time Signature",
+    "id":"set_time_signature"
+  },
+  "pad_g": {
+    "name":"Decrease Beat Type",
+    "id":"decr_btype"
+  },
+  "pad_h": {
+    "name":"Increase Beat Type",
+    "id":"incr_btype"
+  }
+}

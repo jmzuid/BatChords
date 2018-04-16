@@ -1,0 +1,34 @@
+{
+  "pad_a": {
+    "name":"Login",
+    "id":"login"
+  },
+  "pad_b": {
+    "name":" ",
+    "id":""
+  },
+  "pad_c": {
+    "name":" ",
+    "id":" "
+  },
+  "pad_d": {
+    "name":" ",
+    "id":" "
+  },
+  "pad_e": {
+    "name":" ",
+    "id":" "
+  },
+  "pad_f": {
+    "name":" ",
+    "id":" "
+  },
+  "pad_g": {
+    "name":" ",
+    "id":" "
+  },
+  "pad_h": {
+    "name":" ",
+    "id":" "
+  }
+}
