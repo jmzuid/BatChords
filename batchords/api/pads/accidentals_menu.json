@@ -16,8 +16,8 @@
     "id":""
   },
   "pad_e": {
-    "name":"Menu",
-    "id":"main_menu"
+    "name":"Back",
+    "id":"edit_menu"
   },
   "pad_f": {
     "name":"Remove Accidentals",

@@ -1,11 +1,11 @@
 {
   "pad_a": {
-    "name":"Playback Mode",
+    "name":"Playback Menu",
     "id":"playback_menu"
   },
   "pad_b": {
-    "name":"Edit Mode",
-    "id":"edit_mode"
+    "name":"Edit Menu",
+    "id":"edit_menu"
   },
   "pad_c": {
     "name":" ",

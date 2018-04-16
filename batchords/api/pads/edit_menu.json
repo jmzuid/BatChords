@@ -1,0 +1,34 @@
+{
+  "pad_a": {
+    "name":"Remove Note",
+    "id":"remove_note"
+  },
+  "pad_b": {
+    "name":"Pitch Up",
+    "id":"pitch_up"
+  },
+  "pad_c": {
+    "name":"Accidentals",
+    "id":"accidentals_menu"
+  },
+  "pad_d": {
+    "name":"Time Signature",
+    "id":"time_signature_menu"
+  },
+  "pad_e": {
+    "name":"Back",
+    "id":"main_menu"
+  },
+  "pad_f": {
+    "name":"Pitch Down",
+    "id":"pitch_down"
+  },
+  "pad_g": {
+    "name":"Duration",
+    "id":"duration_menu"
+  },
+  "pad_h": {
+    "name":"Miscellaneous",
+    "id":"misc_menu"
+  }
+}

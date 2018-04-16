@@ -17,7 +17,7 @@
   },
   "pad_e": {
     "name":"Back",
-    "id":"file_menu"
+    "id":"edit_menu"
   },
   "pad_f": {
     "name":"Set Time Signature",

@@ -4,31 +4,31 @@
     "id":"remove_note"
   },
   "pad_b": {
-    "name":"Pitch Up",
-    "id":"pitch_up"
-  },
-  "pad_c": {
     "name":"Decr Note Duration",
     "id":"decr_note_duration"
   },
-  "pad_d": {
+  "pad_c": {
     "name":"Incr Note Duration",
     "id":"incr_note_duration"
   },
+  "pad_d": {
+    "name":" ",
+    "id":" "
+  },
   "pad_e": {
-    "name":"Menu",
-    "id":"main_menu"
+    "name":"Back",
+    "id":"edit_menu"
   },
   "pad_f": {
-    "name":"Pitch Down",
-    "id":"pitch_down"
-  },
-  "pad_g": {
-    "name":"Measure functions",
-    "id":"measure_menu"
-  },
-  "pad_h": {
     "name":"Set Note Duration",
     "id":"set_note_duration"
+  },
+  "pad_g": {
+    "name":"Set Note Duration",
+    "id":"set_note_duration_dotted"
+  },
+  "pad_h": {
+    "name":" ",
+    "id":" "
   }
 }

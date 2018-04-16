@@ -1,0 +1,34 @@
+{
+  "pad_a": {
+    "name":"Set Tempo",
+    "id":"set_tempo"
+  },
+  "pad_b": {
+    "name":"Decrease Tempo",
+    "id":"decr_tempo"
+  },
+  "pad_c": {
+    "name":"Increase Tempo",
+    "id":"incr_tempo"
+  },
+  "pad_d": {
+    "name":" ",
+    "id":" "
+  },
+  "pad_e": {
+    "name":"Back",
+    "id":"misc_menu"
+  },
+  "pad_f": {
+    "name":"Decrease Measures Affected",
+    "id":"decr_tempo_measures"
+  },
+  "pad_g": {
+    "name":"Increase Measures Affected",
+    "id":"incr_tempo_measures"
+  },
+  "pad_h": {
+    "name":" ",
+    "id":" "
+  }
+}

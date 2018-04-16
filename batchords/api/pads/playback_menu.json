@@ -16,7 +16,7 @@
     "id":"seek_m_right"
   },
   "pad_e": {
-    "name":"Menu",
+    "name":"Back",
     "id":"main_menu"
   },
   "pad_f": {
