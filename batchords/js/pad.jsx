@@ -13,7 +13,7 @@ class Pad extends React.Component {
   }
 
   componentDidMount() {
-    const url = `/api/pads/file_operations`;
+    const url = `/api/pads/` + this.props.api_url;
     fetch(url, { credentials: 'same-origin' })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
@@ -45,7 +45,12 @@ class Pad extends React.Component {
 
   handleClick(event) {
     const {id} = event.target;
-    var embed = new Flat.Embed('embed-container');
+    try {
+      var embed = new Flat.Embed('embed-container');
+    }
+    catch(error) {
+      console.log("No Flat embeded object on this page.");
+    }
 
     switch(id) {
       case "play_score":
@@ -471,6 +476,10 @@ class Pad extends React.Component {
 
       case "tutorial":
         window.location.replace("http://localhost:8000/tutorial");
+        break;
+
+      case "login":
+        window.location.replace("http://localhost:8000/home");
         break;
 
       case "main_menu":
