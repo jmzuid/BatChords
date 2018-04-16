@@ -189,7 +189,7 @@ function stopChord(chord) {
 //begins a single note not in the chord.
 function beginNoteChord(noteValue) {
   var pitch = audioCtx.createOscillator();
-  pitch.type = "piano";
+  pitch.type = "triangle";
   freq = frequencyFromNote(noteValue);
   pitch.frequency.setValueAtTime(freq, audioCtx.currentTime);
   pitch.connect(audioCtx.destination);
