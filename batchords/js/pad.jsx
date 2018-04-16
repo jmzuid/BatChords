@@ -794,7 +794,7 @@ class Pad extends React.Component {
       padG= (
         <div className="pad col-sm-3">
           <button className="button pad_g" id={this.state.pad_g.id} onClick={this.onClick}>
-            {this.state.pad_g.name} - ({dur_map.get(this.state.noteDuration)} - Dotted)
+            {this.state.pad_g.name} - ({dur_map.get(this.state.noteDuration)}-Dotted)
           </button>
         </div>
       );
