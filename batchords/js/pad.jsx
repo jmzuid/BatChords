@@ -11,7 +11,7 @@ class Pad extends React.Component {
     this.onClick = this.handleClick.bind(this);
     this.state = { pad_a: {}, pad_b: {}, pad_c: {}, pad_d: {}, pad_e: {}, pad_f: {}, pad_g: {}, pad_h: {}, 
                    noteDuration: 3, measure_btype: 2, measure_beats: 4, ts_measures: 0,
-                   tempo_measures: 0, tempo: 120};
+                   tempo_measures: 0, tempo: 120, tutorial_section: 1};
   }
 
   componentDidMount() {
@@ -525,8 +525,46 @@ class Pad extends React.Component {
         });
         break;
 
+      case "up":
+        let ts_temp_up = this.state.tutorial_section;
+        if(ts_temp_up == 1){
+          return;
+        }
+        let cur_sec_up = document.getElementById('tut' + ts_temp_up);
+        let next_sec_up = document.getElementById('tut' + (ts_temp_up - 1));
+        
+        this.setState({tutorial_section: ts_temp_up - 1});
+
+        console.log(ts_temp_up);
+        console.log(this.state.tutorial_section);
+
+        cur_sec_up.style.backgroundColor = "#1C1E1f";
+        next_sec_up.style.backgroundColor = "green";
+        break;
+
+      case "down":
+        let ts_temp = this.state.tutorial_section;
+        if(ts_temp == 5){
+          return;
+        }
+        let cur_sec = document.getElementById('tut' + ts_temp);
+        let next_sec = document.getElementById('tut' + (ts_temp + 1));
+        
+        this.setState({tutorial_section: ts_temp + 1});
+
+        console.log(ts_temp);
+        console.log(this.state.tutorial_section);
+
+        cur_sec.style.backgroundColor = "#1C1E1f";
+        next_sec.style.backgroundColor = "green";
+        break;
+
       case "tutorial":
         window.location.replace("http://localhost:8000/tutorial");
+        break;
+
+      case "ret_score":
+        window.location.replace("http://localhost:8000/");
         break;
 
       case "file_menu":
@@ -570,6 +608,10 @@ class Pad extends React.Component {
       case "tempo_menu":
         this._loadPads('tempo_menu');
         break;
+
+      case "tutorial_pads":
+        this._loadPads('tutorial_pads');
+        break;
     }
     console.log(id);
   }
@@ -608,6 +650,7 @@ class Pad extends React.Component {
     let padF = null;
     let padG = null;
     let padH = null;
+    let tut_check = null;
     // if (this.state.loaded) {
     padA = (
       <div className="pad col-sm-3">
@@ -809,7 +852,7 @@ class Pad extends React.Component {
       );
     }
 
-    else if(this.state.pad_h.id == "incr_btype"){
+    if(this.state.pad_h.id == "incr_btype"){
       padH = (
         <div className="pad col-sm-3">
           <button className="button pad_h" id={this.state.pad_h.id} onClick={this.onClick}>
@@ -819,19 +862,47 @@ class Pad extends React.Component {
       );
     }
 
+
+    if(this.state.pad_d.id == "tutorial_check"){
+      if(this.state.tutorial_section == 1){
+        tut_check = (
+            <div id="tutorial_sec1">
+              <h1> Section 1 </h1>
+              <p> aslkdfasdfkjasdflkjsdflkjasdf 
+              asldkfjaslkdfjlaskjdflakjsdflkjasdf
+
+              asldfkjasldkfjalsfjdlaskjfdlsa
+              alskdflaskjfd
+              alskdjflaskjfdj
+              </p>
+              <h1> ya </h1>
+              <h1> ya </h1>
+              <h1> ya </h1>
+              <h1> ya </h1>
+            </div>
+        );
+      }
+    }
+
+
     return (
-      <div className="pad-group">
-        <div className="row">
-          {padA}
-          {padB}
-          {padC}
-          {padD}
+      <div className="all_content">
+        <div className="tutorial_content">
+          {tut_check}
         </div>
-        <div className="row">
-          {padE}
-          {padF}
-          {padG}
-          {padH}
+        <div className="pad-group">
+          <div className="row">
+            {padA}
+            {padB}
+            {padC}
+            {padD}
+          </div>
+          <div className="row">
+            {padE}
+            {padF}
+            {padG}
+            {padH}
+          </div>
         </div>
       </div>
     );
