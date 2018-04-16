@@ -4,7 +4,7 @@ var embed = new Flat.Embed(container, {
     // score: '5a28284ea812902e84a42727',
     // mode: 'edit',
     allow: 'midi',
-    height: '400px',
+    // height: '400px',
     embedParams: {
       appId: '5a8e18e1a2f0e03339907c31',
       controlsFloating: false,

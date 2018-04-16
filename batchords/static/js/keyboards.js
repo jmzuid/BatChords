@@ -379,6 +379,8 @@ function onMIDIMessage(message) {
         // This is the data value indicating the knob y-axis
         else if(data[1] == 1){
           console.log("knob " + data[2]);
+          document.getElementById('pls_work').scrollBy(0, -(data[2]-64)/6);
+          // document.getElementsByClassName("controls-bottom")[0].scrollBy(0, data[2]);
           return;
         }
     }
