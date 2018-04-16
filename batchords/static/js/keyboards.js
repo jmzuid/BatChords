@@ -370,6 +370,19 @@ function onMIDIMessage(message) {
     let padG = document.getElementsByClassName("pad_g")[0];
     let padH = document.getElementsByClassName("pad_h")[0];
 
+    //Programming for the knob
+    if(data[0] == 176){
+        // If data 1 is 0 it is the x-axis of the knob which we want to ignore
+        if(data[1] == 0){
+          return;
+        }
+        // This is the data value indicating the knob y-axis
+        else if(data[1] == 1){
+          console.log("knob " + data[2]);
+          return;
+        }
+    }
+
     if (data[2] != 0) { // this is the start signal
         // if (data[1] == 48) {
         //     C1.style.backgroundColor = "rgb(100, 140, 190)";
