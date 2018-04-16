@@ -11,7 +11,8 @@ var chord_mappings = new Map();
 
 var chord_mode = true ;
 var chord_locked = false ;
-var note_sentinel = 85;
+var note_sentinel = 85 ;
+var chords_playing = new Array();
 
 //Converts a pitch to a note frequency.
 function frequencyFromNote( note ) {
@@ -55,12 +56,10 @@ function sleep(dur){
   while(new Date().getTime() < waitUntil) true;
 }
 
-// var a3_snd = new Audio("../piano-sound-kit/a3.mp3");
-// a3_snd.play();
 
 //inputs a two-note array, outputs a chord.
 //FIXME: does not handle single-note input.
-function playChord(chord){
+function playChord(c){
   // Maj7 = dist 7
   // C7 = dist 4
   // Cm7 = dist 10
@@ -68,166 +67,154 @@ function playChord(chord){
   // Cm7-5  = dist 8
   // Cdim7 = dist 9
   // Csus7 = dist 5
-  var root = chord[0];
-  var second, third, fourth;
-  switch (chord[1] - chord[0]){
+  var chord = new Object() ;
+  var root = c[0];
+  chord.root = root;
+  switch (c[1] - c[0]){
     case 0:   // Maj7
-      second = root + 4;
-      third = root + 7;
-      fourth = root + 11;
-      beginNote(root);
-      beginNote(second);
-      beginNote(third);
-      beginNote(fourth);
-      //sleep for a duration.
-      sleep(2); //FIXME: JUST FOR TESTING.
-      endNote(root);
-      endNote(second);
-      endNote(third);
-      endNote(fourth);
+      chord.second = root + 4;
+      chord.third = root + 7;
+      chord.fourth = root + 11;
+      chord.rootNote = beginNoteChord(chord.root);
+      chord.secondNote = beginNoteChord(chord.second);
+      chord.thirdNote = beginNoteChord(chord.third);
+      chord.fourthNote = beginNoteChord(chord.fourth);
       break;
     case 3:   // m7-5
-      second = root + 3;
-      third = root + 7;
-      fourth = root + 11;
-      beginNote(root);
-      beginNote(second);
-      beginNote(third);
-      beginNote(fourth);
-      //sleep for a duration.
-      sleep(2); //FIXME: JUST FOR TESTING.
-      endNote(root);
-      endNote(second);
-      endNote(third);
-      endNote(fourth);
+      chord.second = root + 3;
+      chord.third = root + 7;
+      chord.fourth = root + 11;
+      chord.rootNote = beginNoteChord(chord.root);
+      chord.secondNote = beginNoteChord(chord.second);
+      chord.thirdNote = beginNoteChord(chord.third);
+      chord.fourthNote = beginNoteChord(chord.fourth);
       break;
     case 4:   // m7
-      second = root + 4;
-      third = root + 7;
-      fourth = root + 11;
-      beginNote(root);
-      beginNote(second);
-      beginNote(third);
-      beginNote(fourth);
+      chord.second = root + 4;
+      chord.third = root + 7;
+      chord.fourth = root + 11;
+      chord.rootNote = beginNoteChord(chord.root);
+      chord.secondNote = beginNoteChord(chord.second);
+      chord.thirdNote = beginNoteChord(chord.third);
+      chord.fourthNote = beginNoteChord(chord.fourth);
       //sleep for a duration.
-      sleep(2); //FIXME: JUST FOR TESTING.
-      endNote(root);
-      endNote(second);
-      endNote(third);
-      endNote(fourth);
       break;
     case 5:  // sus7
-      second = root + 5;
-      third = root + 7;
-      fourth = root + 10;
-      beginNote(root);
-      beginNote(second);
-      beginNote(third);
-      beginNote(fourth);
-      //sleep for a duration.
-      sleep(2); //FIXME: JUST FOR TESTING.
-      endNote(root);
-      endNote(second);
-      endNote(third);
-      endNote(fourth);
+      chord.second = root + 5;
+      chord.third = root + 7;
+      chord.fourth = root + 10;
+      chord.rootNote = beginNoteChord(chord.root);
+      chord.secondNote = beginNoteChord(chord.second);
+      chord.thirdNote = beginNoteChord(chord.third);
+      chord.fourthNote = beginNoteChord(chord.fourth);
       break;
     case 6: // m7-5
-      second = root + 3;
-      third = root + 6;
-      fourth = root + 10;
-      beginNote(root);
-      beginNote(second);
-      beginNote(third);
-      beginNote(fourth);
-      //sleep for a duration.
-      sleep(2); //FIXME: JUST FOR TESTING.
-      endNote(root);
-      endNote(second);
-      endNote(third);
-      endNote(fourth);
+      chord.second = root + 3;
+      chord.third = root + 6;
+      chord.fourth = root + 10;
+      chord.rootNote = beginNoteChord(chord.root);
+      chord.secondNote = beginNoteChord(chord.second);
+      chord.thirdNote = beginNoteChord(chord.third);
+      chord.fourthNote = beginNoteChord(chord.fourth);
       break;
     case 7: // Maj7
-      second = root + 4;
-      third = root + 7;
-      fourth = root + 11;
-      beginNote(root);
-      beginNote(second);
-      beginNote(third);
-      beginNote(fourth);
-      //sleep for a duration.
-      sleep(2); //FIXME: JUST FOR TESTING.
-      endNote(root);
-      endNote(second);
-      endNote(third);
-      endNote(fourth);
-    break;
+      chord.second = root + 4;
+      chord.third = root + 7;
+      chord.fourth = root + 11;
+      chord.rootNote = beginNoteChord(chord.root);
+      chord.secondNote = beginNoteChord(chord.second);
+      chord.thirdNote = beginNoteChord(chord.third);
+      chord.fourthNote = beginNoteChord(chord.fourth);
+      break;
     case 9:  // dim7
-      second = root + 3;
-      third = root + 6;
-      fourth = root + 9;
-      beginNote(root);
-      beginNote(second);
-      beginNote(third);
-      beginNote(fourth);
-      //sleep for a duration.
-      sleep(2); //FIXME: JUST FOR TESTING.
-      endNote(root);
-      endNote(second);
-      endNote(third);
-      endNote(fourth);
+      chord.second = root + 3;
+      chord.third = root + 6;
+      chord.fourth = root + 9;
+      chord.rootNote = beginNoteChord(chord.root);
+      chord.secondNote = beginNoteChord(chord.second);
+      chord.thirdNote = beginNoteChord(chord.third);
+      chord.fourthNote = beginNoteChord(chord.fourth);
       break;
     case 10:  // m7
-      second = root + 3;
-      third = root + 7;
-      foruth = root + 10;
-      beginNote(root);
-      beginNote(second);
-      beginNote(third);
-      beginNote(fourth);
-      //sleep for a duration.
-      sleep(2); //FIXME: JUST FOR TESTING.
-      endNote(root);
-      endNote(second);
-      endNote(third);
-      endNote(fourth);
+      chord.second = root + 3;
+      chord.third = root + 7;
+      chord.foruth = root + 10;
+      chord.rootNote = beginNoteChord(chord.root);
+      chord.secondNote = beginNoteChord(chord.second);
+      chord.thirdNote = beginNoteChord(chord.third);
+      chord.fourthNote = beginNoteChord(chord.fourth);
       break;
     default:
       console.log("do nothing");
   }
-  console.log("reset values");
-  chord[0] = note_sentinel;
-  chord[1] = note_sentinel;
-}
+  chords_playing.push(chord);
+};
 
-//
-function beginNote(noteValue){
+//Check to see if chord contains midi note value val
+function chordStartwithValue(chord, val) {
+  console.log("Checking chordContainsValue: " + val);
+  return chord.root == val ;
+};
+
+//Inputs the chord array, and a value no longer played
+//Iterates over chord_list and stops any chord
+// which has a note matching that value. Then, it splices
+// the array to remove that chord.
+function stopChordswithNote(chord_list, note){
+  console.log("Stopping chords with val " + note);
+  console.log("Length of chord_list " + chord_list.length);
+  for (i = 0; i < chord_list.length;){
+      console.log("index: " + i + " of " + chord_list.length);
+      if (chordStartwithValue(chord_list[i],note)){
+        console.log("Found a chord");
+        stopChord(chord_list[i]);
+        chord_list.splice(i,1); //remove the chord from the list.
+        i = 0; //reset the counter since we've changed the list.
+      } else {
+        i++; //simply iterate the counter
+      };
+  };
+  console.log("End loop stopChordswithNote");
+};
+
+
+// Call endNote for all elements in the chord.
+function stopChord(chord) {
+  chord.rootNote.stop();
+  chord.secondNote.stop();
+  chord.thirdNote.stop();
+  chord.fourthNote.stop();
+};
+
+//begins a single note not in the chord.
+function beginNoteChord(noteValue) {
+  var pitch = audioCtx.createOscillator();
+  pitch.type = "piano";
+  freq = frequencyFromNote(noteValue);
+  pitch.frequency.setValueAtTime(freq, audioCtx.currentTime);
+  pitch.connect(audioCtx.destination);
+  pitch.start(0);
+  return pitch ;
+};
+
+//begins single notes in the notes array.
+function beginNoteSingle(noteValue){
   var pitch = audioCtx.createOscillator();
   pitch.type = "triangle";
   freq = frequencyFromNote(noteValue);
   pitch.frequency.setValueAtTime(freq, audioCtx.currentTime);
-  //console.log("in beginNote");
-  //console.log(pitch.frequency);
   pitch.connect(audioCtx.destination);
   pitch.start(0);  //we can put a delay here if we want. (Think about multiple note values.)
-  notes[noteValue] = pitch ;
+  notes[noteValue] = pitch ; // Add this to the
+  return pitch ;
 };
 
 
-function endNote(noteValue){
-  //console.log("end note");
+// End the note in the notes array of value noteValue
+function endNoteSingle(noteValue){
   notes[noteValue].stop();
 };
 
-
-
-// generates the Oscillator for the MIDI sound
-//function Sound(frequency){
-//  this.osc = audioCtx.createOscillator() ; //create and oscillator
-//  this.pressed = false;
-//  this.osc.frequency.value = frequency;
-//  this.osc.type = "triangle";
-//  this.osc.start(0);
-//};
 
 // midi functions
 function onMIDISuccess(midiAccess) {
@@ -297,10 +284,29 @@ function embedEdit(){
 var m_step = new Map([[0,"C"],[1,"CD"],[2,"D"],[3,"DE"],[4,"E"],[5,"F"],[6,"FG"],[7,"G"],[8,"GA"],[9,"A"],[10,"AB"],[11,"B"]]);
 // var m_button = new Map([100,"pad_a"])
 
+
+/*
+
+
+
+*/
 function onMIDIMessage(message) {
     data = message.data; // this gives us our [command/channel, note, velocity] data.
-    console.log(data)
-    console.log("test")
+    console.log(data);
+
+    //Always turn on the note.
+    switch (data[0]){
+      //turn on the note
+      case 144:
+        beginNoteSingle(data[1]);
+        break;
+      //turn off the note
+      case 128:
+        endNoteSingle(data[1]);
+        break;
+      default:
+    };
+
     //If not in chord mode,
     //simply output notes.
     if (chord_mode && (data[0] == 144) ){
@@ -309,26 +315,27 @@ function onMIDIMessage(message) {
         console.log("adding " + data[1] + " to chord.")
         chord[0] = data[1];
       } else {
-        chord_locked = true;
+        //chord_locked = true;
         chord[1] = data[1];
         console.log("sorting chord.");
         chord.sort();
-        playChord(chord);
-        chodr_locked = false;
+        console.log("New Chord Constructed");
+        console.log("chord[0]: " + chord[0]);
+        console.log("chord[1]: " + chord[1]);
+        var chord_in = chord.slice();
+        playChord(chord_in);
+        //reset chord here.
+        console.log("reset values");
+        chord[0] = note_sentinel;
+        chord[1] = note_sentinel;
+        console.log("onMIDIMessage: chords_playing.length: " + chords_playing.length);
+        //chord_locked = false;
       }
     } else if (chord_mode && (data[0] == 128) ){
       console.log("Removing " + data[1] + " from index " + chord.indexOf(data[1]) );
       chord[chord.indexOf(data[1])] = note_sentinel; //revert value to sentinel.
-    } else {
-      switch (data[0]){
-        case 144:
-          beginNote(data[1]);
-          break ;
-        case 128:
-          endNote(data[1]);
-          break ;
-        default:
-      }
+      console.log("onMIDIMessage: chords_playing.length: " + chords_playing.length);
+      stopChordswithNote(chords_playing, data[1]);
     }
 
 
