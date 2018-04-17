@@ -1,35 +1,35 @@
 {
   "pad_a": {
-    "name":" ",
-    "id":"not_implemented"
+    "name":"Open Score",
+    "id":"open"
   },
   "pad_b": {
     "name":"New Score",
     "id":"new_score"
   },
   "pad_c": {
-    "name":"Open Score",
-    "id":"open"
+    "name":"Note Functions",
+    "id":"note_functions"
   },
   "pad_d": {
-    "name":"⬆",
-    "id":"prev_score"
+    "name":"Set Note Flat",
+    "id":"set_note_flat"
   },
   "pad_e": {
-    "name":" ",
-    "id":"not_implemented"
+    "name":"Logout",
+    "id":"logout"
   },
   "pad_f": {
     "name":"Tutorial",
     "id":"tutorial"
   },
   "pad_g": {
-    "name":"Logout",
-    "id":"logout"
-  },
-    "pad_h": {
     "name":"⬇",
     "id":"next_score"
+  },
+  "pad_h": {
+    "name":"⬆",
+    "id":"prev_score"
   }
 
 }

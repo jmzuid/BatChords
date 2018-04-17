@@ -9,9 +9,9 @@ class Pad extends React.Component {
     // this.handlePadClick = this.handlePadClick.bind(this);
     this._loadPads = this._loadPads.bind(this);
     this.onClick = this.handleClick.bind(this);
-    this.state = { pad_a: {}, pad_b: {}, pad_c: {}, pad_d: {}, pad_e: {}, pad_f: {}, pad_g: {}, pad_h: {}, 
+    this.state = { pad_a: {}, pad_b: {}, pad_c: {}, pad_d: {}, pad_e: {}, pad_f: {}, pad_g: {}, pad_h: {},
                    noteDuration: 3, measure_btype: 2, measure_beats: 4, ts_measures: 0,
-                   tempo_measures: 0, tempo: 120, tutorial_section: 1};
+                   tempo_measures: 0, tempo: 120, tutorial_section: 1, score_index: 0, score_id: "", img_url: ""};
   }
 
   componentDidMount() {
@@ -123,8 +123,8 @@ class Pad extends React.Component {
       case "pitch_up":
         embed.getCursorPosition().then(function (position) {
           embed.edit([
-            { name: 'action.ShiftChordDiatonicUp', 
-              opts: { 
+            { name: 'action.ShiftChordDiatonicUp',
+              opts: {
                   actionOrigin:"local.do",
                   measureIdx:position.measureIdx,
                   noteIdx:position.noteIdx,
@@ -142,8 +142,8 @@ class Pad extends React.Component {
       case "pitch_down":
         embed.getCursorPosition().then(function (position) {
           embed.edit([
-            { name: 'action.ShiftChordDiatonicDown', 
-              opts: { 
+            { name: 'action.ShiftChordDiatonicDown',
+              opts: {
                   actionOrigin:"local.do",
                   measureIdx:position.measureIdx,
                   noteIdx:position.noteIdx,
@@ -161,8 +161,8 @@ class Pad extends React.Component {
       case "remove_note":
         embed.getCursorPosition().then(function (position) {
           embed.edit([
-            { name: 'action.RemoveNote', 
-              opts: { 
+            { name: 'action.RemoveNote',
+              opts: {
                   actionOrigin:"local.do",
                   formatRests: true,
                   insertMode: "replace",
@@ -184,8 +184,8 @@ class Pad extends React.Component {
       case "set_note_flat":
         embed.getCursorPosition().then(function (position) {
           embed.edit([
-            { name: 'action.RemoveCourtesyAccidentals', 
-              opts: { 
+            { name: 'action.RemoveCourtesyAccidentals',
+              opts: {
                   accidental: "flat",
                   isConcertPitch: false,
                   line:position.line,
@@ -200,8 +200,8 @@ class Pad extends React.Component {
               console.log("embedEdit error: " + error)
           });
           embed.edit([
-            { name: 'action.AddAccidentals', 
-              opts: { 
+            { name: 'action.AddAccidentals',
+              opts: {
                   accidental: "flat",
                   isConcertPitch: false,
                   line:position.line,
@@ -222,8 +222,8 @@ class Pad extends React.Component {
       case "set_note_sharp":
         embed.getCursorPosition().then(function (position) {
           embed.edit([
-            { name: 'action.RemoveCourtesyAccidentals', 
-              opts: { 
+            { name: 'action.RemoveCourtesyAccidentals',
+              opts: {
                   accidental: "sharp",
                   isConcertPitch: false,
                   line:position.line,
@@ -238,8 +238,8 @@ class Pad extends React.Component {
               console.log("embedEdit error: " + error)
           });
           embed.edit([
-            { name: 'action.AddAccidentals', 
-              opts: { 
+            { name: 'action.AddAccidentals',
+              opts: {
                   accidental: "sharp",
                   isConcertPitch: false,
                   line:position.line,
@@ -259,8 +259,8 @@ class Pad extends React.Component {
       case "remove_accidentals":
         embed.getCursorPosition().then(function (position) {
           embed.edit([
-            { name: 'action.RemoveAccidentals', 
-              opts: { 
+            { name: 'action.RemoveAccidentals',
+              opts: {
                   actionOrigin: "local.do",
                   isConcertPitch: false,
                   line:position.line,
@@ -282,7 +282,7 @@ class Pad extends React.Component {
           return;
         }
         this.setState({noteDuration: this.state.noteDuration - 1});
-        console.log(this.state.noteDuration); 
+        console.log(this.state.noteDuration);
         break;
 
       case "decr_note_duration":
@@ -290,7 +290,7 @@ class Pad extends React.Component {
           return;
         }
         this.setState({noteDuration: this.state.noteDuration + 1});
-        console.log(this.state.noteDuration); 
+        console.log(this.state.noteDuration);
         break;
 
       case "set_note_duration":
@@ -299,8 +299,8 @@ class Pad extends React.Component {
         console.log(temp_dur);
         embed.getCursorPosition().then(function (position) {
           embed.edit([
-            { name: 'action.ChangeDurationCrossMeasure', 
-              opts: { 
+            { name: 'action.ChangeDurationCrossMeasure',
+              opts: {
                   actionOrigin:"local.do",
                   durationType: temp_dur,
                   formatRests: true,
@@ -326,8 +326,8 @@ class Pad extends React.Component {
         console.log(temp_dur_dot);
         embed.getCursorPosition().then(function (position) {
           embed.edit([
-            { name: 'action.ChangeDurationCrossMeasure', 
-              opts: { 
+            { name: 'action.ChangeDurationCrossMeasure',
+              opts: {
                   actionOrigin:"local.do",
                   durationType: temp_dur_dot,
                   formatRests: true,
@@ -350,7 +350,7 @@ class Pad extends React.Component {
 
       case "incr_ts_measures":
         this.setState({ts_measures: this.state.ts_measures + 1});
-        console.log(this.state.ts_measures); 
+        console.log(this.state.ts_measures);
         break;
 
       case "decr_ts_measures":
@@ -358,7 +358,7 @@ class Pad extends React.Component {
           return;
         }
         this.setState({ts_measures: this.state.ts_measures - 1});
-        console.log(this.state.ts_measures); 
+        console.log(this.state.ts_measures);
         break;
 
       case "incr_beats":
@@ -366,7 +366,7 @@ class Pad extends React.Component {
           return;
         }
         this.setState({measure_beats: this.state.measure_beats + 1});
-        console.log(this.state.measure_beats); 
+        console.log(this.state.measure_beats);
         break;
 
       case "decr_beats":
@@ -374,7 +374,7 @@ class Pad extends React.Component {
           return;
         }
         this.setState({measure_beats: this.state.measure_beats - 1});
-        console.log(this.state.measure_beats); 
+        console.log(this.state.measure_beats);
         break;
 
       case "incr_btype":
@@ -382,7 +382,7 @@ class Pad extends React.Component {
           return;
         }
         this.setState({measure_btype: this.state.measure_btype + 1});
-        console.log(this.state.measure_btype); 
+        console.log(this.state.measure_btype);
         break;
 
       case "decr_btype":
@@ -390,7 +390,7 @@ class Pad extends React.Component {
           return;
         }
         this.setState({measure_btype: this.state.measure_btype - 1});
-        console.log(this.state.measure_btype); 
+        console.log(this.state.measure_btype);
         break;
 
       case "set_time_signature":
@@ -399,8 +399,8 @@ class Pad extends React.Component {
         let temp_ts_meas = this.state.ts_measures;
         embed.getCursorPosition().then(function (position) {
           embed.edit([
-            { name: 'action.SetTimeSignature', 
-              opts: { 
+            { name: 'action.SetTimeSignature',
+              opts: {
                   actionOrigin:"local.do",
                   displayedTime: {"beats": temp_beats, "beat-type": Math.pow(2,temp_btype)},
                   line:position.line,
@@ -421,7 +421,7 @@ class Pad extends React.Component {
 
       case "incr_tempo_measures":
         this.setState({tempo_measures: this.state.tempo_measures + 1});
-        console.log(this.state.tempo_measures); 
+        console.log(this.state.tempo_measures);
         break;
 
       case "decr_tempo_measures":
@@ -429,7 +429,7 @@ class Pad extends React.Component {
           return;
         }
         this.setState({tempo_measures: this.state.tempo_measures - 1});
-        console.log(this.state.tempo_measures); 
+        console.log(this.state.tempo_measures);
         break;
 
       case "incr_tempo":
@@ -437,7 +437,7 @@ class Pad extends React.Component {
           return;
         }
         this.setState({tempo: this.state.tempo + 1});
-        console.log(this.state.tempo); 
+        console.log(this.state.tempo);
         break;
 
       case "decr_tempo":
@@ -445,7 +445,7 @@ class Pad extends React.Component {
           return;
         }
         this.setState({tempo: this.state.tempo - 1});
-        console.log(this.state.tempo); 
+        console.log(this.state.tempo);
         break;
 
       case "set_tempo":
@@ -453,8 +453,8 @@ class Pad extends React.Component {
         let tempo_bpm = this.state.tempo;
         embed.getCursorPosition().then(function (position) {
           embed.edit([
-            { name: 'action.SetTempo', 
-              opts: { 
+            { name: 'action.SetTempo',
+              opts: {
                   actionOrigin:"local.do",
                   startMeasureIdx:position.measureIdx,
                   stopMeasureIdx:position.measureIdx+tempo_meas,
@@ -470,8 +470,8 @@ class Pad extends React.Component {
       case "add_measure":
         embed.getCursorPosition().then(function (position) {
           embed.edit([
-            { name: 'action.AddMeasure', 
-              opts: { 
+            { name: 'action.AddMeasure',
+              opts: {
                   actionOrigin:"local.do",
                   measureIdx:(position.measureIdx + 1),
                   noteIdx:position.noteIdx,
@@ -489,8 +489,8 @@ class Pad extends React.Component {
       case "remove_measure":
         embed.getCursorPosition().then(function (position) {
           embed.edit([
-            { name: 'action.RemoveOrClearMeasure', 
-              opts: { 
+            { name: 'action.RemoveOrClearMeasure',
+              opts: {
                   actionOrigin:"local.do",
                   measureIdx:(position.measureIdx),
                   noteIdx:position.noteIdx,
@@ -532,7 +532,7 @@ class Pad extends React.Component {
         }
         let cur_sec_up = document.getElementById('tut' + ts_temp_up);
         let next_sec_up = document.getElementById('tut' + (ts_temp_up - 1));
-        
+
         this.setState({tutorial_section: ts_temp_up - 1});
 
         console.log(ts_temp_up);
@@ -549,7 +549,7 @@ class Pad extends React.Component {
         }
         let cur_sec = document.getElementById('tut' + ts_temp);
         let next_sec = document.getElementById('tut' + (ts_temp + 1));
-        
+
         this.setState({tutorial_section: ts_temp + 1});
 
         console.log(ts_temp);
@@ -563,13 +563,101 @@ class Pad extends React.Component {
         window.location.replace("http://localhost:8000/tutorial");
         break;
 
+      case "new_score":
+        console.log("Go to http://localhost:8000/createScore")
+        window.location.replace("http://localhost:8000/createScore");
+        break;
+
+      case "save":
+        console.log("Saving score to Flat")
+         // Turn embed into XML
+        embed.getMusicXML().then(function (xml) {
+          console.log("XML: ",xml); // Plain XML file (string)
+
+          // Send "New Version" request with the XML to Flat's REST API
+          const url = "/save?title=HOPE&xml=" + xml;
+          //data = {data: xml, autosave: false, description:"New Revision from BatChords"} //moved this to server side
+          //access_token = "0c73df1879c52f87555fe3bed875a5d95656ba67b8c20e0ee1318f81c4d699977fc9f689f1c5de739bba4fadafe9d0cd17fb3526c7b6b9b0766a7d272ee7e976" //TODO
+          fetch(url,{ credentials: 'same-origin'}).then((response) => {
+              console.log("save request response: ",response);
+              if (!response.ok) throw Error(response.statusText);
+            })
+        }).catch(function (error) {
+            // Error while executing the actions
+              console.log("embedEdit error: " + error)
+        });
+        break;
+
+      case "prev_score":
+        console.log("PREV SCORE")
+        fetch("/api/v1/user", { credentials: 'same-origin' })
+        .then((response) => {
+          if (!response.ok) throw Error(response.statusText);
+          return response.json();
+        })
+        .then((data) => {
+            console.log("next_score: Trying to set score state");
+            console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id);
+            let numScores = Object.keys(data["scores"]).length;
+            let new_index = (this.state.score_index - 1)%numScores
+            if(this.state.score_index > 0){
+            console.log(numScores);
+          this.setState({
+            score_index: new_index,
+            score_id: data["scores"][new_index].id
+          })};
+         console.log("next_score: Trying to set score state")
+         console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
+
+        })
+        .catch(error => console.log(error));
+        break;
+
+      case "next_score":
+        console.log("NEXT SCORE")
+        fetch("/api/v1/user", { credentials: 'same-origin' })
+        .then((response) => {
+          if (!response.ok) throw Error(response.statusText);
+          return response.json();
+        })
+        .then((data) => {
+            console.log("next_score: Trying to set score state");
+            console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id);
+            let numScores = Object.keys(data["scores"]).length;
+            let new_index = (this.state.score_index + 1)%numScores
+            if(this.state.score_index < (numScores-1)){
+            console.log(numScores);
+          this.setState({
+            score_index: new_index,
+            score_id: data["scores"][new_index].id
+          })};
+         console.log("next_score: Trying to set score state")
+         console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
+
+        })
+        .catch(error => console.log(error));
+        break;
+
+      case "open":
+        console.log("score.id",this.state.score_id)
+        let score_id_temp = this.state.score_id
+        let score_url = "/chooseScore?scoreid=" + score_id_temp
+        console.log("DEBUG","score_url",score_url)
+        window.location.replace(score_url);
+        break;
+
+      case "logout":
+        console.log("Go to http://localhost:8000/logout")
+        window.location.replace("http://localhost:8000/logout");
+        break;
+
       case "ret_score":
         window.location.replace("http://localhost:8000/");
         break;
 
       case "file_menu":
       case "login":
-        window.location.replace("http://localhost:8000/home");
+        window.location.replace("https://flat.io/auth/oauth?client_id=6b910a07-aeaa-49ff-9770-5f3c452a350a&response_type=code&scope=account.public_profile+scores+scores.social+scores.readonly+account.public_profile&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Flogin");
         break;
 
       case "main_menu":
@@ -577,9 +665,9 @@ class Pad extends React.Component {
         this._loadPads('main_menu');
         break;
 
-      // case "file_menu":
-      //   this._loadPads('file_operations');
-      //   break;
+      case "file_operations":
+        this._loadPads('file_operations');
+        break;
 
       case "playback_menu":
         this._loadPads('playback_menu');
@@ -651,6 +739,8 @@ class Pad extends React.Component {
     let padG = null;
     let padH = null;
     let tut_check = null;
+
+
     // if (this.state.loaded) {
     padA = (
       <div className="pad col-sm-3">
@@ -785,7 +875,7 @@ class Pad extends React.Component {
         </div>
       );
     }
-    
+
     if(this.state.pad_d.id == "incr_beats"){
       padD = (
         <div className="pad col-sm-3">
@@ -881,7 +971,7 @@ class Pad extends React.Component {
 
             </div>
         );
-      } 
+      }
       else if(this.state.tutorial_section == 2){
         tut_check = (
             <div id="tutorial_sec2">
@@ -890,7 +980,7 @@ class Pad extends React.Component {
 
                  <img src="/static/img/edit_menu.PNG" alt="Edit Menu" width="75%" height="75%"></img> <br/><br/>
 
-                <b>Remove Note:</b> Removes the note at the current cursor location. If the cursor is over one note in the chord there is currently no way to 
+                <b>Remove Note:</b> Removes the note at the current cursor location. If the cursor is over one note in the chord there is currently no way to
                 toggle betweeen the individual notes, so the entire chord will need to be deleted if you want to delete a upper note in the chord. <br/>
                  <b>Pitch Up:</b> Pitches the curently selected note up by a whole step.<br/>
                  <b>Pitch Down:</b> Pitches the curently selected note down by a whole step.<br/>
@@ -926,7 +1016,7 @@ class Pad extends React.Component {
                  <b>Decrease/Increase Measures Affected:</b> Changes how many measures you would like to change the time signature of.<br/>
                  <b>Decrease/Increase Beats:</b> Changes the numerator of the time signature in increments of one.<br/>
                  <b>Decrease/Increase Beat Type:</b> Changes the denominator of the time signature. Increments in powers of two.<br/>
-                 <b>Set Time Signature:</b> Applies the designated time signature to the number of measures specified. <b>Note: </b> 
+                 <b>Set Time Signature:</b> Applies the designated time signature to the number of measures specified. <b>Note: </b>
                  This applies to the measures including and following the measure that the cursor is currently in. Will error if measures specified do not exist.<br/>
               </p>
 
@@ -942,7 +1032,7 @@ class Pad extends React.Component {
                  <img src="/static/img/duration_menu.PNG" alt="Duration Menu" width="75%" height="75%"></img> <br/><br/>
 
                  <b>Remove Note:</b> Included in this sub-menu as well for ease of use and less toggling between menus.<br/>
-                 <b>Decrease/Increase Note Duration:</b> Changes the duration of what you would like to set the current note too. Restricted to 
+                 <b>Decrease/Increase Note Duration:</b> Changes the duration of what you would like to set the current note too. Restricted to
                  values between a whole note and 1/64th note<br/>
                  <b>Set Note Duration:</b> Sets the duration of the currently selected note to be the designated value.<br/>
                  <b>Set Note Duration:</b> Sets the duration of the currently selected note to be dotted version of the designated value. <br/>
@@ -978,7 +1068,7 @@ class Pad extends React.Component {
 
                  <b>Decrease/Increase Tempo bpm:</b> Changes the tempo bpm in increments of one.<br/>
                  <b>Decrease/Increase Measures Affected:</b> Changes how many measures you would like to change the tempo of.<br/>
-                 <b>Set Tempo:</b> Applies the designated tempo to the number of measures specified. <b>Note: </b> 
+                 <b>Set Tempo:</b> Applies the designated tempo to the number of measures specified. <b>Note: </b>
                  This applies to the measures including and following the measure that the cursor is currently in. Will error if measures specified do not exist.<br/>
               </p>
 
@@ -996,7 +1086,7 @@ class Pad extends React.Component {
 
                  <br/><br/>
 
-                 Drum pads map to the pads displayed on screen. The knob in the upper left hand corner can  be used to scroll vertically 
+                 Drum pads map to the pads displayed on screen. The knob in the upper left hand corner can  be used to scroll vertically
                  in the music score by pushing the knob upwards or downwards.
               </p>
 
@@ -1015,7 +1105,7 @@ class Pad extends React.Component {
 
                  <b>Left/Right Pedal:</b> Move the cursor a note to the left/right.<br/>
                  <b>Center Pedal:</b> Begin or stop playback starting at the measure the cursor is located in <br/>
-                 
+
 
               </p>
 
@@ -1026,7 +1116,7 @@ class Pad extends React.Component {
         tut_check = (
             <div id="tutorial_sec10">
               <h1> Hardware Installation</h1>
-              <p className="tutorial_paragraph"> 
+              <p className="tutorial_paragraph">
                 In order to properly use the above hardware the installation instructions for each device must be followed. <br/>
 
                 The installation guide is available at the top of the README in our <a href="https://github.com/jmzuid/BatChords"> Git Repository </a>.
