@@ -598,10 +598,9 @@ class Pad extends React.Component {
         .then((data) => {
             console.log("next_score: Trying to set score state")
             console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
-          let numScores = (data["scores"]).length()
           this.setState({
             score_index: (this.state.score_index + 1),
-            score_id: data["scores"][((this.state.score_index + 1)%numScores)].id
+            score_id: data["scores"][(this.state.score_index + 1)].id
           });
          console.log("next_score: Trying to set score state")
          console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
@@ -640,9 +639,9 @@ class Pad extends React.Component {
         this._loadPads('main_menu');
         break;
 
-      // case "file_menu":
-      //   this._loadPads('file_operations');
-      //   break;
+      case "file_operations":
+        this._loadPads('file_operations');
+        break;
 
       case "playback_menu":
         this._loadPads('playback_menu');
@@ -715,7 +714,7 @@ class Pad extends React.Component {
     let padH = null;
     let tut_check = null;
 
-    <img src={this.state.img_url}>
+
     // if (this.state.loaded) {
     padA = (
       <div className="pad col-sm-3">
