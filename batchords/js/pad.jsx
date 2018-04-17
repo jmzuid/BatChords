@@ -544,7 +544,7 @@ class Pad extends React.Component {
 
       case "down":
         let ts_temp = this.state.tutorial_section;
-        if(ts_temp == 5){
+        if(ts_temp == 10){
           return;
         }
         let cur_sec = document.getElementById('tut' + ts_temp);
@@ -867,23 +867,180 @@ class Pad extends React.Component {
       if(this.state.tutorial_section == 1){
         tut_check = (
             <div id="tutorial_sec1">
-              <h1> Section 1 </h1>
-              <p> aslkdfasdfkjasdflkjsdflkjasdf 
-              asldkfjaslkdfjlaskjdflakjsdflkjasdf
+              <h1> Playback Menu </h1>
+              <p className="tutorial_paragraph"> The Playback Menu features buttons for navigation and playback. <br/><br/>
 
-              asldfkjasldkfjalsfjdlaskjfdlsa
-              alskdflaskjfd
-              alskdjflaskjfdj
+                <img src="/static/img/playback_menu.PNG" alt="Playback Menu" width="75%" height="75%"></img> <br/><br/>
+
+                <b>Play button:</b> Begins playback from the measure that the cursor is currently in or from paused playback location. <br/>
+                <b>Stop button:</b> Stops playback if playing and resets playback location to be the measure the cursor is in. <br/>
+                <b>Pause button:</b> Pauses playback if playing where the playback location is currently at. Can be resumed from the paused location by hitting the play button. <br/>
+                <b>Seek Note Left/Right:</b> Moves the cursor to the left or right by a note in the current measure. <br/>
+                <b>Seek Measure Left/Right:</b> Moves the cursor to the left or right by a measure. <br/>
               </p>
-              <h1> ya </h1>
-              <h1> ya </h1>
-              <h1> ya </h1>
-              <h1> ya </h1>
+
+            </div>
+        );
+      } 
+      else if(this.state.tutorial_section == 2){
+        tut_check = (
+            <div id="tutorial_sec2">
+              <h1> Edit Menu </h1>
+              <p className="tutorial_paragraph"> The Edit Menu features buttons for modifying existing notes and contains sub-menus for various editing categories. <br/><br/>
+
+                 <img src="/static/img/edit_menu.PNG" alt="Edit Menu" width="75%" height="75%"></img> <br/><br/>
+
+                <b>Remove Note:</b> Removes the note at the current cursor location. If the cursor is over one note in the chord there is currently no way to 
+                toggle betweeen the individual notes, so the entire chord will need to be deleted if you want to delete a upper note in the chord. <br/>
+                 <b>Pitch Up:</b> Pitches the curently selected note up by a whole step.<br/>
+                 <b>Pitch Down:</b> Pitches the curently selected note down by a whole step.<br/>
+              </p>
+
             </div>
         );
       }
-    }
+      else if(this.state.tutorial_section == 3){
+        tut_check = (
+            <div id="tutorial_sec3">
+              <h1> Accidentals Menu </h1>
+              <p className="tutorial_paragraph"> The Accidentals Menu features buttons changing a note to sharp or flat, or removing accidentals from a note. <br/><br/>
 
+                 <img src="/static/img/accidentals_menu.PNG" alt="Accidentals Menu" width="75%" height="75%"></img> <br/><br/>
+
+                 <b>Set Note Sharp:</b> Sets the currently selected note to be sharp, will replace a flat accidental if one is present.<br/>
+                 <b>Set Note Flat:</b> Sets the currently selected note to be flat, will replace a sharp accidental if one is present.<br/>
+                 <b>Remove Accidentals:</b> Removes any sharp or flat symbols from the currenlty selected note.<br/>
+              </p>
+
+            </div>
+        );
+      }
+      else if(this.state.tutorial_section == 4){
+        tut_check = (
+            <div id="tutorial_sec4">
+              <h1> Time Signature Menu </h1>
+              <p className="tutorial_paragraph"> The Time Signature Menu features buttons to modify the time signature of a number of measures. <br/><br/>
+
+                 <img src="/static/img/time_signature_menu.PNG" alt="Time Signature Menu" width="75%" height="75%"></img> <br/><br/>
+
+                 <b>Decrease/Increase Measures Affected:</b> Changes how many measures you would like to change the time signature of.<br/>
+                 <b>Decrease/Increase Beats:</b> Changes the numerator of the time signature in increments of one.<br/>
+                 <b>Decrease/Increase Beat Type:</b> Changes the denominator of the time signature. Increments in powers of two.<br/>
+                 <b>Set Time Signature:</b> Applies the designated time signature to the number of measures specified. <b>Note: </b> 
+                 This applies to the measures including and following the measure that the cursor is currently in. Will error if measures specified do not exist.<br/>
+              </p>
+
+            </div>
+        );
+      }
+      else if(this.state.tutorial_section == 5){
+        tut_check = (
+            <div id="tutorial_sec5">
+              <h1> Duration Menu </h1>
+              <p className="tutorial_paragraph"> The Duration Menu features buttons to modify the duration of a selected note or rest. <br/><br/>
+
+                 <img src="/static/img/duration_menu.PNG" alt="Duration Menu" width="75%" height="75%"></img> <br/><br/>
+
+                 <b>Remove Note:</b> Included in this sub-menu as well for ease of use and less toggling between menus.<br/>
+                 <b>Decrease/Increase Note Duration:</b> Changes the duration of what you would like to set the current note too. Restricted to 
+                 values between a whole note and 1/64th note<br/>
+                 <b>Set Note Duration:</b> Sets the duration of the currently selected note to be the designated value.<br/>
+                 <b>Set Note Duration:</b> Sets the duration of the currently selected note to be dotted version of the designated value. <br/>
+                 <b>Note:</b> Setting the "note duration" applies to both notes and rests.<br/>
+              </p>
+
+            </div>
+        );
+      }
+      else if(this.state.tutorial_section == 6){
+        tut_check = (
+            <div id="tutorial_sec6">
+              <h1> Miscellaneous Menu </h1>
+              <p className="tutorial_paragraph"> The Miscellaneous Menu features buttons that did not fit into any of the other categories. <br/><br/>
+
+                 <img src="/static/img/misc_menu.PNG" alt="Miscellaneous Menu" width="75%" height="75%"></img> <br/><br/>
+
+                 <b>Add Measure:</b> Adds an empty measure behind the measure that the cursor is currently located in.<br/>
+                 <b>Remove Measure:</b> Removes the measure that the cursor is currently located in.<br/>
+                 <b>Change Staff:</b> Toggles the cursor between the Bass and the Treble clef staff.<br/>
+              </p>
+
+            </div>
+        );
+      }
+      else if(this.state.tutorial_section == 7){
+        tut_check = (
+            <div id="tutorial_sec7">
+              <h1> Tempo Menu </h1>
+              <p className="tutorial_paragraph"> The Tempo Menu features buttons for setting the tempo for a number of measures. <br/><br/>
+
+                 <img src="/static/img/tempo_menu.PNG" alt="Miscellaneous Menu" width="75%" height="75%"></img> <br/><br/>
+
+                 <b>Decrease/Increase Tempo bpm:</b> Changes the tempo bpm in increments of one.<br/>
+                 <b>Decrease/Increase Measures Affected:</b> Changes how many measures you would like to change the tempo of.<br/>
+                 <b>Set Tempo:</b> Applies the designated tempo to the number of measures specified. <b>Note: </b> 
+                 This applies to the measures including and following the measure that the cursor is currently in. Will error if measures specified do not exist.<br/>
+              </p>
+
+            </div>
+        );
+      }
+      else if(this.state.tutorial_section == 8){
+        tut_check = (
+            <div id="tutorial_sec8">
+              <h1> Akai MPK Mini MKII Keyboard </h1>
+              <p className="tutorial_paragraph"> BatChords is designed to make use of the drum pads and upper left knob of the Akai MPK mini midi keyboard.<br/><br/>
+
+                 <img src="/static/img/mpk_mini_drumpads.png" alt="MPK drum pads" width="30%" height="30%"></img> &nbsp; &nbsp; &nbsp; &nbsp;
+                 <img src="/static/img/mpk_knob.png" alt="MPK drum pads" width="30%" height="30%"></img>
+
+                 <br/><br/>
+
+                 Drum pads map to the pads displayed on screen. The knob in the upper left hand corner can  be used to scroll vertically 
+                 in the music score by pushing the knob upwards or downwards.
+              </p>
+
+            </div>
+        );
+      }
+      else if(this.state.tutorial_section == 9){
+        tut_check = (
+            <div id="tutorial_sec9">
+              <h1> Infinity USB Foot Pedal </h1>
+              <p className="tutorial_paragraph"> Navigation with the Infinity USB foot pedal is important for a quick workflow in edit mode.<br/><br/>
+
+                 <img src="/static/img/infinity_usb.png" alt="Infinity USB foot pedal" width="27%" height="27%"></img>
+
+                 <br/><br/>
+
+                 <b>Left/Right Pedal:</b> Move the cursor a note to the left/right.<br/>
+                 <b>Center Pedal:</b> Begin or stop playback starting at the measure the cursor is located in <br/>
+                 
+
+              </p>
+
+            </div>
+        );
+      }
+      else if(this.state.tutorial_section == 10){
+        tut_check = (
+            <div id="tutorial_sec10">
+              <h1> Hardware Installation</h1>
+              <p className="tutorial_paragraph"> 
+                In order to properly use the above hardware the installation instructions for each device must be followed. <br/>
+
+                The installation guide is available at the top of the README in our <a href="https://github.com/jmzuid/BatChords"> Git Repository </a>.
+
+                <br/>
+                <br/>
+
+              </p>
+
+            </div>
+        );
+      }
+
+    }
 
     return (
       <div className="all_content">
