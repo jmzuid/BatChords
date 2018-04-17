@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <script>
+    var chord_on = 0;
+    document.onkeypress = function(evt) {
+      if (evt.key == "c") {
+        chord_on = 1-chord_on;
+      }
+      console.log(chord_on);
+    };
+  </script>
+<div style="height: 5em;">
+<ul>
+  <li class="white press" id="C1"><p>C</p></li>
+  <li class="black" id="CD1"></li>
+  <li class="white s" id="D1"></li>
+  <li class="black" id="DE1"></li>
+  <li class="white s active" id="E1"><p>E</p></li>
+  <li class="white" id="F1"></li>
+  <li class="black" id="FG1"></li>
+  <li class="white s active" id="G1"> <p>G</p> </li>
+  <li class="black" id="GA1"></li>
+  <li class="white s" id="A1"></li>
+  <li class="black" id="AB1"></li>
+  <li class="white s active" id="B1"> <p>B</p> </li>
+</ul>
+</div>
+
+<div style="height: 5em;">
+<ul>
+  <li class="white press" id="C1"><p>C</p></li>
+  <li class="black" id="CD1"></li>
+  <li class="white s" id="D1"></li>
+  <li class="black" id="DE1"></li>
+  <li class="white s press" id="E1"><p>E</p></li>
+  <li class="white" id="F1"></li>
+  <li class="black" id="FG1"></li>
+  <li class="white s active" id="G1"> <p>G</p> </li>
+  <li class="black" id="GA1"></li>
+  <li class="white s" id="A1"></li>
+  <li class="blackactive" id="AB1"></li>
+  <li class="white s" id="B1"> <p style="color:#999">B-</p> </li>
+</ul>
+</div>
+
+<div style="height: 5em;">
+<ul>
+  <li class="white press" id="C1"><p>C</p></li>
+  <li class="black" id="CD1"></li>
+  <li class="white s" id="D1"></li>
+  <li class="blackpress" id="DE1"></li>
+  <li class="white s" id="E1"> <p style="color:#999">E-</p> </li>
+  <li class="white" id="F1"></li>
+  <li class="black" id="FG1"></li>
+  <li class="white s active" id="G1"> <p>G</p> </li>
+  <li class="black" id="GA1"></li>
+  <li class="white s" id="A1"></li>
+  <li class="blackactive" id="AB1"></li>
+  <li class="white s" id="B1"> <p style="color:#999;">B-</p> </li>
+</ul>
+</div>
+
+<div style="height: 5em;">
+<ul>
+  <li class="white press" id="C1"><p>C</p></li>
+  <li class="black" id="CD1"></li>
+  <li class="white s" id="D1"></li>
+  <li class="blackactive" id="DE1"></li>
+  <li class="white s" id="E1"> <p style="color:#999">E-</p> </li>
+  <li class="white" id="F1"></li>
+  <li class="blackpress" id="FG1"></li>
+  <li class="white s" id="G1"> <p style="color:#999">G-</p> </li>
+  <li class="black" id="GA1"></li>
+  <li class="white s" id="A1"></li>
+  <li class="blackactive" id="AB1"></li>
+  <li class="white s" id="B1"> <p style="color:#999">B-</p> </li>
+</ul>
+</div>
+
+<div style="height: 5em;">
+<ul>
+  <li class="white press" id="C1"><p>C</p></li>
+  <li class="black" id="CD1"></li>
+  <li class="white s" id="D1"></li>
+  <li class="blackactive" id="DE1"></li>
+  <li class="white s" id="E1"> <p style="color:#999">E-</p> </li>
+  <li class="white" id="F1"></li>
+  <li class="blackactive" id="FG1"></li>
+  <li class="white s" id="G1"> <p style="color:#999">G-</p> </li>
+  <li class="black" id="GA1"></li>
+  <li class="white s press" id="A1"><p>A</p></li>
+  <li class="black" id="AB1"></li>
+  <li class="white s" id="B1"> </li>
+</ul>
+</div>
+
+<div style="height: 5em;">
+<ul>
+  <li class="white press" id="C1"><p>C</p></li>
+  <li class="black" id="CD1"></li>
+  <li class="white s" id="D1"></li>
+  <li class="black" id="DE1"></li>
+  <li class="white s" id="E1"></li>
+  <li class="white press" id="F1"><p>F</p></li>
+  <li class="black" id="FG1"></li>
+  <li class="white s active" id="G1"> <p>G</p> </li>
+  <li class="black" id="GA1"></li>
+  <li class="white s" id="A1"></li>
+  <li class="black" id="AB1"></li>
+  <li class="white s active" id="B1"> <p>B</p> </li>
+</ul>
+</div>
+
+</body>
+</html>
