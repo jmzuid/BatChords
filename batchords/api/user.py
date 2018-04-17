@@ -1,5 +1,12 @@
-@batchords.app.route('/api/v1/home', methods=["GET"])
-def home():
+"""REST API for user account info."""
+import flask
+import batchords
+import json
+import os
+import requests
+
+@batchords.app.route('/api/v1/user', methods=["GET"])
+def user():
     """Display home page to create a new score or open an existing one."""
     context = {}
 

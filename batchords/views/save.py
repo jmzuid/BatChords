@@ -9,6 +9,7 @@ from flask import redirect
 import batchords
 import arrow
 import requests
+import json
 
 
 @batchords.app.route('/save', methods=['GET', 'POST'])
@@ -31,13 +32,15 @@ def save():
     title = flask.request.args.get('title')
     if title == None:
         title = "Untitled"
+    print("DEBUG", "checked all params")
 
     # Create New Score
     payload = {
-              "title": "My new score 2",
+              "title": title,
               "privacy": "public",
               "data": xml
               }
+    print("DEBUG",payload["data"])
     r = requests.post('https://api.flat.io/v2/scores', data=json.dumps(payload), headers=headers)
     data = r.json()
     print("DEBUG r", r)

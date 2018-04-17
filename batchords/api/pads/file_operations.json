@@ -1,7 +1,7 @@
 {
   "pad_a": {
     "name":"Open Score",
-    "id":"not_implemented"
+    "id":"open"
   },
   "pad_b": {
     "name":"New Score",
@@ -24,8 +24,8 @@
     "id":"tutorial"
   },
   "pad_g": {
-    "name":"Remove Accidentals",
-    "id":"remove_accidentals"
+    "name":"Next",
+    "id":"next_score"
   },
   "pad_h": {
     "name":"Time Signature (TEMP)",

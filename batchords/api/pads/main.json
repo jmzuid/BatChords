@@ -12,8 +12,8 @@
     "id":"not_implemented"
   },
   "pad_d": {
-    "name":" ",
-    "id":"not_implemented"
+    "name":"Save",
+    "id":"save"
   },
   "pad_e": {
     "name":"File Menu",

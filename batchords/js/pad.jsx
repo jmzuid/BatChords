@@ -10,7 +10,7 @@ class Pad extends React.Component {
     this._loadPads = this._loadPads.bind(this);
     this.onClick = this.handleClick.bind(this);
     this.state = { pad_a: {}, pad_b: {}, pad_c: {}, pad_d: {}, pad_e: {}, pad_f: {}, pad_g: {}, pad_h: {},
-                   noteDuration: 3, measure_btype: 2, measure_beats: 4, ts_measures: 0 };
+                   noteDuration: 3, measure_btype: 2, measure_beats: 4, ts_measures: 0, score_index: 0, score_id: ""};
   }
 
   componentDidMount() {
@@ -490,6 +490,55 @@ class Pad extends React.Component {
 
       case "login":
         window.location.replace("https://flat.io/auth/oauth?client_id=6b910a07-aeaa-49ff-9770-5f3c452a350a&response_type=code&scope=account.public_profile+scores+scores.social+scores.readonly+account.public_profile&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Flogin");
+        break;
+
+      case "save": //TODOOOOOO
+        console.log("Saving score to Flat")
+         // Turn embed into XML
+        embed.getMusicXML().then(function (xml) {
+          console.log("XML: ",xml); // Plain XML file (string)
+
+          // Send "New Version" request with the XML to Flat's REST API
+          const url = "/save?title=HOPE&xml=" + xml;
+          //data = {data: xml, autosave: false, description:"New Revision from BatChords"} //moved this to server side
+          //access_token = "0c73df1879c52f87555fe3bed875a5d95656ba67b8c20e0ee1318f81c4d699977fc9f689f1c5de739bba4fadafe9d0cd17fb3526c7b6b9b0766a7d272ee7e976" //TODO
+          fetch(url,{ credentials: 'same-origin'}).then((response) => {
+              console.log("save request response: ",response);
+              if (!response.ok) throw Error(response.statusText);
+            })
+        }).catch(function (error) {
+            // Error while executing the actions
+              console.log("embedEdit error: " + error)
+        });
+        break;
+
+      case "next_score":
+        console.log("NEXT SCORE")
+        fetch("/api/v1/user", { credentials: 'same-origin' })
+        .then((response) => {
+          if (!response.ok) throw Error(response.statusText);
+          return response.json();
+        })
+        .then((data) => {
+            console.log("next_score: Trying to set score state")
+            console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
+          let numScores = (data["scores"]).length()
+          this.setState({
+            score_index: (this.state.score_index + 1),
+            score_id: data["scores"][((this.state.score_index + 1)%numScores)].id
+          });
+         console.log("next_score: Trying to set score state")
+         console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
+
+        })
+        .catch(error => console.log(error));
+        break;
+      case "open":
+        console.log("score.id",this.state.score_id)
+        let score_id_temp = this.state.score_id
+        let score_url = "/chooseScore?scoreid=" + score_id_temp
+        console.log("DEBUG","score_url",score_url)
+        window.location.replace(score_url);
         break;
 
       case "main_menu":
