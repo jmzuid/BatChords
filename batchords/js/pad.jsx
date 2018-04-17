@@ -10,7 +10,7 @@ class Pad extends React.Component {
     this._loadPads = this._loadPads.bind(this);
     this.onClick = this.handleClick.bind(this);
     this.state = { pad_a: {}, pad_b: {}, pad_c: {}, pad_d: {}, pad_e: {}, pad_f: {}, pad_g: {}, pad_h: {},
-                   noteDuration: 3, measure_btype: 2, measure_beats: 4, ts_measures: 0, score_index: 0, score_id: ""};
+                   noteDuration: 3, measure_btype: 2, measure_beats: 4, ts_measures: 0, score_index: 0, score_id: "", img_url: ""};
   }
 
   componentDidMount() {
@@ -526,6 +526,7 @@ class Pad extends React.Component {
           this.setState({
             score_index: (this.state.score_index + 1),
             score_id: data["scores"][((this.state.score_index + 1)%numScores)].id
+            img_url: data["score_imgs"][((this.state.score_index + 1)%numScores)]
           });
          console.log("next_score: Trying to set score state")
          console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
@@ -607,6 +608,7 @@ class Pad extends React.Component {
     let padF = null;
     let padG = null;
     let padH = null;
+    <img src={this.state.img_url}>
     // if (this.state.loaded) {
     padA = (
       <div className="pad col-sm-3">
