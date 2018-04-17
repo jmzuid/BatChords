@@ -526,7 +526,6 @@ class Pad extends React.Component {
           this.setState({
             score_index: (this.state.score_index + 1),
             score_id: data["scores"][((this.state.score_index + 1)%numScores)].id
-            img_url: data["score_imgs"][((this.state.score_index + 1)%numScores)]
           });
          console.log("next_score: Trying to set score state")
          console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
