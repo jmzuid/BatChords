@@ -58,11 +58,22 @@
             <p>
             <a href="/chooseScore?scoreid={{score.id}}">{{score.title}}</a>
             <br>
-            Composed by {% if score.composer != "" %} Unknown {% else %} {{score.composer}} {% endif%},
+            Composed by {% if score.composer == "" %} Unknown {% else %} {{score.composer}} {% endif%},
             Lyrics by {% if score.lyricist != "" %} Unknown {% else %} {{score.lyricist}} {% endif %}
             </p>
 
             {%endfor%}
+
+            <!-- Sidebar button things -->
+            <div id="sidebar">
+            <ul id="sbar">
+              <li id="tut1" class="tut_li" style="background-color: green;"> <a href="#"> Link 1 </a> </li>
+              <li id="tut2" class="tut_li"> <a href="#"> Link 2 </a> </li>
+              <li id="tut3" class="tut_li"> <a href="#"> Link 3 </a> </li>
+              <li id="tut4" class="tut_li"> <a href="#"> Link 4 </a> </li>
+              <li id="tut5" class="tut_li"> <a href="#"> Link 5 </a> </li>
+            </ul>
+            </div>
 
             <p>
             <a href="/logout">Logout</a>
