@@ -1,7 +1,7 @@
 {
   "pad_a": {
-    "name":" ",
-    "id":"not_implemented"
+    "name":"Open Score",
+    "id":"open"
   },
   "pad_b": {
     "name":"New Score",
@@ -16,20 +16,20 @@
     "id":"prev_score"
   },
   "pad_e": {
-    "name":" ",
-    "id":"not_implemented"
+    "name":"Logout",
+    "id":"logout"
   },
   "pad_f": {
     "name":"Tutorial",
     "id":"tutorial"
   },
   "pad_g": {
-    "name":"Logout",
-    "id":"logout"
-  },
-    "pad_h": {
     "name":"⬇",
     "id":"next_score"
+  },
+  "pad_h": {
+    "name":"⬆",
+    "id":"prev_score"
   }
 
 }

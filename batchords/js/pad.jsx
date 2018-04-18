@@ -621,16 +621,22 @@ class Pad extends React.Component {
           return response.json();
         })
         .then((data) => {
-            console.log("next_score: Trying to set score state");
-            console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id);
-            let numScores = Object.keys(data["scores"]).length;
-            let new_index = (this.state.score_index + 1)%numScores
-            if(this.state.score_index < (numScores-1)){
-            console.log(numScores);
+          //   console.log("next_score: Trying to set score state");
+          //   console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id);
+          //   let numScores = Object.keys(data["scores"]).length;
+          //   let new_index = (this.state.score_index + 1)%numScores
+          //   if(this.state.score_index < (numScores-1)){
+          //   console.log(numScores);
+          // this.setState({
+          //   score_index: new_index,
+          //   score_id: data["scores"][new_index].id
+          // })};
+            console.log("next_score: Trying to set score state")
+            console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
           this.setState({
-            score_index: new_index,
-            score_id: data["scores"][new_index].id
-          })};
+            score_index: (this.state.score_index + 1),
+            score_id: data["scores"][(this.state.score_index + 1)].id
+          });
          console.log("next_score: Trying to set score state")
          console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
 
