@@ -57,11 +57,17 @@
             <li id="score_{{loop.index}}" class="score_li">
             {% endif %}
 
-            <a href="/chooseScore?scoreid={{score.id}}">{{score.title}}</a>
+            <a href="/chooseScore?scoreid={{score.id}}">{{score.title}}
+            </a>
             <!-- Composed by {% if score.composer == "" %} Unknown {% else %} {{score.composer}} {% endif%},
             Lyrics by {% if score.lyricist != "" %} Unknown {% else %} {{score.lyricist}} {% endif %} -->
             </li>
             {% endfor %}
+            <div id="scoreimg" class="container_container">
+                <div id="scoreimg" class="container">
+                <img id="score_thumbail" src="/uploads/5acdb13a536d2201b5a61157.png">
+                </div>
+            </div>
             </ul>
         </div>
 
