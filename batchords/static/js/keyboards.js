@@ -409,6 +409,7 @@ function onMIDIMessage(message) {
     //console.log("Receiving note: " + data[1]);
 
     //Always turn on the note.
+    console.log(data[0]);
     switch (data[0]){
       //turn on the note
       case 144:

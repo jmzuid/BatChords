@@ -584,7 +584,7 @@ class Pad extends React.Component {
             })
         }).catch(function (error) {
             // Error while executing the actions
-              console.log("embedEdit error: " + error) 
+              console.log("embedEdit error: " + error)
         });
         break;
 
@@ -686,7 +686,14 @@ class Pad extends React.Component {
       case "login":
         window.location.replace("https://flat.io/auth/oauth?client_id=6b910a07-aeaa-49ff-9770-5f3c452a350a&response_type=code&scope=account.public_profile+scores+scores.social+scores.readonly+account.public_profile&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Flogin");
         break;
-
+      case "toggle_chords":
+        let mode = window.chord_mode;
+        if (mode){
+          window.chord_mode = false;
+        }else{
+          window.chord_mode = true;
+        }
+        break;
       case "main_menu":
       case "not_implemented":
         this._loadPads('main_menu');

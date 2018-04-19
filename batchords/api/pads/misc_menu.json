@@ -24,8 +24,8 @@
     "id":"change_staff"
   },
   "pad_g": {
-    "name":" ",
-    "id":" "
+    "name":"Toggle Chords",
+    "id":"toggle_chords"
   },
   "pad_h": {
     "name":" ",
