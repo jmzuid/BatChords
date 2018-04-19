@@ -9,6 +9,7 @@ from batchords.views.login import login, \
 
 from batchords.views.home import home, \
                                 chooseScore, \
-                                createScore
+                                createScore, \
+                                get_upload
 
 from batchords.views.save import save

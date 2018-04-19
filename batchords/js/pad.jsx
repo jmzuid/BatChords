@@ -11,7 +11,7 @@ class Pad extends React.Component {
     this.onClick = this.handleClick.bind(this);
     this.state = { pad_a: {}, pad_b: {}, pad_c: {}, pad_d: {}, pad_e: {}, pad_f: {}, pad_g: {}, pad_h: {},
                    noteDuration: 3, measure_btype: 2, measure_beats: 4, ts_measures: 0,
-                   tempo_measures: 0, tempo: 120, tutorial_section: 1, score_index: 0, score_id: "", img_url: ""};
+                   tempo_measures: 0, tempo: 120, tutorial_section: 1, score_index: 0, score_id: ""};
   }
 
   componentDidMount() {
@@ -611,10 +611,14 @@ class Pad extends React.Component {
               cur_score_prev.style.backgroundColor = "#1C1E1f";
               next_score_prev.style.backgroundColor = "green";
 
+              let score_img_url = "/uploads/" + this.state.score_id + ".png"
+              let thumbnail_img = document.getElementById("score_thumbail")
+              thumbnail_img.src = score_img_url;
+
             } else {
               return;
             };
-            
+
             console.log("next_score: Trying to set score state")
             console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
 
@@ -643,10 +647,15 @@ class Pad extends React.Component {
               cur_score_next.style.backgroundColor = "#1C1E1f";
               next_score_next.style.backgroundColor = "green";
 
+              let score_img_url = "/uploads/" + this.state.score_id + ".png"
+              console.log("score_img_url",score_img_url)
+              let thumbnail_img = document.getElementById("score_thumbail")
+              console.log("thumbnail_img",thumbnail_img)
+              thumbnail_img.src = score_img_url;
             } else {
               return;
             };
-            
+
             console.log("next_score: Trying to set score state")
             console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
 
