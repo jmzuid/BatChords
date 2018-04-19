@@ -598,16 +598,25 @@ class Pad extends React.Component {
         .then((data) => {
             console.log("next_score: Trying to set score state");
             console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id);
-            let numScores = Object.keys(data["scores"]).length;
-            let new_index = (this.state.score_index - 1)%numScores
-            if(this.state.score_index > 0){
-            console.log(numScores);
-          this.setState({
-            score_index: new_index,
-            score_id: data["scores"][new_index].id
-          })};
-         console.log("next_score: Trying to set score state")
-         console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
+            // let numScores = Object.keys(data["scores"]).length;
+            let new_index = (this.state.score_index - 1);//%numScores;
+            if(new_index >= 0){
+              // console.log(numScores);
+              this.setState({
+                score_index: new_index,
+                score_id: data["scores"][new_index].id
+              })
+              let cur_score_prev = document.getElementById('score_' + (new_index + 2));
+              let next_score_prev = document.getElementById('score_' + (new_index + 1));
+              cur_score_prev.style.backgroundColor = "#1C1E1f";
+              next_score_prev.style.backgroundColor = "green";
+
+            } else {
+              return;
+            };
+            
+            console.log("next_score: Trying to set score state")
+            console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
 
         })
         .catch(error => console.log(error));
@@ -621,24 +630,25 @@ class Pad extends React.Component {
           return response.json();
         })
         .then((data) => {
-          //   console.log("next_score: Trying to set score state");
-          //   console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id);
-          //   let numScores = Object.keys(data["scores"]).length;
-          //   let new_index = (this.state.score_index + 1)%numScores
-          //   if(this.state.score_index < (numScores-1)){
-          //   console.log(numScores);
-          // this.setState({
-          //   score_index: new_index,
-          //   score_id: data["scores"][new_index].id
-          // })};
+            let new_index_next = (this.state.score_index + 1);//%numScores;
+            let numScores = Object.keys(data["scores"]).length;
+            if(new_index_next <= numScores){
+              // console.log(numScores);
+              this.setState({
+                score_index: new_index_next,
+                score_id: data["scores"][new_index_next].id
+              })
+              let cur_score_next = document.getElementById('score_' + (new_index_next));
+              let next_score_next = document.getElementById('score_' + (new_index_next + 1));
+              cur_score_next.style.backgroundColor = "#1C1E1f";
+              next_score_next.style.backgroundColor = "green";
+
+            } else {
+              return;
+            };
+            
             console.log("next_score: Trying to set score state")
             console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
-          this.setState({
-            score_index: (this.state.score_index + 1),
-            score_id: data["scores"][(this.state.score_index + 1)].id
-          });
-         console.log("next_score: Trying to set score state")
-         console.log("next_score: current score_index and score_id", this.state.score_index, this.state.score_id)
 
         })
         .catch(error => console.log(error));

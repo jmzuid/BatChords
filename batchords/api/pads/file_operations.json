@@ -8,12 +8,12 @@
     "id":"new_score"
   },
   "pad_c": {
-    "name":"Open Score",
-    "id":"open"
-  },
-  "pad_d": {
     "name":"⬆",
     "id":"prev_score"
+  },
+  "pad_d": {
+    "name":" ",
+    "id":" "
   },
   "pad_e": {
     "name":"Logout",
@@ -28,8 +28,8 @@
     "id":"next_score"
   },
   "pad_h": {
-    "name":"⬆",
-    "id":"prev_score"
+    "name":" ",
+    "id":" "
   }
 
 }
