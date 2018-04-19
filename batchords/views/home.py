@@ -21,7 +21,7 @@ def get_upload(filename):
     """Return upload."""
     print("DEBUG","upload folder",batchords.app.config['UPLOAD_FOLDER'])
     print("DEBUG","filename",filename)
-    return flask.send_from_directory(batchords.app.config['UPLOAD_FOLDER'], filename)
+    return flask.send_from_directory(batchords.app.config['STATIC_IMG_FOLDER'], filename)
 
 
 @batchords.app.route('/createScore', methods=['GET', 'POST'])
@@ -98,7 +98,7 @@ def home():
 
     for score in context["scores"]:
         url = "https://api.flat.io/v2/scores/" + score["id"] + "/revisions/last/thumbnail.png"
-        filepath = os.path.join(os.getcwd(), "var/uploads/", (score["id"] + ".png"))
+        filepath = os.path.join(os.getcwd(), "batchords/static/img", (score["id"] + ".png"))
         filename = score["id"] + ".png"
         print ("DEBUG", os.getcwd())
         print("DEBUG",filepath)
