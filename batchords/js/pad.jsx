@@ -688,6 +688,8 @@ class Pad extends React.Component {
         break;
       case "toggle_chords":
         let mode = window.chord_mode;
+        let abc= document.getElementById("abc");
+        abc.click()
         if (mode){
           window.chord_mode = false;
         }else{

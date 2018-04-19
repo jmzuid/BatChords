@@ -28,6 +28,7 @@
 
   <body>
 
+
         <!--  Ab sounds  -->
         <audio id="sound-GA1" src="../static/piano-sounds/Piano-mf-GA1.mp3" preload="auto"></audio>
         <audio id="sound-GA2" src="../static/piano-sounds/Piano-mf-GA2.mp3" preload="auto"></audio>
@@ -185,9 +186,15 @@
 
     <div id="bcApp_div" api_url="main_menu">Loading UI...</div>
 
-    <div id="container">
+    <div id="container" style="float:left;">
       <div id="row">
-        <div id="Keyboards col-sm-12" style="text-align: center">
+        <div id="Keyboards col-sm-12" style="text-align: left">
+                  <!-- Rectangular switch -->
+          <label class="switch" style="margin:0 0 0 15px; float:left">
+            <input type="checkbox">
+            <span class="slider" id="abc"></span>
+          </label>
+          <!--<ul class="set" style="display:inline"> -->
           <ul class="set">
             <li class="white" id="C1"></li>
             <li class="black" id="CD1"></li>
