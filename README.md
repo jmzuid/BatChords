@@ -8,7 +8,7 @@ A plugin to help play and record musical chords with one hand using external MID
 
 <h2 id="akai-preset">Load Akai Keyboard Preset</h2>
 
-<p>In order to use the Akai Mini Mpk keyboard the Akai Mpk Mini Editor must be downloaded from the <a href="http://www.akaipro.com/products/keyboard-controllers/mpk-mini-mkii">Akai website under the tab downloads</a>. In the home directory there is a file "akai_batchords.mk2". <a href="http://www.akaipro.com/support/kb/articles/akai-pro-mpk-mini-mkii-how-to-use-the-editor"> Instructions on using the Akai editor</a> to load this preset onto the Akai, the program must be selected on the Akai keyboard after loading. Before loading the preset all programs that take MIDI input (which includes Chrome) should be closed, otherwise they will interfere with the Mpk Mini editor. </p> 
+<p>In order to use the Akai Mini Mpk keyboard the Akai Mpk Mini Editor must be downloaded from the <a href="http://www.akaipro.com/products/keyboard-controllers/mpk-mini-mkii">Akai website under the tab downloads</a>. In the home directory there is a file "akai_batchords.mk2". <a href="http://www.akaipro.com/support/kb/articles/akai-pro-mpk-mini-mkii-how-to-use-the-editor"> Instructions on using the Akai editor</a> to load this preset onto the Akai, the program must be selected on the Akai keyboard after loading. Before loading the preset all programs that take MIDI input (which includes Chrome) should be closed, otherwise they will interfere with the Mpk Mini editor. </p>
 
 
 <h2 id="foot-pedal">Using Infinity USB foot pedal</h2>
@@ -22,7 +22,7 @@ A plugin to help play and record musical chords with one hand using external MID
 
 
 <p>
-    The left foot pedal should be configured to map to the left arrow key, the right foot pedal should be configured to map the right arrow key, and the middle pedal should be mapped to the space bar. This will allow for navigation within the embedded editor and easy playback and pause. 
+    The left foot pedal should be configured to map to the left arrow key, the right foot pedal should be configured to map the right arrow key, and the middle pedal should be mapped to the space bar. This will allow for navigation within the embedded editor and easy playback and pause.
 </p>
 
 
@@ -299,6 +299,9 @@ bundle.js  799 kB       0  [emitted]  [big]  main
 </code></pre></div></div>
 
 <p>Finally, browse to <a href="http://localhost:8000/">http://localhost:8000/</a>, where you’ll see the BatChords web app.</p>
+
+
+<p>The piano sound fonts originated from the University of Iowa electronic music project: <ahref="http://theremin.music.uiowa.edu/MISpiano.html#"</a></p>
 
 
   </body>

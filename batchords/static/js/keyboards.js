@@ -47,10 +47,9 @@ function chordID(root, second){
 var m_step = new Map([[0,"C"],[1,"CD"],[2,"D"],[3,"DE"],[4,"E"],[5,"F"],[6,"FG"],[7,"G"],[8,"GA"],[9,"A"],[10,"AB"],[11,"B"]]);
 // var m_button = new Map([100,"pad_a"])
 
-var chord_mode = true ;
-var chord_locked = false ;
+var chord_mode = false ;
 var note_sentinel = 85 ;
-var chords_playing = new Array();
+//var chords_playing = new Array();
 
 //Converts a pitch to a note frequency.
 //function frequencyFromNote( note ) {
@@ -210,7 +209,7 @@ function playChord(chord_label, chord){
   //mark notes as active
   //var chord_label = chordID( [chord.root, chord.second] );
   console.log("Pushing label: " + chord_label);
-  chords_playing.push(chord);
+  //chords_playing.push(chord);
   notes[chord.root].push(chord_label);
   notes[chord.second].push(chord_label);
   notes[chord.third].push(chord_label);
@@ -444,7 +443,9 @@ function onMIDIMessage(message) {
         console.log(chord[0]);
         console.log(chord[1]);
         var label = chordID(chord[0],chord[1]);
-        playChord(label, newChord);
+        if(chord_mode){
+          playChord(label, newChord);
+        }
         chord[0] = note_sentinel;
         chord[1] = note_sentinel;
       //}
@@ -454,7 +455,9 @@ function onMIDIMessage(message) {
       chord[chord.indexOf(data[1])] = note_sentinel; //revert value to sentinel.
       //console.log("onMIDIMessage: chords_playing.length: " + chords_playing.length);
       //console.log("calling stopChords on : " + data[1]);
-      stopChordswithNote(data[1]);
+      if(chord_mode){
+        stopChordswithNote(data[1]);
+      }
     }
 
 
