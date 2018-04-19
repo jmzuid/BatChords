@@ -46,31 +46,32 @@
 
         <br>
 
-        <!-- Sidebar button things -->
-        <div id="score_selection">
-            <ul id="score_ul">
+        <div className="row">
+            <!-- Sidebar button things -->
+            <div id="score_selection" className="col-sm-8">
+                <ul id="score_ul">
 
-            {% for score in scores %}
-            {% if loop.index == 1 %}
-            <li id="score_{{loop.index}}" class="score_li" style="background-color: green;">
-            {% else %}
-            <li id="score_{{loop.index}}" class="score_li">
-            {% endif %}
+                {% for score in scores %}
+                {% if loop.index == 1 %}
+                <li id="score_{{loop.index}}" class="score_li" style="background-color: green;">
+                {% else %}
+                <li id="score_{{loop.index}}" class="score_li">
+                {% endif %}
 
-            <a href="/chooseScore?scoreid={{score.id}}">{{score.title}}
-            </a>
-            <!-- Composed by {% if score.composer == "" %} Unknown {% else %} {{score.composer}} {% endif%},
-            Lyrics by {% if score.lyricist != "" %} Unknown {% else %} {{score.lyricist}} {% endif %} -->
-            </li>
-            {% endfor %}
-            <div id="scoreimg" class="container_container">
-                <div id="scoreimg" class="container">
-                <img id="score_thumbail" src="/uploads/5acdb13a536d2201b5a61157.png">
-                </div>
+                <a href="/chooseScore?scoreid={{score.id}}">{{score.title}}
+                </a>
+                <!-- Composed by {% if score.composer == "" %} Unknown {% else %} {{score.composer}} {% endif%},
+                Lyrics by {% if score.lyricist != "" %} Unknown {% else %} {{score.lyricist}} {% endif %} -->
+                </li>
+                {% endfor %}
+                <!-- <div id="scoreimg" class="container_container"> -->
+                <!-- </div> -->
+                </ul>
             </div>
-            </ul>
+            <div id="scoreimg" class="container col-sm-4"">
+                <img id="score_thumbail" src="/uploads/5acdb13a536d2201b5a61157.png">
+            </div>
         </div>
-
 
 
         <br>
