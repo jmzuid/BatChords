@@ -4,6 +4,8 @@ BatChords login view.
 URLs include:
 /chooseScore
 /home
+/createScore
+/uploads
 """
 import flask
 from flask import redirect
@@ -11,6 +13,15 @@ import batchords
 import arrow
 import requests
 import json
+import os
+
+
+@batchords.app.route('/uploads/<filename>', methods=["GET"])
+def get_upload(filename):
+    """Return upload."""
+    print("DEBUG","upload folder",batchords.app.config['UPLOAD_FOLDER'])
+    print("DEBUG","filename",filename)
+    return flask.send_from_directory(batchords.app.config['STATIC_IMG_FOLDER'], filename)
 
 
 @batchords.app.route('/createScore', methods=['GET', 'POST'])
@@ -83,6 +94,19 @@ def home():
     #print("data",data)
 
     context["scores"] = data
+    context["score_imgs"] = []
+
+    for score in context["scores"]:
+        url = "https://api.flat.io/v2/scores/" + score["id"] + "/revisions/last/thumbnail.png"
+        filepath = os.path.join(os.getcwd(), "batchords/static/img", (score["id"] + ".png"))
+        filename = score["id"] + ".png"
+        print ("DEBUG", os.getcwd())
+        print("DEBUG",filepath)
+        context["score_imgs"].append(filename)
+        r = requests.get(url, headers=headers)
+        fileout = open(filepath, 'wb')
+        fileout.write(r.content)
+        fileout.close()
 
     # TODO Get thumbnail of each score
     #for score in context["scores"]:

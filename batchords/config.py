@@ -20,6 +20,12 @@ UPLOAD_FOLDER = os.path.join(
     os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
     'var', 'uploads'
 )
+
+# File Upload to batchords/static/
+STATIC_IMG_FOLDER = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
+    'batchords', 'static', 'img'
+)
 # ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 # MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 

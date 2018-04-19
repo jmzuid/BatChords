@@ -8,12 +8,12 @@
     "id":"new_score"
   },
   "pad_c": {
-    "name":"⬆",
-    "id":"prev_score"
+    "name":"Note Functions",
+    "id":"note_functions"
   },
   "pad_d": {
-    "name":" ",
-    "id":" "
+    "name":"Set Note Flat",
+    "id":"set_note_flat"
   },
   "pad_e": {
     "name":"Logout",
@@ -28,8 +28,8 @@
     "id":"next_score"
   },
   "pad_h": {
-    "name":" ",
-    "id":" "
+    "name":"⬆",
+    "id":"prev_score"
   }
 
 }
