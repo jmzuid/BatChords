@@ -681,6 +681,8 @@ class Pad extends React.Component {
         break;
 
       case "file_menu":
+        window.location.replace("/home");
+        break;
       case "login":
         window.location.replace("https://flat.io/auth/oauth?client_id=6b910a07-aeaa-49ff-9770-5f3c452a350a&response_type=code&scope=account.public_profile+scores+scores.social+scores.readonly+account.public_profile&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Flogin");
         break;
