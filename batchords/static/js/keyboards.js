@@ -4,10 +4,48 @@ var midi, data;
 /* valid note values are 0 - 83 */
 /* 84 is a bug. */
 var notes = new Map();
-var chord_mappings = new Map();
-//populate_mappings(chord_mappings);
-// FIXME: MAYBE try to map to intervals.
+var notes_active = {};
+/* initialize notes map from 12 - 95 */
+for (i = 12; i < 96; i++){
+  //console.log("init notes["+i+"]");
+  notes[i] = new Array();
+  //console.log(Array.isArray(notes[i]));
+  notes_active[i] = false ;
+}
 
+//check to see which chords this note is a member of.
+function noteUnused(noteValue){
+  console.log("noteUnused["+noteValue+"] length: " + noteValue.length);
+  return notes[noteValue].length == 0 || ((typeof notes[noteValue]) == "undefined");
+}
+
+// Takes in a two-element array
+// and converts it to a 3-digit numrerical ID.
+// First two digits are the numverical value
+// of the root.
+// The last is the distance between the two notes.
+// second refers to the second note in the mapping,
+// not the second note in the musical chord.
+function chordID(root, second){
+  //var root = chord_in[0] ;
+  //var other = chord_in[1] ;
+  var diff = second - root ;
+  //console.log("chordID: root " + root);
+  //console.log("chordID: other " + other);
+  var rootStr = root.toString(10);
+  var diffStr = diff.toString(10);
+  var id = rootStr + diffStr ;
+  //console.log("test");
+  //console.log(id);
+  //console.log("test");
+  console.log("chordID returned: " + id);
+  return id;
+}
+
+
+// a global map for steps
+var m_step = new Map([[0,"C"],[1,"CD"],[2,"D"],[3,"DE"],[4,"E"],[5,"F"],[6,"FG"],[7,"G"],[8,"GA"],[9,"A"],[10,"AB"],[11,"B"]]);
+// var m_button = new Map([100,"pad_a"])
 
 var chord_mode = true ;
 var chord_locked = false ;
@@ -15,13 +53,37 @@ var note_sentinel = 85 ;
 var chords_playing = new Array();
 
 //Converts a pitch to a note frequency.
-function frequencyFromNote( note ) {
-  var ret = 440 * Math.pow(2,(note-69)/12);
-  //console.log("note:" + note + "converts to frequency: " + ret);
-  return ret;
+//function frequencyFromNote( note ) {
+//  var ret = 440 * Math.pow(2,(note-69)/12);
+//  //console.log("note:" + note + "converts to frequency: " + ret);
+//  return ret;
+
+
+
+
+
+
+// return the soundID html identifier.
+function soundId(id) {
+    return 'sound-' + id;
+  };
+
+function sound(id) {
+    var it = document.getElementById(id);
+    return it;
+  };
+
+//convert the raw midi value
+// to a note value.
+function Convert_note_to_sound(noteValue){
+  var step = m_step.get(noteValue % 12);
+  var octave = Math.floor(noteValue / 12);
+  var note = step.concat(octave);
+  var note2 = soundId(note);
+  //console.log("Convert_note_to_sound : " + note2);
+  return sound(note2);
 };
 
-console.log("test");
 
 
 var audioCtx = new (AudioContext || webkitAudioContext)();
@@ -29,17 +91,6 @@ var osc = audioCtx.createOscillator();
 
 osc.type = "triangle" ; // the type of oscillator we want to use.
 osc.connect(audioCtx.destination); //connect to the speakers.
-
-/* create all of the pitches for our keyboard. */
-/*
-for (i = 48; i < 73; i++){
-  var pitch = audioCtx.createOscillator();
-  pitch.type = "triangle" ;
-  var freq = frequencyFromNote(i) ;
-  pitch.frequency.setValueAtTime(freq, audioCtx.currentTime);
-  pitch.connect(audioCtx.destination);
-  notes[i] = pitch; /* place the pitch inside our map.
-} */
 
 // request MIDI access
 if (navigator.requestMIDIAccess) {
@@ -59,7 +110,7 @@ function sleep(dur){
 
 //inputs a two-note array, outputs a chord.
 //FIXME: does not handle single-note input.
-function playChord(c){
+function buildChord(c){
   // Maj7 = dist 7
   // C7 = dist 4
   // Cm7 = dist 10
@@ -70,85 +121,83 @@ function playChord(c){
   var chord = new Object() ;
   var root = c[0];
   chord.root = root;
-  switch (c[1] - c[0]){
-    case 0:   // Maj7
-      chord.second = root + 4;
-      chord.third = root + 7;
-      chord.fourth = root + 11;
-      chord.rootNote = beginNoteChord(chord.root);
-      chord.secondNote = beginNoteChord(chord.second);
-      chord.thirdNote = beginNoteChord(chord.third);
-      chord.fourthNote = beginNoteChord(chord.fourth);
-      break;
+  switch (c[1] - root){
     case 3:   // m7-5
+      console.log("buildChord case 3.");
       chord.second = root + 3;
       chord.third = root + 7;
       chord.fourth = root + 11;
-      chord.rootNote = beginNoteChord(chord.root);
-      chord.secondNote = beginNoteChord(chord.second);
-      chord.thirdNote = beginNoteChord(chord.third);
-      chord.fourthNote = beginNoteChord(chord.fourth);
       break;
     case 4:   // m7
+      console.log("buildChord case 4.");
       chord.second = root + 4;
       chord.third = root + 7;
       chord.fourth = root + 11;
-      chord.rootNote = beginNoteChord(chord.root);
-      chord.secondNote = beginNoteChord(chord.second);
-      chord.thirdNote = beginNoteChord(chord.third);
-      chord.fourthNote = beginNoteChord(chord.fourth);
-      //sleep for a duration.
       break;
     case 5:  // sus7
+      console.log("buildChord case 5.");
       chord.second = root + 5;
       chord.third = root + 7;
       chord.fourth = root + 10;
-      chord.rootNote = beginNoteChord(chord.root);
-      chord.secondNote = beginNoteChord(chord.second);
-      chord.thirdNote = beginNoteChord(chord.third);
-      chord.fourthNote = beginNoteChord(chord.fourth);
       break;
     case 6: // m7-5
+      console.log("buildChord case 6.");
       chord.second = root + 3;
       chord.third = root + 6;
       chord.fourth = root + 10;
-      chord.rootNote = beginNoteChord(chord.root);
-      chord.secondNote = beginNoteChord(chord.second);
-      chord.thirdNote = beginNoteChord(chord.third);
-      chord.fourthNote = beginNoteChord(chord.fourth);
       break;
     case 7: // Maj7
+      console.log("buildChord case 7.");
       chord.second = root + 4;
       chord.third = root + 7;
       chord.fourth = root + 11;
-      chord.rootNote = beginNoteChord(chord.root);
-      chord.secondNote = beginNoteChord(chord.second);
-      chord.thirdNote = beginNoteChord(chord.third);
-      chord.fourthNote = beginNoteChord(chord.fourth);
       break;
     case 9:  // dim7
+      console.log("buildChord case 9.");
       chord.second = root + 3;
       chord.third = root + 6;
       chord.fourth = root + 9;
-      chord.rootNote = beginNoteChord(chord.root);
-      chord.secondNote = beginNoteChord(chord.second);
-      chord.thirdNote = beginNoteChord(chord.third);
-      chord.fourthNote = beginNoteChord(chord.fourth);
       break;
     case 10:  // m7
+      console.log("buildChord case 10.");
       chord.second = root + 3;
       chord.third = root + 7;
       chord.foruth = root + 10;
-      chord.rootNote = beginNoteChord(chord.root);
-      chord.secondNote = beginNoteChord(chord.second);
-      chord.thirdNote = beginNoteChord(chord.third);
-      chord.fourthNote = beginNoteChord(chord.fourth);
       break;
     default:
       console.log("do nothing");
+      return ;
   }
-  chords_playing.push(chord);
+  return chord;
 };
+
+// Take a chord ID and return a chord.
+// Splut the chordID into two parts,
+// the root and the second note (which is 1 or 2 digits).
+// call buildChord to construct the rest of the chord.
+function chordfromID(chordID){
+  var label = chordID.toString();
+  console.log("test chordfromID");
+  console.log(label);
+  console.log("test chordfromID");
+  var rootLabel = Number(label.substr(0,2));
+  var diff = Number(label.substr(2));
+  //var chordString = [rootLabel,diff];
+  var chordPair = [rootLabel, (rootLabel + diff)];
+  //chordPair[0] = Number(chordString[0])
+  //chordPair[1] = chordPair[0] + Number(chordString[1]);
+  console.log("chordPair:");
+  console.log(chordPair[0]);
+  console.log(chordPair[1]);
+  console.log("chordPair.");
+  var chord = buildChord(chordPair);
+  console.log(chord.root);
+  console.log(chord.second);
+  console.log(chord.third);
+  console.log(chord.fourth);
+  return chord;
+}
+
 
 //Check to see if chord contains midi note value val
 function chordStartwithValue(chord, val) {
@@ -156,63 +205,133 @@ function chordStartwithValue(chord, val) {
   return chord.root == val ;
 };
 
+//play a prebuilt chord
+function playChord(chord_label, chord){
+  //mark notes as active
+  //var chord_label = chordID( [chord.root, chord.second] );
+  console.log("Pushing label: " + chord_label);
+  chords_playing.push(chord);
+  notes[chord.root].push(chord_label);
+  notes[chord.second].push(chord_label);
+  notes[chord.third].push(chord_label);
+  notes[chord.fourth].push(chord_label);
+
+  console.log(notes[chord.root].indexOf(chord_label) != -1);
+  console.log(notes[chord.second].indexOf(chord_label) != -1);
+  console.log(notes[chord.third].indexOf(chord_label) != -1);
+  console.log(notes[chord.fourth].indexOf(chord_label) != -1);
+  //console.log(chord_label);
+  beginNoteSingle(chord.root);
+  beginNoteSingle(chord.second);
+  beginNoteSingle(chord.third);
+  beginNoteSingle(chord.fourth);
+  return;
+};
+
+//Returns a list of possible chords with the
+// noteValue as root.
+function chordsFromRoot(noteValue) {
+  var chordList = new Array();
+  //chordList.push(chordID(noteValue));
+  chordList.push(chordID(noteValue, (noteValue + 3)));
+  chordList.push(chordID(noteValue, (noteValue + 4)));
+  chordList.push(chordID(noteValue, (noteValue + 5)));
+  chordList.push(chordID(noteValue, (noteValue + 6)));
+  chordList.push(chordID(noteValue, (noteValue + 7)));
+  chordList.push(chordID(noteValue, (noteValue + 9)));
+  chordList.push(chordID(noteValue, (noteValue + 10)));
+  return chordList;
+};
+
 //Inputs the chord array, and a value no longer played
 //Iterates over chord_list and stops any chord
 // which has a note matching that value. Then, it splices
 // the array to remove that chord.
-function stopChordswithNote(chord_list, note){
-  console.log("Stopping chords with val " + note);
-  console.log("Length of chord_list " + chord_list.length);
-  for (i = 0; i < chord_list.length;){
-      console.log("index: " + i + " of " + chord_list.length);
-      if (chordStartwithValue(chord_list[i],note)){
-        console.log("Found a chord");
-        stopChord(chord_list[i]);
-        chord_list.splice(i,1); //remove the chord from the list.
-        i = 0; //reset the counter since we've changed the list.
-      } else {
-        i++; //simply iterate the counter
-      };
-  };
-  console.log("End loop stopChordswithNote");
+function stopChordswithNote(note){
+  //console.log("stopChordswithNote: note: " + note);
+  var chord_list = chordsFromRoot(note);
+  for(i = 0; i < chord_list.length; i++){
+    //console.log("testing chord label: " + chord_list[i] );
+    //console.log(Array.isArray(notes[note]));
+    if(notes[note].indexOf(chord_list[i]) != -1 ){
+      //build a chord from the chord ID and stop
+      // and tell each note to stop.
+      console.log("Calling stop for label " + chord_list[i]);
+      var chord = chordfromID(chord_list[i]);
+      stopChord(chord_list[i], chord);
+    }
+  }
 };
 
+// takes a single value and a chord_label.
+// Removes the association between the chord and note.
+function removeChordfromNotes(chord_label, noteValue){
+  console.log("removeChordfromNotes: noteValue: "+ noteValue);
+  //console.log("removeChordfromNotes: isArray: " + Array.isArray(notes));
+  var i = notes[noteValue].indexOf(chord_label);
+  if (i != -1){
+    notes[noteValue] = notes[noteValue].splice(i,0);
+    //console.log("removed "+chord_label+" from "+noteValue);
+    //console.log("after splice, lenght: " + notes[noteValue].length);
+    //console.log(noteUnused(noteValue));
+    if(noteUnused(noteValue)){
+        notes_active[noteValue] = false;
+        console.log("endNoteSingle: " + noteValue);
+        endNoteSingle(noteValue);
+    }
+  }
+
+}
 
 // Call endNote for all elements in the chord.
-function stopChord(chord) {
-  chord.rootNote.stop();
-  chord.secondNote.stop();
-  chord.thirdNote.stop();
-  chord.fourthNote.stop();
+function stopChord(label, chord) {
+  //var label = chordID([chord.second, chord.third]);
+  removeChordfromNotes(label, chord.root);
+  console.log("removeChordfromNotes: note: " + chord.root);
+  removeChordfromNotes(label, chord.second);
+  console.log("removeChordfromNotes: note: " + chord.second);
+  removeChordfromNotes(label, chord.third);
+  console.log("removeChordfromNotes: note: " + chord.third);
+  removeChordfromNotes(label, chord.fourth);
+  console.log("removeChordfromNotes: note: " + chord.fourth);
+  endNoteSingle(chord.root);
+  endNoteSingle(chord.second);
+  endNoteSingle(chord.third);
+  endNoteSingle(chord.fourth);
 };
 
 //begins a single note not in the chord.
 function beginNoteChord(noteValue) {
-  var pitch = audioCtx.createOscillator();
-  pitch.type = "triangle";
-  freq = frequencyFromNote(noteValue);
-  pitch.frequency.setValueAtTime(freq, audioCtx.currentTime);
-  pitch.connect(audioCtx.destination);
-  pitch.start(0);
-  return pitch ;
+  //var pitch = audioCtx.createOscillator();
+  //pitch.type = "triangle";
+  //freq = frequencyFromNote(noteValue);
+  //pitch.frequency.setValueAtTime(freq, audioCtx.currentTime);
+  //pitch.connect(audioCtx.destination);
+  //pitch.start(0);
+  //return pitch ;
+
 };
 
 //begins single notes in the notes array.
 function beginNoteSingle(noteValue){
-  var pitch = audioCtx.createOscillator();
-  pitch.type = "triangle";
-  freq = frequencyFromNote(noteValue);
-  pitch.frequency.setValueAtTime(freq, audioCtx.currentTime);
-  pitch.connect(audioCtx.destination);
-  pitch.start(0);  //we can put a delay here if we want. (Think about multiple note values.)
-  notes[noteValue] = pitch ; // Add this to the
-  return pitch ;
+  audio = Convert_note_to_sound(noteValue);
+  audio.currentTime = .8; // remove some of the time delay.
+  notes_active[noteValue] = true;
+  highlightKey(noteValue);
+  audio.play();
+  //return pitch ;
 };
 
 
 // End the note in the notes array of value noteValue
 function endNoteSingle(noteValue){
-  notes[noteValue].stop();
+
+  console.log("endNoteSingle: note value " + noteValue);
+  var audio = Convert_note_to_sound(noteValue);
+  audio.pause();
+  unhighlightKey(noteValue);
+  audio.currentTime = .75 ;
+  notes_active[noteValue] = false ;
 };
 
 
@@ -220,7 +339,6 @@ function endNoteSingle(noteValue){
 function onMIDISuccess(midiAccess) {
     // when we get a succesful response, run this code
     midi = midiAccess; // this is our raw MIDI data, inputs, outputs, and sysex status
-
     var inputs = midi.inputs.values();
     // loop over all available inputs and listen for any MIDI input
     for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
@@ -239,7 +357,7 @@ var arr = []
 var chord = new Array(2);
 chord.fill(note_sentinel); //maximum values for keyboard input.
 
-console.log("new array of size: " + chord.length);
+//console.log("new array of size: " + chord.length);
 
 // push one note onto sheet, do not attempt to move on
 // embedEdit("C", 4)
@@ -247,9 +365,9 @@ console.log("new array of size: " + chord.length);
 // arguments[1] is octave: 4
 function embedEdit(){
     let step_inp = String(arguments[0]);
-    console.log(step_inp);
+    //console.log(step_inp);
     let octave_inp = Number(arguments[1]);
-    console.log(octave_inp);
+    //console.log(octave_inp);
     var acc = null;
     if (step_inp.length == 2) {
         acc = "sharp";
@@ -275,24 +393,21 @@ function embedEdit(){
                 } }
             ]).catch(function (error) {
               // Error while executing the actions
-                console.log("embedEdit error: " + error)
+                //console.log("embedEdit error: " + error)
             });
         });
 }
 
-// a global map for steps
-var m_step = new Map([[0,"C"],[1,"CD"],[2,"D"],[3,"DE"],[4,"E"],[5,"F"],[6,"FG"],[7,"G"],[8,"GA"],[9,"A"],[10,"AB"],[11,"B"]]);
-// var m_button = new Map([100,"pad_a"])
 
 
 /*
-
-
-
+    Range: 12 - 95
 */
 function onMIDIMessage(message) {
     data = message.data; // this gives us our [command/channel, note, velocity] data.
-    console.log(data);
+
+
+    //console.log("Receiving note: " + data[1]);
 
     //Always turn on the note.
     switch (data[0]){
@@ -311,31 +426,35 @@ function onMIDIMessage(message) {
     //simply output notes.
     if (chord_mode && (data[0] == 144) ){
       if (chord[0] == note_sentinel) { // check first element in chord not sentinel.
-        console.log("data[1] < chord[1]");
-        console.log("adding " + data[1] + " to chord.")
         chord[0] = data[1];
-      } else {
-        //chord_locked = true;
+      } else { //chord fill chord 2.
         chord[1] = data[1];
-        console.log("sorting chord.");
         chord.sort();
-        console.log("New Chord Constructed");
-        console.log("chord[0]: " + chord[0]);
-        console.log("chord[1]: " + chord[1]);
+        //beginNoteSingle(data[1]);
+        //sleep(.4);
+        //if(chord[1] != note_sentinel){
+        //console.log("chord[0]: " + chord[0]);
+        //console.log("chord[1]: " + chord[1]);
         var chord_in = chord.slice();
-        playChord(chord_in);
-        //reset chord here.
-        console.log("reset values");
+        var newChord = buildChord(chord_in);
+        console.log("newChord.root: "   + newChord.root);
+        console.log("newChord.second: " + newChord.second);
+        console.log("newChord.third: "  + newChord.third);
+        console.log("newChord.fourth: " + newChord.fourth);
+        console.log(chord[0]);
+        console.log(chord[1]);
+        var label = chordID(chord[0],chord[1]);
+        playChord(label, newChord);
         chord[0] = note_sentinel;
         chord[1] = note_sentinel;
-        console.log("onMIDIMessage: chords_playing.length: " + chords_playing.length);
-        //chord_locked = false;
+      //}
       }
     } else if (chord_mode && (data[0] == 128) ){
-      console.log("Removing " + data[1] + " from index " + chord.indexOf(data[1]) );
+      //console.log("Removing " + data[1] + " from index " + chord.indexOf(data[1]) );
       chord[chord.indexOf(data[1])] = note_sentinel; //revert value to sentinel.
-      console.log("onMIDIMessage: chords_playing.length: " + chords_playing.length);
-      stopChordswithNote(chords_playing, data[1]);
+      //console.log("onMIDIMessage: chords_playing.length: " + chords_playing.length);
+      //console.log("calling stopChords on : " + data[1]);
+      stopChordswithNote(data[1]);
     }
 
 
@@ -480,13 +599,8 @@ function onMIDIMessage(message) {
             padH.click();
             // seek_note_right.click();
             // seek_nr.style.backgroundColor = "black";
-        }
-        else { // Programming Piano keyboards
-        	var step = m_step.get(data[1] % 12); // C
-	    	var octave = Math.floor(data[1] / 12); // 4
-	    	arr.push(step + octave); // push("C4")
-	        embedEdit(step, octave); // add notation C4 at current cursor
-	        document.getElementById(step + octave).style.background = "rgb(100,140,190)"; // visualize keyboard
+        } else {
+            /// NOTE: Maybe call HighlightKey?
         }
 
 
@@ -519,18 +633,35 @@ function onMIDIMessage(message) {
             padH.style.backgroundColor = "#001860";
         }
         else { // Programming Piano keyboards
-        	var step = m_step.get(data[1] % 12); // C
-	    	var octave = Math.floor(data[1] / 12); // 4
-	    	var index = arr.indexOf(step + octave); // locate released key
-	    	arr.splice(index, 1); // remove released key
-	    	if (step.length == 1) { // white key
-		        document.getElementById(step + octave).style.background = "white";
-		    }
-		    else if (step.length == 2) { // black/half key
-		    	document.getElementById(step + octave).style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
-		    }
+          //NOTE: Maybe unhighlightKey
         }
     }
+}
+
+//reverts a key back to its original color.
+function unhighlightKey(noteValue) {
+  //console.log("unhighlight note: "+ noteValue);
+  var step = m_step.get(noteValue % 12); // C
+  var octave = Math.floor(noteValue / 12); // 4
+  //var index = arr.indexOf(step + octave); // locate released key
+  //arr.splice(index, 1); // remove released key
+  if (step.length == 1) { // white key
+    //console.log("getElementById-white");
+    document.getElementById(step + octave).style.background = "white";
+  }
+  else if (step.length == 2) { // black/half key
+  //console.log("getElementById-black");
+  document.getElementById(step + octave).style.background = "linear-gradient(45deg, #222 0%,#555 100%)";
+  }
+}
+
+function highlightKey(noteValue){
+  // Programming Piano keyboards
+  var step = m_step.get(noteValue % 12); // C
+  var octave = Math.floor(noteValue / 12); // 4
+  arr.push(step + octave); // push("C4")
+  embedEdit(step, octave); // add notation C4 at current cursor
+  document.getElementById(step + octave).style.background = "rgb(100,140,190)"; // visualize keyboard
 }
 
 function triggerEvent(el, type, keyCode) {
